@@ -1,0 +1,6 @@
+Pricing_Name,Name,Rate,Rate_Unit,Quote,Quote_Unit,Price,Billing_Unit,Overage_Costs
+SendGrid,Basic,10,1,50,86400,0.0,2592000,0.001
+SendGrid,Pro,10,1,40000,2592000,9.95,2592000,0.001
+SendGrid,Ultra,10,1,100000,2592000,79.95,2592000,0.00085
+SendGrid,Mega,50,1,300000,2592000,199.95,2592000,0.00005
+
