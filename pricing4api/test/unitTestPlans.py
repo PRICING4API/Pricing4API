@@ -1,6 +1,6 @@
 import unittest
-from Plans import *
-from pricing import Pricing
+from pricing4api.main.plan import *
+from pricing4api.main.pricing import *
 
 
 

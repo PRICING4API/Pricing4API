@@ -1,7 +1,6 @@
-from pricing import Pricing
-from Plans import Plan
-from pricing import*
-from loads import*
+from pricing4api.main.pricing import *
+from pricing4api.main.plan import *
+from pricing4api.main.load import *
 
 
 s_day = 3600 * 24

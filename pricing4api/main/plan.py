@@ -1,8 +1,8 @@
 import math
-
 from matplotlib import pyplot as plt
 import numpy as np
-from Utils import heaviside
+from pricing4api.utils import heaviside
+
 
 
 

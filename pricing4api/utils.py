@@ -1,8 +1,8 @@
 def heaviside(x):
-        if x < 0:
-            return 0
-        else:
-            return 1
+    if x < 0:
+        return 0
+    else:
+        return 1
 
 
 def format_time(seconds: int)->str:

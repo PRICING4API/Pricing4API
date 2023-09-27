@@ -1,4 +1,4 @@
-from loads import*
+from pricing4api.main.load import*
 
 
 def imprime_lista(lista):
@@ -13,13 +13,6 @@ def test_load_pricings():
 def test_filtra():
     print(imprime_lista(filtra(valores, "SendGrid")))
     print("\n")
-
-
-
-
-    
-    
-    
 
 
 if __name__ == "__main__":
