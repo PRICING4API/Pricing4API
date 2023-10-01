@@ -1,6 +1,7 @@
 import unittest
 from pricing4api.main.plan import *
 from pricing4api.main.pricing import *
+from pricing4api.test.testPricing import create_table_from_csv
 
 
 
@@ -13,7 +14,7 @@ Plan3 = Plan('Ultra', 10, 1, 100000, s_month, 79.95, s_month, 0.00085)
 Plan4 = Plan('Mega', 50, 1, 300000, s_month, 199.95, s_month, 0.00005)
 
 plans = [Plan1, Plan2, Plan3, Plan4]
-pricing= Pricing("SendGrid",plans)
+SendGrid= Pricing("SendGrid",plans)
 
 
 # Tiempo
@@ -53,7 +54,8 @@ class UnitTestPlans(unittest.TestCase):
         assert Plan2.cost_effective_threshold(Plan3)==110000, f"Error: cost_effective_threshold condition not satisfied for Plan3"
         assert Plan3.cost_effective_threshold(Plan4)==241176, f"Error: cost_effective_threshold condition not satisfied for Plan4"
         
-    ##Cambiar casos de pruebas
+    
 if __name__ == '__main__':
     unittest.main()
+
 

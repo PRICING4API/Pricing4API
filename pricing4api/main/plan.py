@@ -24,7 +24,7 @@ class Plan:
         self.__max_number_of_subscriptions = max_number_of_subscriptions
         self.__next_plan = self
         self.__previous_plan = self
-
+        
         assert quote_unit > rate_unit, "Quote should be defined on a unit of time greater than rate"
 
         
@@ -34,6 +34,7 @@ class Plan:
         if self.__price == 0.0:
             return 0.0
         return self.__price / self.__quote
+    
     
     @property
     def next_plan(self):
@@ -66,13 +67,16 @@ class Plan:
         siguiente_plan = self.__next_plan
         if siguiente_plan is None:
             return 0
-    
+        elif self.__overage_cost == 0:
+            return 0
         return math.floor(self.__quote +(siguiente_plan.price-self.__price)/self.__overage_cost)
     
     @property
     def downgrade_quote(self):
         anterior_plan = self.previous_plan
         if anterior_plan is None:
+            return 0
+        elif self.__overage_cost == 0:
             return 0
         
         return math.floor(self.__quote +(self.price-anterior_plan.price)/self.__overage_cost)

@@ -6,7 +6,6 @@ import pandas as pd
 Pricings= namedtuple('Pricing', 'Pricing_Name, Name, Rate, Rate_Unit, Quote, Quote_Unit, Price, Billing_Unit, Overage_Costs')
 
 
-
 def load_pricings(filename):
     df = pd.read_csv(filename)
     pricings = []
