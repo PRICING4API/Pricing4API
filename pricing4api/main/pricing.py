@@ -3,7 +3,7 @@ from pricing4api.main.plan import *
 import pandas as pd
 
 class Pricing:
-    def __init__(self, name: str, plans: list):
+    def __init__(self, name: str, plans: list[Plan]):
         self.__name = name
         self.__plans = sorted(plans, key=lambda plan: plan.price)
         
@@ -16,6 +16,9 @@ class Pricing:
     @property
     def plans(self) -> list:
         return self.__plans
+    
+    def add_plan(self, plan: Plan) -> None:
+        self.__plans.append(plan)
     
     def link_plans(self) -> None:
         for i in range(len(self.plans)-1):
@@ -37,7 +40,10 @@ class Pricing:
             'Rate Unit': plan.rate_unit , 'Quote': plan.quote,
             'Quote Unit': plan.quote_unit, 'Price': plan.price,
             'Billing Unit': plan.billing_unit, 'Overage Cost': plan.overage_cost,
-            'Max Number of Subscriptions': plan.max_number_of_subscriptions}
+            'Max Number of Subscriptions': plan.max_number_of_subscriptions,
+            'Unit Base Cost': plan.unit_base_cost, 'Overage Quote': plan.overage_quote,
+            'Cost with Overage Quote': plan.cost_with_overage_quote, 'Upgrade Quote': plan.upgrade_quote,
+            'Downgrade Quote': plan.downgrade_quote, 'T_m': plan.t_m}
             rows.append(row)
 
         # Crear un DataFrame a partir de la lista de diccionarios
