@@ -1,2 +1,2 @@
 # Pricing4Api
-Biblioteca python para el calculo de propiedades relacionadas con los Pricings
+Python library for calculating properties related to Pricings
