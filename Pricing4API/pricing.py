@@ -1,8 +1,8 @@
 from matplotlib import pyplot as plt
-from src.main.plan import Plan
+from Pricing4API.plan import Plan
 import pandas as pd
 
-# pyreverse: Pricing -> Plan
+
 class Pricing:
     def __init__(self, name: str, plans: list):
         self.__name = name

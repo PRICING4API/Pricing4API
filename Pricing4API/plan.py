@@ -2,7 +2,7 @@ import math
 from matplotlib import pyplot as plt
 import numpy as np
 
-from src.utils import heaviside
+from Pricing4API.utils import heaviside
 
 
 
@@ -141,6 +141,18 @@ class Plan:
     
     
     def capacity(self, time: int) -> float:
+        """
+        Calculates the capacity based on the given time.
+
+        Parameters:
+            time (int): The time value for which to calculate the capacity.
+
+        Returns:
+            float: The calculated capacity value.
+
+        Raises:
+            AssertionError: If the variables quote, rate, quote_unit, and rate_unit are not defined before calling the capacity function.
+        """
         assert self.__quote is not None and self.__rate is not None and self.__quote_unit is not None and self.__rate_unit is not None, "Variables quote, rate, quote_unit, and rate_unit must be defined before capacity is called"
 
         T = time - math.floor(time / self.__quote_unit) * self.__quote_unit
@@ -151,6 +163,12 @@ class Plan:
     
 
     def maximum_disruption_period(self) -> int:
+        """
+        Calculates the maximum disruption period based on the quote, rate, quote_unit, and rate_unit variables.
+
+        :return: The maximum disruption period.
+        :rtype: int
+        """
         assert self.__quote is not None and self.__rate is not None and self.__quote_unit is not None and self.__rate_unit is not None, "Variables quote, rate, quote_unit, and rate_unit must be defined before maximum_disruption_period is called"
 
         tt = (self.__quote / self.__rate) * self.__rate_unit
@@ -174,11 +192,11 @@ class Plan:
     def cost(self, time: int, requests: int) -> float:
         C_0=self.__price
         C_1=self.__overage_cost
-        plan_capacity = self.capacity(time)
+        plan_capacity = self.capacityDoc(time)
 
         if requests > plan_capacity:
             return -1
-        return C_0 * (math.ceil(time/self.__billing_unit)) + heaviside(requests-self.capacity(time))*C_1*(requests-self.capacity(time))
+        return C_0 * (math.ceil(time/self.__billing_unit)) + heaviside(requests-self.capacityDoc(time))*C_1*(requests-self.capacityDoc(time))
 
     def cost_effective_threshold(self, plan)-> int:
         assert self.__price<=plan.price, "El precio del plan " + plan.name + " debe ser mayor que el plan " + self.__name

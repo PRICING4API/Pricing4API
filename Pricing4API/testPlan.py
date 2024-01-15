@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 import numpy as np
-from pricing4api.main.plan import*
+from Pricing4API.plan import Plan
 from pricing4api.utils import format_time
 
 
