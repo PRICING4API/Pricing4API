@@ -15,6 +15,24 @@ class Plan:
                  quote_unit: int, price: float, billing_unit: int = s_month,
                  overage_cost: int = 0, max_number_of_subscriptions: int = 1):
 
+        """
+    Initializes a new instance of the class.
+    
+    Args:
+        name (str): The name of the plan.
+        rate (int): The number of possible requests for a plan within a certain time frame.
+        rate_unit (int): The time unit of the rate.
+        quote (int): The number of possible requests for a plan within a certain time frame.
+        quote_unit (int): The time unit of the quote.
+        price (float): The subscription price of a plan.
+        billing_unit (int, optional): The payment frequency. Defaults to one month.
+        overage_cost (int, optional): The price per additional request. Defaults to 0.
+        max_number_of_subscriptions (int, optional): The maximum number of subscriptions. Defaults to 1.
+    
+    Raises:
+        AssertionError: If the quote unit is not greater than the rate unit.
+    """
+
         self.__name = name
         self.__rate = rate
         self.__rate_unit = rate_unit
@@ -180,6 +198,14 @@ class Plan:
         tt =(self.__quote / rate) * self.__rate_unit
 
         return tt
+    
+
+    def maximum_quote(self) -> float:
+        return self.__quote * self.__max_number_of_subscriptions
+    
+    def maximum_rate(self) -> float:
+        return self.__rate * self.__max_number_of_subscriptions
+
     
     
     def getRate(self, time: int) -> float:
