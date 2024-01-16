@@ -192,11 +192,11 @@ class Plan:
     def cost(self, time: int, requests: int) -> float:
         C_0=self.__price
         C_1=self.__overage_cost
-        plan_capacity = self.capacityDoc(time)
+        plan_capacity = self.capacity(time)
 
         if requests > plan_capacity:
             return -1
-        return C_0 * (math.ceil(time/self.__billing_unit)) + heaviside(requests-self.capacityDoc(time))*C_1*(requests-self.capacityDoc(time))
+        return C_0 * (math.ceil(time/self.__billing_unit)) + heaviside(requests-self.capacity(time))*C_1*(requests-self.capacity(time))
 
     def cost_effective_threshold(self, plan)-> int:
         assert self.__price<=plan.price, "El precio del plan " + plan.name + " debe ser mayor que el plan " + self.__name

@@ -4,9 +4,10 @@ import pandas as pd
 
 
 class Pricing:
-    def __init__(self, name: str, plans: list):
+    def __init__(self, name: str, plans: list, billing_object: str):
         self.__name = name
         self.__plans = sorted(plans, key=lambda plan: plan.price)
+        self.__billing_object = billing_object
         
         
 
@@ -17,6 +18,10 @@ class Pricing:
     @property
     def plans(self) -> list:
         return self.__plans
+    
+    @property
+    def billing_object(self) -> str:
+        return self.__billing_object
     
     def add_plan(self, plan: Plan) -> None:
         self.__plans.append(plan)
