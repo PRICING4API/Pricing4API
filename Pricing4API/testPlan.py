@@ -57,7 +57,7 @@ def test_cost():
             print("\nNumber of requests:", r)
             print("\nPlan:", plan.name, "-->Price:", plan.price)
             if plan.cost(plan.quote_unit, r)==-1:
-                print("\nCost: No es posible satisfacer la capacidad del plan en el tiempo establecido porque la capacidad en", format_time(plan.quote_unit), "es de", plan.capacity(plan.quote_unit), "requests.")    
+                print("\nCost: It is not possible to satisfy the capacity of the plan in the time set because the capacity in", format_time(plan.quote_unit), "is of", plan.capacity(plan.quote_unit), "requests.")    
             print("\nCost:", plan.cost(plan.quote_unit, r))
             print('#-------------------------------------------------------------------------------------------#')
 

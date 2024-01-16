@@ -38,10 +38,10 @@ class Pricing:
 
   
     def create_table(self) -> pd.DataFrame:
-        # Crear una lista vacía para almacenar los diccionarios de cada fila
+        # Create an empty list to store the dictionaries for each row
         rows = []
 
-        # Agregar información de cada plan a la lista
+        # Add information from each plan to the list
         for plan in self.__plans:
             row = {self.__name: plan.name, 'Rate': plan.rate,
             'Rate Unit': plan.rate_unit , 'Quote': plan.quote,
@@ -50,10 +50,10 @@ class Pricing:
             'Max Number of Subscriptions': plan.max_number_of_subscriptions}
             rows.append(row)
 
-        # Crear un DataFrame a partir de la lista de diccionarios
+        # Create a DataFrame from the list of dictionaries
         df = pd.DataFrame(rows)
 
-        # Mostrar la tabla
+        # Show the table
         return df.transpose()
     
     def show_more_table(self, df: pd.DataFrame) -> pd.DataFrame:

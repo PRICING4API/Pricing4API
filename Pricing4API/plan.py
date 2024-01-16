@@ -199,7 +199,7 @@ class Plan:
         return C_0 * (math.ceil(time/self.__billing_unit)) + heaviside(requests-self.capacity(time))*C_1*(requests-self.capacity(time))
 
     def cost_effective_threshold(self, plan)-> int:
-        assert self.__price<=plan.price, "El precio del plan " + plan.name + " debe ser mayor que el plan " + self.__name
+        assert self.__price <= plan.price, "The price of plan " + plan.name + " must be greater than plan " + self.__name
 
         threshold = self.__quote + math.floor((plan.price - self.__price)/self.__overage_cost)
         return threshold
