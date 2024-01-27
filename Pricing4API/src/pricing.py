@@ -1,5 +1,5 @@
 from matplotlib import pyplot as plt
-from Pricing4API.plan import Plan
+from src.plan import Plan
 import pandas as pd
 
 
@@ -28,12 +28,16 @@ class Pricing:
 
     
     def link_plans(self) -> None:
-        for i in range(len(self.plans)-1):
-            self.plans[i].setNext(self.plans[i+1])
-            self.plans[i+1].setPrevious(self.plans[i])
-        if len(self.plans) > 0:
-            self.plans[-1].setNext(None)
-            self.plans[0].setPrevious(None)
+    # Establece a cada plan un plan next y previous, en el caso de que el pricing esté formado por 1 solo plan,
+    # este no tendra next ni previous
+        if len(self.plans) > 1:
+            for i in range(len(self.plans)-1):
+                self.plans[i].setNext(self.plans[i+1])
+                self.plans[i+1].setPrevious(self.plans[i])
+        else:
+            self.plans[0].setNext(self.plans[0])
+            self.plans[0].setPrevious(self.plans[0])
+        
 
 
   
@@ -73,7 +77,7 @@ class Pricing:
         plt.figure(figsize=(8, 6))  # Tamaño de la figura
 
         for plan in self.plans:
-            t_values = range(0, 2592000*2)  # Rango de tiempo
+            t_values = range(0, plan.quote_unit)  # Rango de tiempo
             C_values = [plan.capacity(t) for t in t_values]
 
             plt.plot(t_values, C_values, label=plan.name)  # Agregar una etiqueta para cada gráfica

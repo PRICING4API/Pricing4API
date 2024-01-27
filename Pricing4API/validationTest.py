@@ -1,21 +1,24 @@
 from matplotlib import pyplot as plt
 import numpy as np
-from Pricing4API.plan import Plan
-from pricing4api.utils import format_time
+from src.plan import Plan
+from src.pricing import Pricing
+from src.utils import format_time
 
 
 
 
-
+s_second = 1
+s_minute= 60
+s_hour = 3600
 s_day = 3600 * 24
 s_month = 3600 * 24 * 30
+# def __init__(self, name: str, billing: tuple[float, int, Optional[float]] = None,
+#                 rate: tuple[int, int] = None, quote: list[tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs):
+PlanDBLP = Plan('DBLP', (9.99, 1, None), (2, s_second), [(20, s_minute), (1000, s_minute*60)])
+PlanTP1 = Plan('Pro', (0.00, s_month, 0.01), None ,[(45000, s_month)])
 
-Plan1 = Plan('Basic', 10, 1, 50, s_day, 0.0, s_month, 0.001)
-Plan2 = Plan('Pro', 10, 1, 40000, s_month, 9.95, s_month, 0.001)
-Plan3 = Plan('Ultra', 10, 1, 100000, s_month, 79.95, s_month, 0.00085)
-Plan4 = Plan('Mega', 50, 1, 300000, s_month, 199.95, s_month, 0.00005)
 
-plans = [Plan1, Plan2, Plan3, Plan4]
+plans = [PlanDBLP, PlanTP]
 
 # Tiempo
 t = 24*60*60*30
@@ -133,11 +136,16 @@ def test_plot_quote():
 #     plt.show()
 
 if __name__ == '__main__':
-    test_capacity()
-    test_max_time_to_consume_at()
-    test_disruption_period()
-    test_cost()
+    # test_capacity()
+    # test_max_time_to_consume_at()
+    # test_disruption_period()
+    # test_cost()
     #test_plot_capacity()
     #test_plot_rate()
     #test_plot_quote()
     #test_plot_cost()
+    for plan in plans:
+        print(plan.max_capacity(s_minute*2))
+        print(plan.max_capacity(s_hour))
+        print(plan.max_capacity(s_hour+s_minute*2))
+    
