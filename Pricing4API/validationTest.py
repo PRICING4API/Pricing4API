@@ -18,7 +18,7 @@ PlanDBLP = Plan('DBLP', (9.99, 1, None), (2, s_second), [(20, s_minute), (1000, 
 PlanTP1 = Plan('Pro', (0.00, s_month, 0.01), None ,[(45000, s_month)])
 
 
-plans = [PlanDBLP, PlanTP]
+plans = [PlanDBLP, PlanTP1]
 
 # Tiempo
 t = 24*60*60*30
