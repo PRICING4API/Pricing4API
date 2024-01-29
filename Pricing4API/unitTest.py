@@ -1,11 +1,7 @@
 import unittest
-
 from src.plan import Plan
 from src.pricing import Pricing
 from src.utils import format_time
-
-
-
 
 s_second = 1
 s_minute= 60
@@ -16,7 +12,8 @@ s_month = 3600 * 24 * 30
 
 #PRICING DBLP
 LDBLP=[]
-LDBLP.append(Plan('Pro', (9.99, 1, None), (2, s_second), [(20, s_minute), (1000, s_hour)]))
+PlanProDBLP= Plan('Pro', (9.99, 1, None), (2, s_second), [(20, s_minute), (1000, s_hour)])
+LDBLP.append(PlanProDBLP)
 PricingDBLP = Pricing('DBLP', LDBLP, 'queries')
 
 #LINK PLANS
