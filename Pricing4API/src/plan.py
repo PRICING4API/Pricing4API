@@ -289,10 +289,8 @@ class Plan:
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
 
         # Gráfico principal (la curva completa)
-       # ax1.plot(time_values, resultados)
-        #hay que usar step en lugar de plot, pues plot no hace el escalon, sino que enlaza puntos.
         ax1.step(time_values, capacity, where='post')
-        ax1.fill_between(time_values, 0, capacity, color='green', alpha=0.3)  # Rellenar el área bajo la curva
+        ax1.fill_between(time_values[:-1], capacity[:-1], step='post', color='green', alpha=0.3)  # Rellenar el área bajo la curva
         ax1.set_ylim(0, max(capacity) + 1)  # Forzar el eje Y para que comience en 0
         ax1.set_xlabel(f'Time ({units})')
         ax1.set_ylabel('Requests')
@@ -315,7 +313,7 @@ class Plan:
         # Subgráfico (solo los primeros 20 segundos)
         units, scale =  self.adjust_time_unitsx(10)
         ax2.step(time_values[:11], capacity[:11], where='post')
-        ax2.fill_between(time_values[:11], 0, capacity[:11], color='green', alpha=0.3)  # Rellenar el área bajo la curva
+        ax2.fill_between(time_values[:11], capacity[:11], step='post', color='green', alpha=0.3)  # Rellenar el área bajo la curva
         # Dibujar círculos sólidos en cada punto del gráfico
         ax2.plot(time_values[:11], capacity[:11], 'o', markersize=3, color='green')
 
