@@ -1,11 +1,10 @@
-from matplotlib import pyplot as plt
-import numpy as np
+
 from src.plan import Plan
 from src.pricing import Pricing
 from src.utils import format_time
 
-
-
+from matplotlib import pyplot as plt
+import numpy as np
 
 s_second = 1
 s_minute= 60
@@ -16,13 +15,30 @@ s_month = 3600 * 24 * 30
 #                 rate: tuple[int, int] = None, quote: list[tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs):
 PlanDBLP = Plan('DBLP', (9.99, 1, None), (2, s_second), [(20, s_minute), (1000, s_minute*60)])
 PlanTP1 = Plan('Pro', (0.00, s_month, 0.01), None ,[(45000, s_month)])
+PlanTP1 = Plan('Pro', (0.00, s_month, 0.01), None ,[(45000, s_month)])
 
+
+LDBLP=[]
+PlanProDBLP= Plan('Pro', (9.99, 1, None), (1, 2*s_second), [(20, s_minute), (1000, s_hour)])
+LDBLP.append(PlanProDBLP)
+PricingDBLP = Pricing('DBLP', LDBLP, 'queries')
+
+PlanProDBLP.show_rate_curve(90)
+PlanProDBLP.show_rate_curve(900)
+
+PricingMassEmail = Pricing("Mass Email", [
+                            Plan('Basic', (5, 1, None), (1, s_hour)),
+                            Plan('Pro', (10, 1, None), (2, s_hour))],
+                            "Requests")
+
+
+PricingMassEmail.plans[0].show_rate_curve(3*s_hour)
+PricingMassEmail.plans[1].show_rate_curve(3*s_hour)
 
 plans = [PlanDBLP, PlanTP1]
 
 # Tiempo
 t = 24*60*60*30
-
 
 def test_capacity():
     for plan in plans:
