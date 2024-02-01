@@ -22,24 +22,22 @@ class Plan:
 
     def __init__(self, name: str, billing: tuple[float, int, Optional[float]] = None,
                 rate: tuple[int, int] = None, quote: list[tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs):
-        
         """
-    Initializes a new instance of the class.
-    
-    Args:
-        name (str): Name of the plan.
-        rate (int): The number of possible requests for a plan within a certain time frame.
-        rate_unit (int): The time unit of the rate.
-        quote (int): The number of possible requests for a plan within a certain time frame.
-        quote_unit (int): The time unit of the quote.
-        price (float): The subscription price of a plan.
-        billing_unit (int, optional): The payment frequency. Defaults to one month.
-        overage_cost (int, optional): The price per additional request. Defaults to 0.
-        max_number_of_subscriptions (int, optional): The maximum number of subscriptions. Defaults to 1.
-    
-    Raises:
-        AssertionError: If the quote unit is not greater than the rate unit.
-    """
+        Constructor for initializing the SubscriptionPlan object.
+
+        Args:
+            name (str): The name of the subscription plan.
+            billing (tuple[float, int, Optional[float]], optional): The billing details including price, billing unit, and overage cost. Defaults to None.
+            rate (tuple[int, int], optional): The rate details including quantity and time. Defaults to None.
+            quote (list[tuple[int, int]], optional): The quote details including quantity and time. Defaults to None.
+            max_number_of_subscriptions (int, optional): The maximum number of subscriptions allowed. Defaults to 1.
+            **kwargs: Additional keyword arguments.
+
+        Returns:
+            None
+        """
+        
+
         self.__q=[]
         self.__t=[]
         self.__m=len(self.__q)-1
@@ -60,6 +58,7 @@ class Plan:
             for q in quote:
                 self.__q.append(q[0])
                 self.__t.append(q[1])
+
         
         self.__max_number_of_subscriptions = max_number_of_subscriptions
 
@@ -70,34 +69,78 @@ class Plan:
         self.__m=len(self.__q)-1
         self.__t_ast=self.compute_t_ast()
         
-        # assert quote_unit > self.__rate_unit, "Quote should be defined on a unit of time greater than rate"
 
-    
-    
-    def rate_at(self, time: int):
-        return   self.rate_function(time)
 
-    @property 
-    def rate_frequency(self):
-        return self.__t[0]
-    
-    @property 
-    def rate_value(self):
+    @property
+    def name(self) -> str:
+        """
+        Getter for the name of the subscription plan.
+        """
+        return self.__name
+
+    @property
+    def price(self) -> float:
+        """
+        Getter for the price of the subscription plan.
+        """
+        return self.__price
+
+    @property
+    def rate_value(self) -> int:
+        """
+        Getter for the rate value of the subscription plan.
+        """
         return self.__q[0]
+
+    @property
+    def rate_frequency(self) -> int:
+        """
+        Getter for the rate frequency of the subscription plan.
+        """
+        return self.__t[0]
+
+    @property
+    def billing_unit(self) -> int:
+        """
+        Getter for the billing unit of the subscription plan.
+        """
+        return self.__billing_unit
+
+    @property
+    def overage_cost(self) -> Optional[float]:
+        """
+        Getter for the overage cost of the subscription plan.
+        """
+        return self.__overage_cost
     
     @property
-    def next_plan(self):
+    def max_number_of_subscriptions(self) -> int:
+        """
+        Getter for the maximum number of subscriptions allowed in the subscription plan.
+        """
+        return self.__max_number_of_subscriptions
+    
+    @property
+    def next_plan(self) -> str:
+        """
+        Getter for the next subscription plan in the linked list.
+        """
         return self.__next_plan
     
     def setNext(self, plan: "Plan"):
         self.__next_plan = plan
-    
+
     @property
-    def previous_plan(self):
+    def previous_plan(self) -> str:
+        """
+        Getter for the previous subscription plan in the linked list.
+        """
         return self.__previous_plan
     
     def setPrevious(self, plan: "Plan"):
         self.__previous_plan = plan
+    
+
     
     @property
     def unit_base_cost(self) -> float:
@@ -140,64 +183,12 @@ class Plan:
     # @property
     # def t_m(self):
     #     return self.__quote / self.__rate_value
-    
 
-    # @property
-    # def planes_para_actualizar(self):
-    #     return self.upgrade_quote/self.__quote
-   
-    
 
     # Getters and Setters
-    @property
-    def name(self):
-        return self.__name
-    
-    @property
-    def price(self):
-        return self.__price
-    
-    # @property
-    # def rate(self):
-    #     return self.__q[0]
-    
-    # @property
-    # def rate_unit(self):
-    #     return self.__t[0]
-    
-    # @property
-    # def quote(self):
-    #     return self.__q[1:-1]
-    
-    # @property
-    # def quote_unit(self) -> int:
-    #     return self.__t[1:-1]
 
-    # @property
-    # def max_number_of_subscriptions(self):
-    #     return self.__max_number_of_subscriptions
 
-    # def capacity(self, time: int) -> float:
-    #     """
-    #     Calculates the capacity based on the given time.
-
-    #     Parameters:
-    #         time (int): The time value for which to calculate the capacity.
-
-    #     Returns:
-    #         float: The calculated capacity value.
-
-    #     Raises:
-    #         AssertionError: If the variables quote, rate, quote_unit, and rate_unit are not defined before calling the capacity function.
-    #     """
-    #     assert self.__quote is not None and self.__rate_unit is not None and self.__quote_unit is not None and self.__rate_unit is not None, "Variables quote, rate, quote_unit, and rate_unit must be defined before capacity is called"
-
-    #     T = time - math.floor(time / self.__quote_unit) * self.__quote_unit
-    #     tt = (self.__quote / self.__rate) * self.__rate_unit  # t*
-    #     A = math.ceil((time - tt) / self.__quote_unit) * self.__quote
-    #     B = heaviside(tt - T) * (T / self.__rate_unit) * self.__rate
-    #     return A + B
-
+    #All about capacity function and time function
     def compute_t_ast(self):
         t_ast = [0]
         for i in range(1,self.__m+1):
@@ -256,7 +247,7 @@ class Plan:
 
         return T
     
-
+    ## Auxiliary functions
     def adjust_time_unitsx(self, t_max:int) -> (str,int):
         """ Determine the units and scale for the time axis """
         if t_max < 60:
@@ -289,10 +280,8 @@ class Plan:
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
 
         # Gráfico principal (la curva completa)
-       # ax1.plot(time_values, resultados)
-        #hay que usar step en lugar de plot, pues plot no hace el escalon, sino que enlaza puntos.
         ax1.step(time_values, capacity, where='post')
-        ax1.fill_between(time_values, 0, capacity, color='green', alpha=0.3)  # Rellenar el área bajo la curva
+        ax1.fill_between(time_values[:-1], capacity[:-1], step='post', color='green', alpha=0.3)  # Rellenar el área bajo la curva
         ax1.set_ylim(0, max(capacity) + 1)  # Forzar el eje Y para que comience en 0
         ax1.set_xlabel(f'Time ({units})')
         ax1.set_ylabel('Requests')
@@ -315,7 +304,7 @@ class Plan:
         # Subgráfico (solo los primeros 20 segundos)
         units, scale =  self.adjust_time_unitsx(10)
         ax2.step(time_values[:11], capacity[:11], where='post')
-        ax2.fill_between(time_values[:11], 0, capacity[:11], color='green', alpha=0.3)  # Rellenar el área bajo la curva
+        ax2.fill_between(time_values[:11], capacity[:11], step='post', color='green', alpha=0.3)  # Rellenar el área bajo la curva
         # Dibujar círculos sólidos en cada punto del gráfico
         ax2.plot(time_values[:11], capacity[:11], 'o', markersize=3, color='green')
 
@@ -331,19 +320,6 @@ class Plan:
         plt.tight_layout()
         plt.show()
 
-"""
-        plt.plot(time_values, resultados, label='requests', color='b')
-        #plt.plot(t / escala, f_t, label='f(t) = t')
-        # Personaliza el gráfico (opcional)
-        plt.title(f'Capacity curve of plan {self.name} due to rate')
-        plt.xlabel(f'Time ({units})')
-        #plt.ylabel('f(c)')
-        #plt.grid(True)
-        #plt.legend()
-
-        # Muestra el gráfico
-        plt.show()
-"""
 
     # def maximum_disruption_period(self) -> int:
     #     """
@@ -371,15 +347,6 @@ class Plan:
     # def maximum_rate(self) -> float:
     #     return self.__rate * self.__max_number_of_subscriptions
 
-    
-    
-    # def getRate(self, time: int) -> float:
-    #     return self.__rate * time / self.__rate_unit
-
-    # #Se descartará
-    # def getQuote(self, time: int) -> float:
-    #     return math.ceil(time/self.__quote_unit)*self.__quote
-    
     # def cost(self, time: int, requests: int) -> float:
     #     C_0=self.__price
     #     C_1=self.__overage_cost
@@ -395,72 +362,7 @@ class Plan:
     #     threshold = self.__quote + math.floor((plan.price - self.__price)/self.__overage_cost)
     #     return threshold
 
-    # def plot_rate(self, total_seconds : int) -> None:
-    #     time_values = np.linspace(0, total_seconds, 10000)
-    #     rate_values = [self.getRate(time) for time in time_values]
-
-    #     plt.plot(time_values, rate_values)
-    #     plt.xlabel('Time (seconds)')
-    #     plt.ylabel('Rate')
-    #     plt.title('Rate over Time')
-    #     plt.show()
-        
-    # def plot_quote(self, total_seconds : int) -> None:
-    #     time_values = np.linspace(0, total_seconds, 10000)
-    #     rate_values = [self.getQuote(time) for time in time_values]
-
-    #     plt.plot(time_values, rate_values)
-    #     plt.xlabel('Time (seconds)')
-    #     plt.ylabel('Quote')
-    #     plt.title('Quote over Time')
-    #     plt.show()
-#
 
 
-#  def test_plot_cost():
 
-#     t_max = 10
-#     req_max = 1000
-#     n = 1000
-#     n_levels = 10
 
-#     t_vec = np.linspace(0, t_max, n)
-#     req_vec = np.linspace(0, req_max, n)
-
-#     t_surf, req_surf = np.meshgrid(t_vec, req_vec)
-
-#     t_q = 7
-#     t_r = 1
-#     r = 100
-#     q = 500
-#     p_v = 1
-#     p_0 = 100
-
-#     t_star = q / r * t_r
-
-#     A = lambda t: np.ceil((t - t_star) / t_q) * q
-#     T = lambda t: t - np.floor(t / t_q) * t_q
-#     B = lambda t: np.heaviside(t_star - T(t), 0) * T(t) / t_r * r
-#     Max_Capacity = lambda t: A(t) + B(t)
-
-#     g = lambda t, req: p_v * (req - Max_Capacity(t))
-#     Cost = lambda t, req: p_0 + np.heaviside(req - Max_Capacity(t), 0) * g(t, req)
-
-#     fig = plt.figure()
-#     ax = fig.add_subplot(111, projection='3d')
-#     z_values = Cost(t_surf, req_surf)
-#     z_values = np.where(np.isfinite(z_values), z_values, 0)
-#     surf = ax.plot_surface(t_surf, req_surf, z_values, edgecolor='none', alpha=0.3, cmap='coolwarm')
-#     fig.colorbar(surf)
-    
-#     ax.set_box_aspect([1, 1, 0.5])
-    
-
-#     ax.contour(t_surf, req_surf, z_values, zdir='z', offset=-10, cmap='coolwarm')
-#     ax.contour(t_surf, req_surf, z_values, zdir='x', offset=-10, cmap='coolwarm')
-#     ax.contour(t_surf, req_surf, z_values, zdir='y', offset=1000, cmap='coolwarm')
-
-#     ax.set(xlim=(-10, t_max+10), ylim=(10, req_max+10), zlim=(-10, np.max(z_values)+10),
-#     xlabel='t (days)', ylabel='Requests', zlabel='Cost')
-
-#     plt.show()

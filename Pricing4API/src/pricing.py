@@ -13,23 +13,36 @@ class Pricing:
 
     @property
     def name(self) -> str:
+        """
+        Getter for the name of the pricing object.
+        """
         return self.__name
     
     @property
     def plans(self) -> list:
+        """
+        Getter for the list of plans.
+        """
         return self.__plans
     
     @property
     def billing_object(self) -> str:
+        """
+        Getter for the billing object.
+        """
         return self.__billing_object
     
     def add_plan(self, plan: Plan) -> None:
+        """
+        Add a plan to the list of plans.
+        """
         self.__plans.append(plan)
 
     
     def link_plans(self) -> None:
-    # Establece a cada plan un plan next y previous, en el caso de que el pricing esté formado por 1 solo plan,
-    # este no tendra next ni previous
+        """
+        Link plans together in a linked list fashion. If there is more than one plan, each plan is linked to the next and previous plans. If there is only one plan, it is linked to itself.
+        """
         if len(self.plans) > 1:
             for i in range(len(self.plans)-1):
                 self.plans[i].setNext(self.plans[i+1])
@@ -47,9 +60,8 @@ class Pricing:
 
         # Add information from each plan to the list
         for plan in self.__plans:
-            row = {self.__name: plan.name, 'Rate': plan.rate,
-            'Rate Unit': plan.rate_unit , 'Quote': plan.quote,
-            'Quote Unit': plan.quote_unit, 'Price': plan.price,
+            row = {self.__name: plan.name, 'Rate': plan.rate_value,
+            'Rate Unit': plan.rate_frequency, 'Price': plan.price,
             'Billing Unit': plan.billing_unit, 'Overage Cost': plan.overage_cost,
             'Max Number of Subscriptions': plan.max_number_of_subscriptions}
             rows.append(row)
@@ -60,15 +72,15 @@ class Pricing:
         # Show the table
         return df.transpose()
     
-    def show_more_table(self, df: pd.DataFrame) -> pd.DataFrame:
-        df.loc['Unit Base Cost'] = [plan.unit_base_cost for plan in self.plans]
-        df.loc['Overage Quote'] = [plan.overage_quote for plan in self.plans]
-        df.loc['Cost with Overage Quote'] = [plan.cost_with_overage_quote for plan in self.plans]
-        df.loc['Upgrade Quote'] = [plan.upgrade_quote for plan in self.plans]
-        df.loc['Downgrade Quote'] = [plan.downgrade_quote for plan in self.plans]
-        df.loc['T_m'] = [plan.t_m for plan in self.plans]
+    # def show_more_table(self, df: pd.DataFrame) -> pd.DataFrame:
+    #     df.loc['Unit Base Cost'] = [plan.unit_base_cost for plan in self.plans]
+    #     df.loc['Overage Quote'] = [plan.overage_quote for plan in self.plans]
+    #     df.loc['Cost with Overage Quote'] = [plan.cost_with_overage_quote for plan in self.plans]
+    #     df.loc['Upgrade Quote'] = [plan.upgrade_quote for plan in self.plans]
+    #     df.loc['Downgrade Quote'] = [plan.downgrade_quote for plan in self.plans]
+    #     df.loc['T_m'] = [plan.t_m for plan in self.plans]
 
-        return df
+    #     return df
 
             
     

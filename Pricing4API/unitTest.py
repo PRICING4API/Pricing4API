@@ -9,6 +9,8 @@ s_hour = 3600
 s_day = 3600 * 24
 s_month = 3600 * 24 * 30
 
+# Plan(name: str, billing: tuple[float, int, Optional[float]] = None, rate: tuple[int, int] = None, quote: list[tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs)
+
 
 #PRICING DBLP
 LDBLP=[]
