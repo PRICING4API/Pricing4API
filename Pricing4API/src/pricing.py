@@ -61,7 +61,8 @@ class Pricing:
         # Add information from each plan to the list
         for plan in self.__plans:
             row = {self.__name: plan.name, 'Rate': plan.rate_value,
-            'Rate Unit': plan.rate_frequency, 'Price': plan.price,
+            'Rate Unit': plan.rate_frequency, 'Quote': plan.quote_value,
+            'Quote Unit': plan.quote_frequency,'Price': plan.price,
             'Billing Unit': plan.billing_unit, 'Overage Cost': plan.overage_cost,
             'Max Number of Subscriptions': plan.max_number_of_subscriptions}
             rows.append(row)
