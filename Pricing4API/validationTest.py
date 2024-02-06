@@ -31,11 +31,11 @@ def pass_msg(msg:str)->str:
 
 def test_capacity(limits: List[Tuple[int, int]], list_t_c: List[Tuple[int, int]], name:str="" ):
 
-    print("Testing recurs_accumulated_capacity! " + name)
+    print("Testing accumulated_capacity! " + name)
 
     try:
         for time, exp_capacity in list_t_c:
-            actual_capacity = PlanProDBLP.recurs_accumulated_capacity(time, len(limits) - 1, limits)
+            actual_capacity = PlanProDBLP.accumulated_capacity(time, len(limits) - 1, limits)
             assert actual_capacity == exp_capacity, f"Error({name}): Capacity in t = {time} should be equal to {exp_capacity} but it is {actual_capacity}"
         # Si llega aquí, significa que no se lanzó ninguna AssertionError
        

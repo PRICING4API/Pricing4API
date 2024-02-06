@@ -224,7 +224,7 @@ class Plan:
     # Getters and Setters
 
 
-    def recurs_accumulated_capacity(self, t: int, pos: int,  limits_list: List[Tuple[int, int]]) -> int:
+    def accumulated_capacity(self, t: int, pos: int,  limits_list: List[Tuple[int, int]]) -> int:
 
         """Calculates the accumulated capacity at time 't' using the given limits."""
 
@@ -239,7 +239,7 @@ class Plan:
         else:
             ni = np.floor(t / period) # determines which interval number (ni) 't' belongs to
             qvalue = value * ni # capacity due to quota
-            cprevious = self.recurs_accumulated_capacity(t - ni * period, pos - 1, limits_list)
+            cprevious = self.accumulated_capacity(t - ni * period, pos - 1, limits_list)
             ramp = min(cprevious, value) # capacity due to ramp
             c = qvalue + ramp
         
