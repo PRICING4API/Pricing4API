@@ -117,10 +117,13 @@ list_c_t = [(0, 0), (1, 0), (2, 2), (3, 4), (4, 6), (5, 8), (20, 38), (21, 60)]
 
 
 if __name__ == '__main__':
+    
     test_capacity(PlanProDBLP.limits, list_t_c, "PlanProDBLP")
     test_min_time(PlanProDBLP.limits, list_c_t, "PlanProDBLP")
     test_min_time_automated(PlanProDBLP.limits, "PlanProDBLP")
     
-    print(PlanProDBLP.limits)
+
+    PlanProDBLP.show_accumulated_capacity_curve(PlanProDBLP.limits, list_t_c)
+    PlanProDBLP.show_accumulated_capacity_curve(PlanProDBLP.limits, list_t_c, True)
 
     

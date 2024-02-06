@@ -321,6 +321,42 @@ class Plan:
             scale = 86400
         return units, scale
     
+    def show_accumulated_capacity_curve(self, limits: List[Tuple[int, int]],list_t_c: List[Tuple[int, int]], debug:bool=False)->None:
+
+        # Ajustar el gráfico para mostrar una señal de tipo escalón y círculos rellenos donde la función está definida
+
+        # Determinar los puntos donde la función está definida según el segundo valor de la tupla de la primera posición
+
+        step = limits[0][1]  # Coincide con el valor del rate
+        time_interval = list_t_c[-1][0]  # Instante del último dato de pruega
+        defined_t_values = range(0, time_interval+1, step)  # Puntos definidos de t: 0, 2, 4, 6, ...
+
+        # Calcular valores de capacidad solo en los puntos definidos
+        defined_capacity_values = [self.accumulated_capacity(t, len(limits) - 1, limits) for t in defined_t_values]
+
+        # Crear una versión escalonada de la curva de capacidad
+        plt.figure(figsize=(12, 7))
+
+        # Graficar la señal de tipo escalón
+        plt.step(defined_t_values, defined_capacity_values, where='post', label="Accumulated capacity", color="blue")
+        plt.fill_between(defined_t_values, 0, defined_capacity_values, step='post', color="green", alpha=0.3)
+
+        # Añadir círculos rellenos en los puntos definidos
+        plt.scatter(defined_t_values, defined_capacity_values, color="black", s=5, zorder=5)
+
+        if debug:
+            #Añadir líneas discontinuas rojas en los puntos definidos
+            for t, c in zip(defined_t_values, defined_capacity_values):
+                plt.vlines(t, 0, c, colors='red', linestyles='dashed', alpha=0.5)
+
+        # Ajustes finales del gráfico
+        plt.title("Accumulated capacity)")
+        plt.xlabel("Time")
+        plt.ylabel("Capacity")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+    
     
 
 
