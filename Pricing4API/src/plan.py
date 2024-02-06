@@ -2,7 +2,7 @@ import math
 from matplotlib import pyplot as plt
 import numpy as np
 # from src.utils import heaviside
-from typing import Optional
+from typing import List, Tuple, Optional
 import matplotlib.patches as mpatches
 
 
@@ -48,7 +48,7 @@ class Plan:
             None
         """
         
-
+        self.__limits=[]
         self.__q=[]
         self.__t=[]
         self.__m=len(self.__q)-1
@@ -62,6 +62,7 @@ class Plan:
             self.__q.append(rate[0])
             self.__t.append(rate[1])
             self.rate_function= RateFunction(rate[0],rate[1])
+            self.__limits.append(rate)
 
             
         
@@ -70,6 +71,7 @@ class Plan:
                 self.__q.append(q[0])
                 self.__t.append(q[1])
                 self.quote_function= QuoteFunction(q[0],q[1])
+                self.__limits.append(q)
 
         
         self.__max_number_of_subscriptions = max_number_of_subscriptions
@@ -80,6 +82,10 @@ class Plan:
 
         self.__m=len(self.__q)-1
         self.__t_ast=self.compute_t_ast()
+
+        
+
+
         
 
 
@@ -165,6 +171,10 @@ class Plan:
     
     def setPrevious(self, plan: "Plan"):
         self.__previous_plan = plan
+    
+    @property
+    def limits(self) -> list:
+        return self.__limits
     
 
     

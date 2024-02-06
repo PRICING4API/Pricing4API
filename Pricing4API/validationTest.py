@@ -13,10 +13,6 @@ s_day = 3600 * 24
 s_month = 3600 * 24 * 30
 
 # Plan(name: str, billing: tuple[float, int, Optional[float]] = None, rate: tuple[int, int] = None, quote: list[tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs)
-PlanDBLP = Plan('DBLP', (9.99, 1, None), (2, s_second), [(20, s_minute), (1000, s_minute*60)])
-PlanTP1 = Plan('Pro', (0.00, s_month, 0.01), None ,[(45000, s_month)])
-PlanTP1 = Plan('Pro', (0.00, s_month, 0.01), None ,[(45000, s_month)])
-
 
 LDBLP=[]
 PlanProDBLP= Plan('Pro', (9.99, 1, None), (1, 2*s_second), [(20, s_minute), (1000, s_minute*60)])
@@ -28,6 +24,8 @@ PricingDBLP = Pricing('DBLP', LDBLP, 'queries')
 
 
 if __name__ == '__main__':
-    PlanProDBLP.show_rate_curve(90)
-    PlanProDBLP.show_quote_curve()
+    # PlanProDBLP.show_rate_curve(90)
+    # PlanProDBLP.show_quote_curve()
+    print(PlanProDBLP.limits)
+
     
