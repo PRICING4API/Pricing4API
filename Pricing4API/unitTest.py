@@ -12,34 +12,41 @@ s_month = 3600 * 24 * 30
 # Plan(name: str, billing: tuple[float, int, Optional[float]] = None, rate: tuple[int, int] = None, quote: list[tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs)
 
 
-#PRICING DBLP
 LDBLP=[]
-PlanProDBLP= Plan('Pro', (9.99, 1, None), (2, s_second), [(20, s_minute), (1000, s_hour)])
+PlanProDBLP= Plan('Pro', (9.99, 1, None), (1, 2*s_second), [(20, s_minute), (1000, s_minute*60)])
 LDBLP.append(PlanProDBLP)
 PricingDBLP = Pricing('DBLP', LDBLP, 'queries')
 
-#LINK PLANS
-PricingDBLP.link_plans()
+
+list_t_c = [(0, 1), (1, 1), (2, 2), (3, 2), (4, 3), (5, 3), (38, 20), (39, 20), (40, 20), (41, 20), (60,21), (98, 40), (99, 40)]
+
+t =[0,1,2,3,4,5,6,37,38,39,40,41,60,61,118,119,120,121,998,999,1000,1001,1002,3597,3598,3599,3600,3601,3602]
 
 
-#Lista de Pricings
-PricingList = [PricingDBLP]
+class TestCapacityDBLP(unittest.TestCase):
 
+    def test_capacityDBLP(self):
 
-# Tiempo
+        for time, exp_capacity in list_t_c:
 
+            actual_capacity = PlanProDBLP.accumulated_capacity(time, len(PlanProDBLP.limits) - 1, PlanProDBLP.limits)
 
-class UnitTestPlans(unittest.TestCase):
+            self.assertEqual(actual_capacity, exp_capacity, f"Error: Capacity in t = {time} should be equal to {exp_capacity} but it is {actual_capacity}")
 
-    def test_pricingDBLP(self):
-        self.assertEqual(PricingDBLP.plans[0].name, 'Pro', "Plan name should be 'Pro'")
-        self.assertEqual(PricingDBLP.plans[0].max_capacity(s_day), 24*1000, f"The capacity should be {24*1000} {PricingDBLP.billing_object}")
-        self.assertEqual(PricingDBLP.plans[0].max_capacity(s_month), 30*24*1000, f"The capacity should be {30*24*1000} {PricingDBLP.billing_object}")
-        self.assertEqual(PricingDBLP.plans[0].max_capacity(s_hour*12+s_minute*7), 20*7+1000*12, f"The capacity should be {20*7+1000*12} {PricingDBLP.billing_object}")
+ 
 
+class TestMinTimeDBLP(unittest.TestCase):
 
-    
+    for tiempo in t:
+
+        result = PlanProDBLP.accumulated_capacity(tiempo, len(PlanProDBLP.limits) - 1, PlanProDBLP.limits)
+
+        print(f"tiempo={tiempo}, result={result}")
+
+ 
+
 if __name__ == '__main__':
+
     unittest.main()
 
 
