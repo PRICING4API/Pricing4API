@@ -81,7 +81,7 @@ class Plan:
         self.__previous_plan = self
 
         self.__m=len(self.__q)-1
-        self.__t_ast=self.compute_t_ast()
+        # self.__t_ast=self.compute_t_ast(self.__limits)
 
         
 
@@ -224,65 +224,30 @@ class Plan:
     # Getters and Setters
 
 
-    #All about capacity function and time function
-    def compute_t_ast(self):
-        t_ast = [0]
-        for i in range(1,self.__m+1):
-            t_ast.append(self.min_time(self.__q[i],i_initial=i-1))
-        return t_ast
+    def recurs_accumulated_capacity(self, t: int, pos: int,  limits_list: List[Tuple[int, int]]) -> int:
 
-    def max_capacity(self, t):
-        t_ast = self.__t_ast
+        """Calculates the accumulated capacity at time 't' using the given limits."""
 
-        C=0
-        i=self.__m
+        if pos >= len(limits_list):
+            raise IndexError("The 'pos' index is out of range.")
 
-        while i>0:
-            n_i=math.floor(t/self.__t[i])+1
-            
-            C+=n_i*self.__q[i]
-            t-=n_i*self.__t[i]
-
-            if t<t_ast[i]:
-                i-=1
-            else:
-                C+=self.__q[i]
-                return C
-            
-        C+=t*self.__q[0]/self.__t[0]
-        return C
-    
-    def min_time(self, C, i_initial=None):
-    
-        if i_initial is None:
-            i_initial = self.__m
+        value, period = limits_list[pos] 
         
-        #Inicialización
-        T=0
-        i= i_initial
+        if pos == 0:
+            c = value * np.floor((t / period)+1)
 
-        #Iteración i
-        while i>0:
-            nu=math.floor(C/self.__q[i])
-
-            #Cálculo de delta
-            delta= C==nu*self.__q[i]
-
-            #Cálculo n_i
-            n_i=(C!=0)*(nu-delta)
-
-            #Traslación del origen
-            T+=n_i*self.__t[i]
-            C-=n_i*self.__q[i]
-
-            #Actualización de i
-            i-=1
+        else:
+            ni = np.floor(t / period) # determines which interval number (ni) 't' belongs to
+            qvalue = value * ni # capacity due to quota
+            cprevious = self.recurs_accumulated_capacity(t - ni * period, pos - 1, limits_list)
+            ramp = min(cprevious, value) # capacity due to ramp
+            c = qvalue + ramp
         
-        #Iteración i=0
-        T+=C * self.__t[0]/self.__q[0]
-
-        return T
+        return c
     
+    
+
+
     ## Auxiliary functions
     def adjust_time_unitsx(self, t_max:int) -> (str,int):
         """ Determine the units and scale for the time axis """
