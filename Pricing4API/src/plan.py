@@ -245,8 +245,54 @@ class Plan:
         
         return c
     
-    
+    def min_time(self, capacity_goal:int, limit: List[Tuple[int, int]], i_initial=None) -> int:
 
+        """Calculates the minimum time to reach a certain capacity goal using the given limits."""
+
+        if i_initial is None:
+            i_initial = len(limit) - 1
+
+        #Inicialización
+        T=0
+        i= i_initial
+
+        if capacity_goal < 0:
+            raise IndexError("The 'capacity goal' should be greater or equal to 0.")
+
+        #Iteración i
+        while i>0:
+            capacity_limit, period_limit= limit[i][0], limit[i][1]
+            nu = np.floor(capacity_goal / capacity_limit)
+
+            #Cálculo de delta
+            delta= capacity_goal == nu * capacity_limit
+
+            #Cálculo n_i
+            if capacity_goal==0:
+                n_i= 0
+            else:
+                if delta:
+                    n_i= nu -1
+                else:
+                    n_i= nu
+
+            #Traslación del origen
+            T += n_i * period_limit
+            if capacity_goal>0:
+                capacity_goal -= n_i * capacity_limit
+
+            #Actualización de i
+            i-=1
+
+        #Iteración i=0
+        c_r,p_r= limit[0][0], limit[0][1]
+        if capacity_goal>0:
+            T += np.floor((capacity_goal-1) * p_r/c_r)
+        else:
+            T =0
+
+        return T
+    
 
     ## Auxiliary functions
     def adjust_time_unitsx(self, t_max:int) -> (str,int):
