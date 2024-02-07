@@ -81,8 +81,8 @@ class Plan:
         self.__previous_plan = self
 
         self.__m=len(self.__q)-1
-        self.__t_ast=self.compute_t_ast(self.__limits)
-        #self.__t_ast=self.compute_t_ast()
+        
+        self.__t_ast=self.compute_t_ast()
         
 
 
@@ -224,14 +224,14 @@ class Plan:
     # Getters and Setters
 
 
-    def accumulated_capacity(self, t: int, pos: int,  limits_list: List[Tuple[int, int]]) -> int:
+    def accumulated_capacity(self, t: int, pos: int) -> int:
 
         """Calculates the accumulated capacity at time 't' using the given limits."""
 
-        if pos >= len(limits_list):
+        if pos >= len(self.__limits):
             raise IndexError("The 'pos' index is out of range.")
 
-        value, period = limits_list[pos] 
+        value, period = self.__limits[pos] 
         
         if pos == 0:
             c = value * np.floor((t / period)+1)
@@ -239,18 +239,18 @@ class Plan:
         else:
             ni = np.floor(t / period) # determines which interval number (ni) 't' belongs to
             qvalue = value * ni # capacity due to quota
-            cprevious = self.accumulated_capacity(t - ni * period, pos - 1, limits_list)
+            cprevious = self.accumulated_capacity(t - ni * period, pos - 1)
             ramp = min(cprevious, value) # capacity due to ramp
             c = qvalue + ramp
         
         return c
     
-    def min_time(self, capacity_goal:int, limit: List[Tuple[int, int]], i_initial=None) -> int:
+    def min_time(self, capacity_goal:int, i_initial=None) -> int:
 
         """Calculates the minimum time to reach a certain capacity goal using the given limits."""
 
         if i_initial is None:
-            i_initial = len(limit) - 1
+            i_initial = len(self.__limits) - 1
 
         #Inicialización
         T=0
@@ -261,7 +261,7 @@ class Plan:
 
         #Iteración i
         while i>0:
-            capacity_limit, period_limit= limit[i][0], limit[i][1]
+            capacity_limit, period_limit= self.__limits[i][0], self.__limits[i][1]
             nu = np.floor(capacity_goal / capacity_limit)
 
             #Cálculo de delta
@@ -285,7 +285,7 @@ class Plan:
             i-=1
 
         #Iteración i=0
-        c_r,p_r= limit[0][0], limit[0][1]
+        c_r,p_r= self.__limits[0][0], self.__limits[0][1]
         if capacity_goal>0:
             T += np.floor((capacity_goal-1) * p_r/c_r)
         else:
@@ -293,11 +293,11 @@ class Plan:
 
         return T
     
-    def compute_t_ast(self, limits: List[Tuple[int, int]])-> List[int]:
-        t_ast = [0] + [None for _ in range(1, len(limits)-1)]
+    def compute_t_ast(self)-> List[int]:
+        t_ast = [0] + [None for _ in range(1, len(self.__limits)-1)]
 
-        for i in range(1,len(limits)-1):
-            t_ast[i] = self.min_time(limits[i][0], limits, i_initial=i-1)
+        for i in range(1,len(self.__limits)-1):
+            t_ast[i] = self.min_time(self.__limits[i][0], i_initial=i-1)
 
         return t_ast
     
@@ -321,18 +321,18 @@ class Plan:
             scale = 86400
         return units, scale
     
-    def show_accumulated_capacity_curve(self, limits: List[Tuple[int, int]],list_t_c: List[Tuple[int, int]], debug:bool=False)->None:
+    def show_accumulated_capacity_curve(self, list_t_c: List[Tuple[int, int]], debug:bool=False)->None:
 
         # Ajustar el gráfico para mostrar una señal de tipo escalón y círculos rellenos donde la función está definida
 
         # Determinar los puntos donde la función está definida según el segundo valor de la tupla de la primera posición
 
-        step = limits[0][1]  # Coincide con el valor del rate
+        step = self.__limits[0][1]  # Coincide con el valor del rate
         time_interval = list_t_c[-1][0]  # Instante del último dato de pruega
         defined_t_values = range(0, time_interval+1, step)  # Puntos definidos de t: 0, 2, 4, 6, ...
 
         # Calcular valores de capacidad solo en los puntos definidos
-        defined_capacity_values = [self.accumulated_capacity(t, len(limits) - 1, limits) for t in defined_t_values]
+        defined_capacity_values = [self.accumulated_capacity(t, len(self.__limits) - 1) for t in defined_t_values]
 
         # Crear una versión escalonada de la curva de capacidad
         plt.figure(figsize=(12, 7))
@@ -351,6 +351,52 @@ class Plan:
 
         # Ajustes finales del gráfico
         plt.title("Accumulated capacity)")
+        plt.xlabel("Time")
+        plt.ylabel("Capacity")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+    
+
+    def show_capacity_areas(self, list_t_c: List[Tuple[int, int]])->None:
+
+        """Shows the accumulated capacity curve and the wasted capacity threshold curve."""
+        
+        tq = 38
+        t_ast = 20
+        # Necesita ser modificada para que el desplazamiento sea el correcto. Ahora mismo, el desplazamiento es de 20 segundos
+
+        # Determinar los puntos donde la función está definida según el segundo valor de la tupla de la primera posición
+
+        step = self.__limits[0][1]  # Coincide con el valor del rate
+        time_interval = list_t_c[-1][0]  # Instante del último dato de pruega
+        defined_t_values = range(0, time_interval+1, step)  # Puntos definidos de t: 0, 2, 4, 6, ...
+
+        # Calcular valores de capacidad solo en los puntos definidos
+        defined_capacity_values = [self.accumulated_capacity(t, len(self.__limits) - 1) for t in defined_t_values]
+
+        defined_t_values_shifted = [t + (tq-t_ast) for t in defined_t_values if t + (tq-t_ast) <= time_interval]  # Asegurar que no exceda el límite de 7200
+
+        defined_capacity_values_shifted = [self.accumulated_capacity(t-(tq-t_ast), len(self.__limits) - 1) for t in defined_t_values_shifted]    
+
+        plt.figure(figsize=(12, 7))
+
+        line_width = 2
+        
+        # Graficar la señal de tipo escalón original con relleno verde
+        plt.step(defined_t_values, defined_capacity_values, where='post', color="blue", linewidth=line_width, label="Accumulated capacity")
+        plt.fill_between(defined_t_values, 0, defined_capacity_values, step='post', color="green", alpha=0.3)
+
+        # Graficar la señal de tipo escalón desplazada con relleno rojo
+        plt.step(defined_t_values_shifted, defined_capacity_values_shifted, where='post', color="darkorange", linewidth=line_width, label="Wasted capacity threshold")
+        plt.fill_between(defined_t_values_shifted, 0, defined_capacity_values_shifted, step='post', color="red", alpha=0.3)
+
+        # Añadir círculos rellenos en los puntos definidos y desplazados
+        plt.scatter(defined_t_values, defined_capacity_values, color="blue", s=line_width*10, zorder=5)
+        plt.scatter(defined_t_values_shifted, defined_capacity_values_shifted, color="darkorange", s=line_width*10, zorder=5)
+
+        # Ajustes finales del gráfico
+        plt.title("Capacity areas")
         plt.xlabel("Time")
         plt.ylabel("Capacity")
         plt.legend()
