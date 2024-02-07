@@ -362,8 +362,8 @@ class Plan:
 
         """Shows the accumulated capacity curve and the wasted capacity threshold curve."""
         
-        tq = 38
-        t_ast = 20
+        period_q = self.__limits[1][1]
+        wastage_threshold = self.__t_ast[1]
         # Necesita ser modificada para que el desplazamiento sea el correcto. Ahora mismo, el desplazamiento es de 20 segundos
 
         # Determinar los puntos donde la función está definida según el segundo valor de la tupla de la primera posición
@@ -375,9 +375,9 @@ class Plan:
         # Calcular valores de capacidad solo en los puntos definidos
         defined_capacity_values = [self.accumulated_capacity(t, len(self.__limits) - 1) for t in defined_t_values]
 
-        defined_t_values_shifted = [t + (tq-t_ast) for t in defined_t_values if t + (tq-t_ast) <= time_interval]  # Asegurar que no exceda el límite de 7200
+        defined_t_values_shifted = [t + (period_q-wastage_threshold) for t in defined_t_values if t + (period_q-wastage_threshold) <= time_interval]  # Asegurar que no exceda el límite de 7200
 
-        defined_capacity_values_shifted = [self.accumulated_capacity(t-(tq-t_ast), len(self.__limits) - 1) for t in defined_t_values_shifted]    
+        defined_capacity_values_shifted = [self.accumulated_capacity(t-(period_q-wastage_threshold), len(self.__limits) - 1) for t in defined_t_values_shifted]    
 
         plt.figure(figsize=(12, 7))
 
