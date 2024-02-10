@@ -29,7 +29,7 @@ class TestCapacityDBLP(unittest.TestCase):
 
         for time, exp_capacity in list_t_c:
 
-            actual_capacity = PlanProDBLP.accumulated_capacity(time, len(PlanProDBLP.limits) - 1, PlanProDBLP.limits)
+            actual_capacity = PlanProDBLP.available_capacity(time, len(PlanProDBLP.limits) - 1)
 
             self.assertEqual(actual_capacity, exp_capacity, f"Error: Capacity in t = {time} should be equal to {exp_capacity} but it is {actual_capacity}")
 
@@ -37,13 +37,22 @@ class TestCapacityDBLP(unittest.TestCase):
 
 class TestMinTimeDBLP(unittest.TestCase):
 
+    
+
     for tiempo in t:
 
-        result = PlanProDBLP.accumulated_capacity(tiempo, len(PlanProDBLP.limits) - 1, PlanProDBLP.limits)
+        result = PlanProDBLP.available_capacity(tiempo, len(PlanProDBLP.limits) - 1)
 
         print(f"tiempo={tiempo}, result={result}")
 
- 
+class TestAvailableCapacityDBLP(unittest.TestCase):
+
+    def test_available_capacity(self):
+        # Test with integer inputs
+        self.assertEqual(PlanProDBLP.available_capacity(60, len(PlanProDBLP.limits) - 1), PlanProDBLP.available_capacity("1m", len(PlanProDBLP.limits) - 1))
+        self.assertEqual(PlanProDBLP.available_capacity(60*60, len(PlanProDBLP.limits) - 1), PlanProDBLP.available_capacity("1h", len(PlanProDBLP.limits) - 1))
+        self.assertEqual(PlanProDBLP.available_capacity(60*60*24, len(PlanProDBLP.limits) - 1), PlanProDBLP.available_capacity("1d", len(PlanProDBLP.limits) - 1))
+            
 
 if __name__ == '__main__':
 

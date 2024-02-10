@@ -31,33 +31,33 @@ def pass_msg(msg:str)->str:
 
     return("\033[32m!" + msg + "\033[0m")
 
-def test_capacity(list_t_c: List[Tuple[int, int]], name:str="" ):
+def test_capacity(list_t_c: List[Tuple[int, int]], plan: 'Plan'):
 
-    print("Testing accumulated_capacity! " + name)
+    print("Testing accumulated_capacity! " + plan.name)
 
     try:
         for time, exp_capacity in list_t_c:
-            actual_capacity = PlanProDBLP.accumulated_capacity(time, len(PlanProDBLP.limits) - 1)
-            assert actual_capacity == exp_capacity, f"Error({name}): Capacity in t = {time} should be equal to {exp_capacity} but it is {actual_capacity}"
+            actual_capacity = plan.available_capacity(time, len(plan.limits) - 1)
+            assert actual_capacity == exp_capacity, f"Error({plan.name}): Capacity in t = {time} should be equal to {exp_capacity} but it is {actual_capacity}"
         # Si llega aquí, significa que no se lanzó ninguna AssertionError
        
-        print(pass_msg(f"Los tests de capacidad acumulada {name} pasaron satisfactoriamente!"))   
+        print(pass_msg(f"Los tests de capacidad acumulada {plan.name} pasaron satisfactoriamente!"))   
 
     except AssertionError as e:  
 
         print(f"\033[31m{e}\033[0m")
 
 
-def test_min_time(list_c_t: List[Tuple[int, int]],name:str="" ):
+def test_min_time(list_c_t: List[Tuple[int, int]], plan: 'Plan'):
 
-    print("Testing min_time! " + name)
+    print("Testing min_time! " + plan.name)
 
     try:
         for capacity, exp_time in list_c_t:
-            actual_time = PlanProDBLP.min_time(capacity)
+            actual_time = plan.min_time(capacity)
             assert actual_time == exp_time, f"Error: Minimum time to reach {capacity} is: {actual_time} should be equal to {exp_time}"        # Si llega aquí, significa que no se lanzó ninguna AssertionError
 
-        print(pass_msg(f"Las pruebas de min_time de {name} pasaron satisfactoriamente!"))
+        print(pass_msg(f"Las pruebas de min_time de {plan.name} pasaron satisfactoriamente!"))
 
     except AssertionError as e:
 
@@ -66,9 +66,9 @@ def test_min_time(list_c_t: List[Tuple[int, int]],name:str="" ):
 
 t_ast = PlanProDBLP.compute_t_ast()
 
-def test_min_time_automated(name:str="" ):
+def test_min_time_automated(plan: 'Plan'):
 
-    print("Testing min_time by using accumulated capacity! " + name)
+    print("Testing min_time by using accumulated capacity! " + plan.name)
 
     try:
 
@@ -82,19 +82,19 @@ def test_min_time_automated(name:str="" ):
 
         for time in t_values:
 
-            accum_capacity  = PlanProDBLP.accumulated_capacity(time, len(PlanProDBLP.limits) - 1,)
+            accum_capacity  = plan.available_capacity(time, len(PlanProDBLP.limits) - 1)
 
-            m_time = PlanProDBLP.min_time(accum_capacity)
+            m_time = plan.min_time(accum_capacity)
 
             #dado con min_time te devuelve el suelo del tiempo, hay que ser cuidadoso al comparar
 
             # los instnataneos de tiempo que no sean múltiplos del rate hay que pasarlos al múltoplo próximo más cercano por debajo
 
-            t_aux= (time//PlanProDBLP.limits[0][1])*PlanProDBLP.limits[0][1]
+            t_aux= (time//plan.limits[0][1])*plan.limits[0][1]
 
             #también hay que ser cuidados con la capacidad entre múltiplos de t* + la quota
 
-            if (m_time % (t_ast[1]!=0 + PlanProDBLP.limits[0][1]) and t_aux != m_time): #si el tiempo mínimo es múltiplo de t* y no es múltiplo de rate
+            if (m_time % (t_ast[1]!=0 + plan.limits[0][1]) and t_aux != m_time): #si el tiempo mínimo es múltiplo de t* y no es múltiplo de rate
 
                 inconsistency_found = True
 
@@ -104,7 +104,7 @@ def test_min_time_automated(name:str="" ):
 
         if inconsistency_found == False:
 
-            print(pass_msg(f"Min-time function passed the {num_tests} on {name} automatically generated!"))
+            print(pass_msg(f"Min-time function passed the {num_tests} on {plan.name} automatically generated!"))
 
     except AssertionError as e:
 
@@ -112,24 +112,21 @@ def test_min_time_automated(name:str="" ):
 
 
 list_t_c = [(0, 1), (1, 1), (2, 2), (3, 2), (4, 3), (5, 3), (38, 20), (39, 20), (40, 20), (41, 20), (60,21), (98, 40), (99, 40)]
+
 list_c_t = [(0, 0), (1, 0), (2, 2), (3, 4), (4, 6), (5, 8), (20, 38), (21, 60)]
 
 
 if __name__ == '__main__':
     
-    test_capacity(list_t_c, "PlanProDBLP")
-    test_min_time(list_c_t, "PlanProDBLP")
-    test_min_time_automated("PlanProDBLP")
+    test_capacity(list_t_c, PlanProDBLP)
+    test_min_time(list_c_t, PlanProDBLP)
+    test_min_time_automated(PlanProDBLP)
     
-
-    PlanProDBLP.show_accumulated_capacity_curve(list_t_c)
-    PlanProDBLP.show_accumulated_capacity_curve(list_t_c, True)
+    PlanProDBLP.show_available_capacity_curve(list_t_c)
+    PlanProDBLP.show_available_capacity_curve(list_t_c, True)
 
     PlanProDBLP.show_capacity_areas(list_t_c)
-    a=(PlanProDBLP.compute_t_ast())
-    print(a)
-    print(PlanProDBLP.accumulated_capacity(a[1], len(PlanProDBLP.limits) - 1))
-    print(PlanProDBLP.min_time(PlanProDBLP.accumulated_capacity(100, len(PlanProDBLP.limits) - 1)))
+    
 
 
     
