@@ -1,9 +1,12 @@
+
 import math
 from matplotlib import pyplot as plt
 import numpy as np
-# from src.utils import heaviside
-from typing import List, Tuple, Optional
-import matplotlib.patches as mpatches
+from typing import List, Tuple, Optional, Union
+
+from datetime import timedelta, datetime
+from dateutil.relativedelta import relativedelta
+import re
 
 
 
@@ -221,25 +224,74 @@ class Plan:
     #     return self.__quote / self.__rate_value
 
 
-    # Getters and Setters
+    def parse_duration(self, duration_str):
+        # Parsea la cadena de duración a sus componentes
+        duration_parts = re.findall(r'(\d+)([Mwdhms])', duration_str)
+        
+        # Diccionario para acumular los valores de duración
+        duration_values = {"months": 0, "weeks": 0, "days": 0, "hours": 0, "minutes": 0, "seconds": 0}
+        
+        # Procesa cada parte de la duración
+        for amount, unit in duration_parts:
+            amount = int(amount)
+            if unit == 'M':  # Meses
+                duration_values["months"] += amount
+            elif unit == 'w':  # Semanas
+                duration_values["weeks"] += amount
+            elif unit == 'd':  # Días
+                duration_values["days"] += amount
+            elif unit == 'h':  # Horas
+                duration_values["hours"] += amount
+            elif unit == 'm':  # Minutos
+                duration_values["minutes"] += amount
+            elif unit == 's':  # Segundos
+                duration_values["seconds"] += amount
+                
+        # Crea un objeto relativedelta con los meses y timedelta con los otros componentes
+        delta = relativedelta(months=duration_values["months"]) + timedelta(
+            weeks=duration_values["weeks"],
+            days=duration_values["days"],
+            hours=duration_values["hours"],
+            minutes=duration_values["minutes"],
+            seconds=duration_values["seconds"]
+        )
+        
+        return delta
+    
+    # Primero, definimos la función auxiliar para parsear las cadenas de tiempo
+    def parse_time_input(self, time_input):
+        if isinstance(time_input, int):
+            # Si el tiempo ya está en segundos, simplemente lo devolvemos
+            return time_input
+        elif isinstance(time_input, str):
+            # Aquí convertimos la cadena formateada a segundos o a un objeto relativedelta/timedelta
+            duration = self.parse_duration(time_input)  # Utiliza la función parse_duration definida previamente
+            # Para este ejemplo, vamos a asumir que necesitamos convertirlo todo a segundos.
+            # Esto es más complejo con meses debido a su naturaleza variable, así que se simplificará.
+            # Calcula los segundos desde el momento actual (esto es un ejemplo; adapta según sea necesario)
+            now = datetime.now()
+            future = now + duration
+            return (future - now).total_seconds()
+        else:
+            raise ValueError("El tiempo debe ser un entero o una cadena formateada.")
+        
 
-
-    def accumulated_capacity(self, t: int, pos: int) -> int:
+    def available_capacity(self, t: Union[int, str], pos: int) -> int:
 
         """Calculates the accumulated capacity at time 't' using the given limits."""
-
+        t_seconds= self.parse_time_input(t)
         if pos >= len(self.__limits):
             raise IndexError("The 'pos' index is out of range.")
 
         value, period = self.__limits[pos] 
         
         if pos == 0:
-            c = value * np.floor((t / period)+1)
+            c = value * np.floor((t_seconds / period)+1)
 
         else:
-            ni = np.floor(t / period) # determines which interval number (ni) 't' belongs to
+            ni = np.floor(t_seconds / period) # determines which interval number (ni) 't' belongs to
             qvalue = value * ni # capacity due to quota
-            cprevious = self.accumulated_capacity(t - ni * period, pos - 1)
+            cprevious = self.available_capacity(int(t_seconds - ni * period), pos - 1)
             ramp = min(cprevious, value) # capacity due to ramp
             c = qvalue + ramp
         
@@ -302,26 +354,7 @@ class Plan:
         return t_ast
     
     
-    
-
-    ## Auxiliary functions
-    def adjust_time_unitsx(self, t_max:int) -> (str,int):
-        """ Determine the units and scale for the time axis """
-        if t_max < 60:
-            units = 'Seconds'
-            scale = 1
-        elif t_max < 3600:
-            units = 'Minutes'
-            scale = 60
-        elif t_max < 86400:
-            units = 'Hours'
-            scale = 3600
-        else:
-            units = 'Days'
-            scale = 86400
-        return units, scale
-    
-    def show_accumulated_capacity_curve(self, list_t_c: List[Tuple[int, int]], debug:bool=False)->None:
+    def show_available_capacity_curve(self, list_t_c: List[Tuple[int, int]], debug:bool=False)->None:
 
         # Ajustar el gráfico para mostrar una señal de tipo escalón y círculos rellenos donde la función está definida
 
@@ -332,7 +365,7 @@ class Plan:
         defined_t_values = range(0, time_interval+1, step)  # Puntos definidos de t: 0, 2, 4, 6, ...
 
         # Calcular valores de capacidad solo en los puntos definidos
-        defined_capacity_values = [self.accumulated_capacity(t, len(self.__limits) - 1) for t in defined_t_values]
+        defined_capacity_values = [self.available_capacity(t, len(self.__limits) - 1) for t in defined_t_values]
 
         # Crear una versión escalonada de la curva de capacidad
         plt.figure(figsize=(12, 7))
@@ -358,44 +391,44 @@ class Plan:
         plt.show()
     
 
-    def show_capacity_areas(self, list_t_c: List[Tuple[int, int]])->None:
+    def show_capacity_areas(self, list_t_c: List[Tuple[Union[int, str], int]])->None:
 
         """Shows the accumulated capacity curve and the wasted capacity threshold curve."""
         
         period_q = self.__limits[1][1]
         wastage_threshold = self.__t_ast[1]
-        # Necesita ser modificada para que el desplazamiento sea el correcto. Ahora mismo, el desplazamiento es de 20 segundos
 
-        # Determinar los puntos donde la función está definida según el segundo valor de la tupla de la primera posición
+        # Parse time values in list_t_c
+        list_t_c = [(self.parse_time_input(t), c) for t, c in list_t_c]
 
-        step = self.__limits[0][1]  # Coincide con el valor del rate
-        time_interval = list_t_c[-1][0]  # Instante del último dato de pruega
-        defined_t_values = range(0, time_interval+1, step)  # Puntos definidos de t: 0, 2, 4, 6, ...
+        step = self.__limits[0][1]  # Coincides with the rate value
+        time_interval = list_t_c[-1][0]  # Instant of the last test data
+        defined_t_values = range(0, time_interval+1, step)  # Defined points of t: 0, 2, 4, 6, ...
 
-        # Calcular valores de capacidad solo en los puntos definidos
-        defined_capacity_values = [self.accumulated_capacity(t, len(self.__limits) - 1) for t in defined_t_values]
+        # Calculate capacity values only at defined points
+        defined_capacity_values = [self.available_capacity(t, len(self.__limits) - 1) for t in defined_t_values]
 
-        defined_t_values_shifted = [t + (period_q-wastage_threshold) for t in defined_t_values if t + (period_q-wastage_threshold) <= time_interval]  # Asegurar que no exceda el límite de 7200
+        defined_t_values_shifted = [t + (period_q-wastage_threshold) for t in defined_t_values if t + (period_q-wastage_threshold) <= time_interval]  # Ensure it does not exceed the limit of 7200
 
-        defined_capacity_values_shifted = [self.accumulated_capacity(t-(period_q-wastage_threshold), len(self.__limits) - 1) for t in defined_t_values_shifted]    
-
+        defined_capacity_values_shifted = [self.available_capacity(int(t-(period_q-wastage_threshold)), len(self.__limits) - 1) for t in defined_t_values_shifted]
+        
         plt.figure(figsize=(12, 7))
 
         line_width = 2
         
-        # Graficar la señal de tipo escalón original con relleno verde
+        # Plot the original step signal with green fill
         plt.step(defined_t_values, defined_capacity_values, where='post', color="blue", linewidth=line_width, label="Accumulated capacity")
         plt.fill_between(defined_t_values, 0, defined_capacity_values, step='post', color="green", alpha=0.3)
 
-        # Graficar la señal de tipo escalón desplazada con relleno rojo
+        # Plot the shifted step signal with red fill
         plt.step(defined_t_values_shifted, defined_capacity_values_shifted, where='post', color="darkorange", linewidth=line_width, label="Wasted capacity threshold")
         plt.fill_between(defined_t_values_shifted, 0, defined_capacity_values_shifted, step='post', color="red", alpha=0.3)
 
-        # Añadir círculos rellenos en los puntos definidos y desplazados
+        # Add filled circles at the defined and shifted points
         plt.scatter(defined_t_values, defined_capacity_values, color="blue", s=line_width*10, zorder=5)
         plt.scatter(defined_t_values_shifted, defined_capacity_values_shifted, color="darkorange", s=line_width*10, zorder=5)
 
-        # Ajustes finales del gráfico
+        # Final adjustments of the graph
         plt.title("Capacity areas")
         plt.xlabel("Time")
         plt.ylabel("Capacity")
