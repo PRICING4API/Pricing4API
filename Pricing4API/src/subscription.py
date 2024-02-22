@@ -15,6 +15,7 @@ class Subscription:
         self.__limiter = limiter
         self.__subscription_time = time.time()
         self.__accumulated_requests = 0
+        self.__last_request_time = 0
 
         logging.basicConfig(filename='api_requests.log', level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
         logging.info(f"Subscription to {url} started at {self.__subscription_time}")
@@ -53,8 +54,10 @@ class Subscription:
 
     def make_request(self, method='GET', **kwargs):
         while self.__limiter and not self.available_request(self.__subscription_time):
-            time.sleep(0.1)  # Espera activa
+            time_to_next_request = self.__plan.rate_value - (time.time() - self.__last_request_time)
+            time.sleep(max(time_to_next_request, 0))  # Espera hasta que la próxima solicitud esté disponible
 
+        self.__last_request_time = time.time()
         response = requests.request(method, self.__url, **kwargs)
         self.__c.execute('INSERT INTO http_requests (timestamp, endpoint, response_code) VALUES (?, ?, ?)',
             (datetime.now(), self.__url, response.status_code))

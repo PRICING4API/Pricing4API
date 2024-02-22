@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='Pricing4API',
-    version='0.1.0-alpha.1',
+    version='0.2.0',
     packages=find_packages(),
     license='MIT',
     author='Daniel Ruiz López',
