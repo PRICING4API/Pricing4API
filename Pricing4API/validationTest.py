@@ -1,7 +1,7 @@
 
 from typing import List, Tuple
-from src.plan import Plan
-from src.pricing import Pricing
+from plan import Plan
+from pricing import Pricing
 
 
 from matplotlib import pyplot as plt
@@ -16,9 +16,23 @@ s_month = 3600 * 24 * 30
 # Plan(name: str, billing: tuple[float, int, Optional[float]] = None, rate: tuple[int, int] = None, quote: list[tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs)
 
 LDBLP=[]
-PlanProDBLP= Plan('Pro', (9.99, 1, None), (1, 2*s_second), [(20, s_minute), (1000, s_minute*60)])
+PlanProDBLP= Plan('Pro', (9.95, s_month, None), (1, 2*s_second), [(20, s_minute), (100, s_minute*60)])
+# PlanUltraDBLP= Plan('Ultra', (79.95, 1, 0.00085), (1, 2*s_second), [(20, s_minute), (100000, s_minute*60)],30)
 LDBLP.append(PlanProDBLP)
+# LDBLP.append(PlanUltraDBLP)
 PricingDBLP = Pricing('DBLP', LDBLP, 'queries')
+PricingDBLP.link_plans()
+
+ListSendGrid=[]
+
+ListSendGrid.append(Plan('Basic', (0.0, s_month, 0.001), (10, s_second), [(1500, s_month)]))
+ListSendGrid.append(Plan('Pro', (9.95, s_month, 0.001), (10, s_second), [(40000, s_month)], 10))
+ListSendGrid.append(Plan('Ultra', (79.95, s_month, 0.00085), (10, s_second), [(100000, s_month)], 10))
+ListSendGrid.append(Plan('Mega', (199.95, s_month, 0.00005), (50, s_second), [(300000, s_month)], 50))
+
+PricingSendGrid = Pricing('SendGrid', ListSendGrid, 'mails')
+PricingSendGrid.link_plans()
+
 
 
 
@@ -118,15 +132,21 @@ list_c_t = [(0, 0), (1, 0), (2, 2), (3, 4), (4, 6), (5, 8), (20, 38), (21, 60)]
 
 if __name__ == '__main__':
     
-    test_capacity(list_t_c, PlanProDBLP)
-    test_min_time(list_c_t, PlanProDBLP)
-    test_min_time_automated(PlanProDBLP)
+    # test_capacity(list_t_c, PlanProDBLP)
+    # test_min_time(list_c_t, PlanProDBLP)
+    # test_min_time_automated(PlanProDBLP)
     
-    PlanProDBLP.show_available_capacity_curve(list_t_c)
-    PlanProDBLP.show_available_capacity_curve(list_t_c, True)
+    # PlanProDBLP.show_available_capacity_curve(120)
+    # PlanProDBLP.show_available_capacity_curve(1200)
+    # PlanProDBLP.show_available_capacity_curve(2400)
+    # PlanProDBLP.show_available_capacity_curve(7200)
 
-    PlanProDBLP.show_capacity_areas(list_t_c)
-    
+    # PricingSendGrid.plans[0].show_available_capacity_curve(s_month)
+    # PricingSendGrid.plans[1].show_available_capacity_curve(s_month)
+
+    #PlanProDBLP.show_capacity_areas(120)
+
+    print(PricingSendGrid.show_datasheet())
 
 
-    
+

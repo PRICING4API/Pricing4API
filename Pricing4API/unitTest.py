@@ -1,7 +1,7 @@
 import unittest
-from src.plan import Plan
-from src.pricing import Pricing
-from src.utils import format_time
+from Pricing4API.plan import Plan
+from Pricing4API.pricing import Pricing
+from Pricing4API.utils import format_time
 
 s_second = 1
 s_minute= 60

@@ -34,8 +34,8 @@ class QuoteFunction:
 class Plan:
     s_month = 3600 * 24 * 30
 
-    def __init__(self, name: str, billing: tuple[float, int, Optional[float]] = None,
-                rate: tuple[int, int] = None, quote: list[tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs):
+    def __init__(self, name: str, billing: Tuple[float, int, Optional[float]] = None,
+                rate: Tuple[int, int] = None, quote: List[Tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs):
         """
         Constructor for initializing the SubscriptionPlan object.
 
@@ -156,7 +156,7 @@ class Plan:
         return self.__max_number_of_subscriptions
     
     @property
-    def next_plan(self) -> str:
+    def next_plan(self) -> "Plan":
         """
         Getter for the next subscription plan in the linked list.
         """
@@ -166,7 +166,7 @@ class Plan:
         self.__next_plan = plan
 
     @property
-    def previous_plan(self) -> str:
+    def previous_plan(self) -> "Plan":
         """
         Getter for the previous subscription plan in the linked list.
         """
@@ -185,43 +185,45 @@ class Plan:
     def unit_base_cost(self) -> float:
         if self.__price == 0.0:
             return 0.0
-        return self.__price / self.__q 
+        return self.__price / self.__q[-1]
     
   
     @property
     def overage_quote(self):
-        if self.__max_number_of_subscriptions == 1:
-            return 0
-        return math.floor((self.__price / self.__overage_cost) + self.__q)
+        if self.__price == 0.0 or self.__overage_cost is None or self.__max_number_of_subscriptions == 1:
+            return 'N/A'
+        return math.floor((self.__price / self.__overage_cost) + self.__q[-1])
 
     @property
     def cost_with_overage_quote(self):
-        if self.__price == 0.0:
-            return "--"
-        return (self.__price + self.__overage_cost * (self.overage_quote - self.__q))
+        if self.__price == 0.0 or self.__overage_cost is None:
+            return "N/A"
+        return (self.__price + self.__overage_cost * (self.overage_quote - self.__q[-1]))
 
     @property
-    def upgrade_quote(self):
-        siguiente_plan = self.__next_plan
-        if siguiente_plan is None:
-            return 0
-        elif self.__overage_cost == 0:
-            return 0
-        return math.floor(self.__q +(siguiente_plan.price-self.__price)/self.__overage_cost)
+    def upgrade_quote(self) -> int:
+        if self.__next_plan is None or self.__next_plan.price == 0 or self.__next_plan.__overage_cost is None or self.__overage_cost is None:
+            return 'N/A'
+        return math.floor(self.__q[-1] + (self.__next_plan.price-self.__price)/self.__overage_cost)
     
     @property
-    def downgrade_quote(self):
-        anterior_plan = self.previous_plan
-        if anterior_plan is None:
-            return 0
-        elif self.__overage_cost == 0:
-            return 0
-        
-        return math.floor(self.__q +(self.price-anterior_plan.price)/self.__overage_cost)
+    def downgrade_quote(self) -> int:
+        if self.previous_plan is None:
+            return 'N/A'
+        return self.previous_plan.upgrade_quote
     
-    # @property
-    # def t_m(self):
-    #     return self.__quote / self.__rate_value
+    @property
+    def earliest_coolingdown_threshold(self):
+        return self.__q[-1] / self.__q[0]
+    
+    @property
+    def max_unavailability_time(self):
+        return self.__t[-1] - self.earliest_coolingdown_threshold
+
+    @property
+    def max_unavailability_percentage(self):
+        return round((self.__t[-1] - self.earliest_coolingdown_threshold) * 100 / self.__t[-1], 2)
+
 
 
     def parse_duration(self, duration_str):
@@ -354,21 +356,24 @@ class Plan:
         return t_ast
     
     
-    def show_available_capacity_curve(self, list_t_c: List[Tuple[int, int]], debug:bool=False)->None:
+    def show_available_capacity_curve(self, time_interval: int, debug:bool=False)->None:
 
         # Ajustar el gráfico para mostrar una señal de tipo escalón y círculos rellenos donde la función está definida
 
         # Determinar los puntos donde la función está definida según el segundo valor de la tupla de la primera posición
 
         step = self.__limits[0][1]  # Coincide con el valor del rate
-        time_interval = list_t_c[-1][0]  # Instante del último dato de pruega
+        # time_interval = list_t_c[-1][0]  # Instante del último dato de pruega
+        # Instante del último dato de pruega
         defined_t_values = range(0, time_interval+1, step)  # Puntos definidos de t: 0, 2, 4, 6, ...
 
         # Calcular valores de capacidad solo en los puntos definidos
         defined_capacity_values = [self.available_capacity(t, len(self.__limits) - 1) for t in defined_t_values]
 
+    
         # Crear una versión escalonada de la curva de capacidad
         plt.figure(figsize=(12, 7))
+
 
         # Graficar la señal de tipo escalón
         plt.step(defined_t_values, defined_capacity_values, where='post', label="Accumulated capacity", color="blue")
@@ -383,7 +388,7 @@ class Plan:
                 plt.vlines(t, 0, c, colors='red', linestyles='dashed', alpha=0.5)
 
         # Ajustes finales del gráfico
-        plt.title("Accumulated capacity)")
+        plt.title("Accumulated capacity")
         plt.xlabel("Time")
         plt.ylabel("Capacity")
         plt.legend()
@@ -391,7 +396,52 @@ class Plan:
         plt.show()
     
 
-    def show_capacity_areas(self, list_t_c: List[Tuple[Union[int, str], int]])->None:
+    def show_capacity_areas(self, time_interval: int)->None:
+
+        """Shows the accumulated capacity curve and the wasted capacity threshold curve."""
+        
+        period_q = self.__limits[1][1]
+        wastage_threshold = self.__t_ast[1]
+
+        # Parse time values in list_t_c
+        #list_t_c = [(self.parse_time_input(t), c) for t, c in list_t_c]
+
+        step = self.__limits[0][1]  # Coincides with the rate value
+        # Instant of the last test data
+        defined_t_values = range(0, time_interval+1, step)  # Defined points of t: 0, 2, 4, 6, ...
+
+        # Calculate capacity values only at defined points
+        defined_capacity_values = [self.available_capacity(t, len(self.__limits) - 1) for t in defined_t_values]
+
+        defined_t_values_shifted = [t + (period_q-wastage_threshold) for t in defined_t_values if t + (period_q-wastage_threshold) <= time_interval]  # Ensure it does not exceed the limit of 7200
+
+        defined_capacity_values_shifted = [self.available_capacity(int(t-(period_q-wastage_threshold)), len(self.__limits) - 1) for t in defined_t_values_shifted]
+        
+        plt.figure(figsize=(12, 7))
+
+        line_width = 2
+        
+        # Plot the original step signal with green fill
+        plt.step(defined_t_values, defined_capacity_values, where='post', color="blue", linewidth=line_width, label="Accumulated capacity")
+        plt.fill_between(defined_t_values, 0, defined_capacity_values, step='post', color="green", alpha=0.3)
+
+        # Plot the shifted step signal with red fill
+        plt.step(defined_t_values_shifted, defined_capacity_values_shifted, where='post', color="darkorange", linewidth=line_width, label="Wasted capacity threshold")
+        plt.fill_between(defined_t_values_shifted, 0, defined_capacity_values_shifted, step='post', color="red", alpha=0.3)
+
+        # Add filled circles at the defined and shifted points
+        plt.scatter(defined_t_values, defined_capacity_values, color="blue", s=line_width*10, zorder=5)
+        plt.scatter(defined_t_values_shifted, defined_capacity_values_shifted, color="darkorange", s=line_width*10, zorder=5)
+
+        # Final adjustments of the graph
+        plt.title("Capacity areas")
+        plt.xlabel("Time")
+        plt.ylabel("Capacity")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
+    
+    def show_capacity_areas_old(self, list_t_c: List[Tuple[Union[int, str], int]])->None:
 
         """Shows the accumulated capacity curve and the wasted capacity threshold curve."""
         
@@ -435,7 +485,6 @@ class Plan:
         plt.legend()
         plt.grid(True)
         plt.show()
-    
     
 
 
