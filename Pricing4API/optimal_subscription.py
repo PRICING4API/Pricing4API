@@ -1,8 +1,8 @@
 from collections import deque
 import itertools
-from Pricing4API.plan import Plan
-from Pricing4API.pricing import Pricing
-from Pricing4API.utils import format_time
+from plan import Plan
+from pricing import Pricing
+from utils import format_time
 
 s_second = 1
 s_minute= 60
