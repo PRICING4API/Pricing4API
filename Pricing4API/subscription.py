@@ -1,23 +1,30 @@
-import requests
+"""
+    This module provides the basic functionality of a price plan subscription.
+"""
 import logging
 import time
-from datetime import datetime
 import sqlite3
+import requests
 from plan import Plan
 
- 
 
 class Subscription:
 
-    def __init__(self, plan: Plan, url: str, limiter: bool = True):
+    def __init__(self, plan: Plan, url: str):
         self.__plan = plan
         self.__url = url
-        self.__limiter = limiter
+        self.__regulated = True
         self.__subscription_time = time.time()
         self.__accumulated_requests = 0
-        self.__last_request_time = 0
 
-        logging.basicConfig(filename='api_requests.log', level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+        logging.basicConfig(level=logging.INFO,
+                            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                            datefmt='%Y-%m-%d %H:%M:%S', 
+                            handlers=[
+                                logging.FileHandler('api_requests.log'),
+                                logging.StreamHandler()
+                            ])
+        
         logging.info(f"Subscription to {url} started at {self.__subscription_time}")
 
         conn = sqlite3.connect('api_requests.db')
@@ -39,57 +46,93 @@ class Subscription:
         self.__c.commit()
         self.__c.close()
 
- 
+    def regulated(self, regulated: bool) ->bool:
+        '''Check if the subscription is regulated by the plan.'''
+        self.__regulated = regulated
 
     def available_request(self, t) -> bool:
         '''Check if a request is available at time t.'''
-
-        if self.__plan.available_capacity(int(t+self.__subscription_time), len(self.__plan.limits)-1) < self.__accumulated_requests:
+        pos=len(self.__plan.limits)-1
+        available_capacity = self.__plan.available_capacity(int(t), pos)
+        if available_capacity < self.__accumulated_requests:
             return False
         else:
-            self.__accumulated_requests += 1
-        return True
+            return True
 
  
-
+    
     def make_request(self, method='GET', **kwargs):
-        while self.__limiter and not self.available_request(self.__subscription_time):
-            time_to_next_request = self.__plan.rate_value - (time.time() - self.__last_request_time)
-            time.sleep(max(time_to_next_request, 0))  # Espera hasta que la próxima solicitud esté disponible
-
-        self.__last_request_time = time.time()
+        '''
+        Make a request to the API. If the subscription is regulated, it will wait until the next request is available.
+        '''
+        if self.__regulated:
+            if self.available_request(time.time() - self.__subscription_time):
+                logging.info(f"Waiting {self.__plan.rate_frequency} seconds")
+                time.sleep(self.__plan.rate_frequency)
+        
         response = requests.request(method, self.__url, **kwargs)
-        self.__c.execute('INSERT INTO http_requests (timestamp, endpoint, response_code) VALUES (?, ?, ?)',
-            (datetime.now(), self.__url, response.status_code))
-
-        if response.status_code == 200:
-            logging.info(f"Petición ({self.__accumulated_requests}) válida a {self.__url}")
-        elif response.status_code == 429: 
-            logging.warning(f"Petición ({self.__accumulated_requests})a {self.__url} excedió el límite de tasa. ")
+        if response.status_code == 429:
+            logging.info(f"Request ({self.__accumulated_requests}) to {self.__url} exceeded the rate limit.")
+            if 'Retry-After' in response.headers:
+                logging.info(f"The Retry-After header is: {response.headers['Retry-After']} seconds")
+            else:
+                logging.info(f"The Retry-After header is not present.")
+        elif response.status_code == 200:
+            logging.info(f"Valid request ({self.__accumulated_requests}) to {self.__url}")
         else:
-            logging.error(f"Petición ({self.__accumulated_requests})a {self.__url} falló con código de estado: {response.status_code}")
-
+            logging.info(f"Request ({self.__accumulated_requests}) to {self.__url} failed with status code: {response.status_code}")
+        self.__accumulated_requests += 1
         return response
 
-       
 
- 
 
-PlanDBLP = Plan('DBLP', (9.99, 1, None), (1, 2), [(3, 10)])
+PlanDBLP = Plan('DBLP', (9.99, 1, None), (1, 2), [(20, 60)])
+DBLPSubscription = Subscription(PlanDBLP,  'https://dblp.org/search/publ/api')
 
-DBLPSubscription = Subscription(PlanDBLP,  'https://dblp.org/search/publ/api?q=deep+learning&format=json', True)
-for _ in range(30):  # Intentamos hace 30 peticiones
-    response= DBLPSubscription.make_request()
-data = response.json()  # Interpretar la respuesta JSON
 
-#Guardar (commit) los cambios y cerrar la conexión
-DBLPSubscription.close()
+end = time.time() + 36
+logging.info(f"Consuming in a regulated manner, there should be no 429 errors until {end}.")
 
-# # Imprimir los títulos de las primeras 5 publicaciones encontradas
-for publication in data['result']['hits']['hit'][:5]:
-    print(publication['info']['title'])
-print(response.json())
+response = DBLPSubscription.make_request()
+while(time.time() < end and response.status_code != 429):
+    response = DBLPSubscription.make_request()
 
-# # FILEPATH: Untitled-1
+
+DBLPSubscription.regulated(False)
+end = time.time() + 10
+logging.info("Consuming in an unregulated manner, 429 errors should appear in approximately 10 seconds.")
+
+while(time.time() < end and response.status_code != 429):
+    response = DBLPSubscription.make_request()
+if response.status_code == 429:
+    if 'Retry-After' in response.headers:
+        logging.info(f"Actively waiting until {time.time() + int(response.headers['Retry-After'])}")
+        time.sleep(int(response.headers['Retry-After']))
+    else:
+        logging.info(f"Actively waiting 5 minutes, that is, until {time.time() + 5*60}.")
+        time.sleep(5*60)
+
+logging.info(f"Consuming again in a regulated manner, there should be no 429 errors.")
+DBLPSubscription.regulated(True)
+end = time.time() + 2 * PlanDBLP.quote_frequency[-1]
+while(time.time() < end):
+    DBLPSubscription.make_request()
+
+
+
+
+
+
+    
+
+# #Guardar (commit) los cambios y cerrar la conexión
+# DBLPSubscription.close()
+
+# # # Imprimir los títulos de las primeras 5 publicaciones encontradas
+# for publication in data['result']['hits']['hit'][:5]:
+#     print(publication['info']['title'])
+# print(response.json())
+
+# # # FILEPATH: Untitled-1
 
  
