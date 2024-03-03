@@ -12,44 +12,33 @@ import re
 
 # pyreverse: Plan -> Pricing
 
-class RateFunction:
-    def __init__(self, rate_value: int, rate_unit: int):
-        self.r = rate_value
-        self.tr = rate_unit
 
-    def __call__(self, time_instant: int) -> int:
-       # c= math.floor(time_instant/self.tr) +1 
-        c= (np.floor(time_instant/self.tr)+1) * self.r
-        return c
-
-class QuoteFunction:
-    def __init__(self, quote_value: int, quote_unit: int):
-        self.q = quote_value
-        self.tq = quote_unit
-
-    def __call__(self, time_instant: int) -> int:
-        c= (np.floor(time_instant/self.tq)+1) * self.q
-        return c
-    
 class Plan:
+    """
+    A class used to represent a Plan.
+
+    Attributes:
+        s_month (int): Static attribute representing the number of seconds in a month.
+        __limits (list): A private list to store limits.
+        __q (list): A private list to store q values.
+        __t (list): A private list to store t values.
+        __m (int): A private attribute to store the length of __q.
+        __name (str): The name of the plan.
+        __price (float): The price of the plan. Only set if billing is not None.
+        __billing_unit (int): The billing unit of the plan. Only set if billing is not None.
+        __overage_cost (float): The overage cost of the plan. Only set if billing is not None.
+        __max_number_of_subscriptions (int): The maximum number of subscriptions for the plan.
+        __next_plan (Plan): A reference to the next plan. Initially set to self.
+        __previous_plan (Plan): A reference to the previous plan. Initially set to self.
+        __t_ast: The result of the compute_t_ast method.
+
+    Methods:
+        compute_t_ast: This method is not defined in this snippet.
+    """
     s_month = 3600 * 24 * 30
 
     def __init__(self, name: str, billing: Tuple[float, int, Optional[float]] = None,
                 rate: Tuple[int, int] = None, quote: List[Tuple[int, int]] = None, max_number_of_subscriptions: int = 1, **kwargs):
-        """
-        Constructor for initializing the SubscriptionPlan object.
-
-        Args:
-            name (str): The name of the subscription plan.
-            billing (tuple[float, int, Optional[float]], optional): The billing details including price, billing unit, and overage cost. Defaults to None.
-            rate (tuple[int, int], optional): The rate details including quantity and time. Defaults to None.
-            quote (list[tuple[int, int]], optional): The quote details including quantity and time. Defaults to None.
-            max_number_of_subscriptions (int, optional): The maximum number of subscriptions allowed. Defaults to 1.
-            **kwargs: Additional keyword arguments.
-
-        Returns:
-            None
-        """
         
         self.__limits=[]
         self.__q=[]
@@ -64,7 +53,6 @@ class Plan:
         if rate is not None:
             self.__q.append(rate[0])
             self.__t.append(rate[1])
-            self.rate_function= RateFunction(rate[0],rate[1])
             self.__limits.append(rate)
 
             
@@ -73,7 +61,6 @@ class Plan:
             for q in quote:
                 self.__q.append(q[0])
                 self.__t.append(q[1])
-                self.quote_function= QuoteFunction(q[0],q[1])
                 self.__limits.append(q)
 
         
@@ -279,6 +266,23 @@ class Plan:
         
 
     def available_capacity(self, t: Union[int, str], pos: int) -> int:
+        """
+        Calculates the accumulated capacity at time 't' using the given limits.
+
+        This method calculates the available capacity at a given time 't' for a specific limit position 'pos'.
+        The time 't' can be given as an integer (representing seconds) or as a string (which will be parsed using the parse_time_input method).
+        The 'pos' parameter represents the position of the limit in the __limits list.
+
+        Args:
+            t (Union[int, str]): The time at which to calculate the available capacity. Can be an integer (seconds) or a string (parsed using parse_time_input).
+            pos (int): The position of the limit in the __limits list.
+
+        Returns:
+            int: The available capacity at time 't' for the limit at position 'pos'.
+
+        Raises:
+            IndexError: If 'pos' is out of range of the __limits list.
+        """
 
         """Calculates the accumulated capacity at time 't' using the given limits."""
         t_seconds= self.parse_time_input(t)
