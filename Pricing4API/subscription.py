@@ -5,7 +5,7 @@ import logging
 import time
 import sqlite3
 import requests
-from plan import Plan
+from .plan import Plan
 
 
 class Subscription:
