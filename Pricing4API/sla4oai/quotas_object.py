@@ -6,6 +6,7 @@ from typing import Any, Dict, List
 
 from .path_object import PathObject
 from .limit_object import LimitObject
+from .period_object import PeriodObject
 
 
 class QuotasObject:
@@ -70,7 +71,7 @@ class QuotasObject:
             .get_max()
         )
 
-    def get_period_by_path_and_method(self, path: str, method: str) -> str:
+    def get_period_by_path_and_method(self, path: str, method: str) -> PeriodObject:
         """
         Returns the period for a given method on a given path.
 
