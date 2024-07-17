@@ -1,0 +1,1011 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: ../openapi-specification/amadeus/*
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests, regarding the resources
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: EUR
+  billing: monthly
+plans:
+  Test:
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 10
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /v2/shopping/flight-offers:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+        post:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/flight-offers/pricing:
+        post:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v1/booking/flight-orders:
+        post:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v1/booking/flight-orders/*:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/seatmaps:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+        post:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/flight-dates/upselling:
+        post:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v1/analytics/itinerary-price-metrics:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v2/shopping/flight-offers/prediction:
+        post:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/flight-destinations:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/flight-dates:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/availability/flight-availabilities:
+        post:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/recommended-locations:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v2/schedule/flights:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/travel/predictions/flight-delay:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v1/airport/predictions/on-time:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations:
+        get:
+          requests:
+            - max: 7000
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/*:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/airports:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v1/airport/direct-destinations:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v2/reference-data/urls/checkin-links:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/airlines:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v1/airline/destinations:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/pois:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/pois/by-square:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/pois/*:
+        get:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/activities:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/activities/by-square:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/activities/*:
+        get:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/cities:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v1/safety/safety-rated-locations:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+      /v1/safety/safety-rated-locations/by-square:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+      /v1/safety/safety-rated-locations/*:
+        get:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: hour
+      /v1/ordering/transfer-orders:
+        post:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/ordering/transfer-orders/*/transfers/cancellation:
+        post:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/transfer-offers:
+        post:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/travel/analytics/air-traffic/traveled:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/travel/analytics/air-traffic/booked:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/travel/analytics/air-traffic/busiest-period:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/location/analytics/category-rated-areas:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/hotels/by-hotels:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/hotels/by-city:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/hotels/by-geocode:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v2/shopping/hotel-offers:
+        get:
+          requests:
+            - max: 2400
+              period:
+                amount: 1
+                unit: hour
+      /v2/shopping/hotel-offers/by-hotel:
+        get:
+          requests:
+            - max: 900
+              period:
+                amount: 1
+                unit: hour
+      /v2/shopping/hotel-offers/*:
+        get:
+          requests:
+            - max: 900
+              period:
+                amount: 1
+                unit: hour
+      /v3/shopping/hotel-offers:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v3/shopping/hotel-offers/*:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v1/booking/hotel-bookings:
+        post:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v2/e-reputation/hotel-sentiments:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/reference-data/locations/hotel:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+      /v3/travel/trip-parser:
+        post:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: hour
+      /v1/travel/predictions/trip-purpose:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+  Production:
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 40
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /v2/shopping/flight-offers:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.025
+        post:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.025
+      /v1/shopping/flight-offers/pricing:
+        post:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v1/booking/flight-orders:
+        post:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.04
+      /v1/booking/flight-orders/*:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+        delete:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/shopping/seatmaps:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+        post:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v1/shopping/flight-dates/upselling:
+        post:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v1/analytics/itinerary-price-metrics:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v2/shopping/flight-offers/prediction:
+        post:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/shopping/flight-destinations:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v1/shopping/flight-dates:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v1/shopping/availability/flight-availabilities:
+        post:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v1/reference-data/recommended-locations:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v2/schedule/flights:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/travel/predictions/flight-delay:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/airport/predictions/on-time:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/reference-data/locations:
+        get:
+          requests:
+            - max: 7000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/reference-data/locations/*:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/reference-data/locations/airports:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/airport/direct-destinations:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v2/reference-data/urls/checkin-links:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/reference-data/airlines:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/airline/destinations:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/reference-data/locations/pois:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0015
+      /v1/reference-data/locations/pois/by-square:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0015
+      /v1/reference-data/locations/pois/*:
+        get:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0008
+      /v1/shopping/activities:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.025
+      /v1/shopping/activities/by-square:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.025
+      /v1/shopping/activities/*:
+        get:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.025
+      /v1/reference-data/locations/cities:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.025
+      /v1/safety/safety-rated-locations:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.012
+      /v1/safety/safety-rated-locations/by-square:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.012
+      /v1/safety/safety-rated-locations/*:
+        get:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.012
+      /v1/ordering/transfer-orders:
+        post:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/ordering/transfer-orders/*/transfers/cancellation:
+        post:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+      /v1/shopping/transfer-offers:
+        post:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0015
+      /v1/travel/analytics/air-traffic/traveled:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.025
+      /v1/travel/analytics/air-traffic/booked:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.025
+      /v1/travel/analytics/air-traffic/busiest-period:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/location/analytics/category-rated-areas:
+        get:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.002
+      /v1/reference-data/locations/hotels/by-hotels:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v1/reference-data/locations/hotels/by-city:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v1/reference-data/locations/hotels/by-geocode:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v2/shopping/hotel-offers:
+        get:
+          requests:
+            - max: 2400
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v2/shopping/hotel-offers/by-hotel:
+        get:
+          requests:
+            - max: 900
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v2/shopping/hotel-offers/*:
+        get:
+          requests:
+            - max: 900
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v3/shopping/hotel-offers:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v3/shopping/hotel-offers/*:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.015
+      /v1/booking/hotel-bookings:
+        post:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: hour
+      /v2/e-reputation/hotel-sentiments:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.025
+      /v1/reference-data/locations/hotel:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v3/travel/trip-parser:
+        post:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
+      /v1/travel/predictions/trip-purpose:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: hour
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.0025
