@@ -1,0 +1,1151 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/azure-search/azure-search.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regardeless the resource'
+    resolution: consumption
+availability: '2009-10-09T21:30:00.00Z'
+plans:
+  Free:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+     /BingImageSearch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+     /BingNewsSearch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+     /BingVisualSearch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+    rates:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 3
+              period:
+                amount: 1
+                unit: second
+     /BingImageSearch:
+        get:
+          requests:
+            - max: 3
+              period:
+                amount: 1
+                unit: second
+     /BingNewsSearch:
+        get:
+          requests:
+            - max: 3
+              period:
+                amount: 1
+                unit: second
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: 3
+              period:
+                amount: 1
+                unit: second
+     /BingVisualSearch:
+        get:
+          requests:
+            - max: 3
+              period:
+                amount: 1
+                unit: second
+  S1:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 7
+                  volume: 1000
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingImageSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 7
+                  volume: 1000
+     /BingImageSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingNewsSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 7
+                  volume: 1000
+     /BingNewsSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 7
+                  volume: 1000
+     /BingVideoSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingEntitySearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 7
+                  volume: 1000
+     /BingEntitySearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingAutosuggestSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 7
+                  volume: 25000
+     /BingAutosuggestSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingSpellSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 7
+                  volume: 25000
+     /BingSpellSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingImageSearch:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingImageSearch/stats:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingNewsSearch:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingNewsSearch/stats:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingVideoSearch/stats:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingEntitySearch:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingEntitySearch/stats:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingAutosuggestSearch:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingAutosuggestSearch/stats:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     /BingSpellSearch:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+     
+     /BingSpellSearch/stats:
+        get:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: second
+  S2:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 3
+                  volume: 1000
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingAutosuggestSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 3
+                  volume: 10000
+     /BingAutosuggestSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingSpellSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 3
+                  volume: 10000
+     /BingSpellSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingAutosuggestSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingAutosuggestSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingSpellSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     
+     /BingSpellSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+  S3:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 4
+                  volume: 1000
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingImageSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 4
+                  volume: 1000
+     /BingImageSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingImageSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingImageSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+  S4:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 4
+                  volume: 1000
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 4
+                  volume: 1000
+     /BingVideoSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingVideoSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+  S5:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 4
+                  volume: 1000
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingNewsSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 4
+                  volume: 1000
+     /BingNewsSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingNewsSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingNewsSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+  S6:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 4
+                  volume: 1000
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingEntitySearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 4
+                  volume: 1000
+     /BingEntitySearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingEntitySearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingEntitySearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+  S7:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 5
+                  volume: 1000
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingImageSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 5
+                  volume: 1000
+     /BingImageSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 5
+                  volume: 1000
+     /BingVideoSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingImageSearch:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingImageSearch/stats:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingVideoSearch/stats:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+  S8:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 6
+                  volume: 1000
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingImageSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 6
+                  volume: 1000
+     /BingImageSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingNewsSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 6
+                  volume: 1000
+     /BingNewsSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 6
+                  volume: 1000
+     /BingVideoSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingWebSearch:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingWebSearch/stats:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingImageSearch:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingImageSearch/stats:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingNewsSearch:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingNewsSearch/stats:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingVideoSearch:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+     /BingVideoSearch/stats:
+        get:
+          requests:
+            - max: 150
+              period:
+                amount: 1
+                unit: second
+  S9:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingVisualSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 3
+                  volume: 1000
+     /BingVisualSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingVisualSearch:
+        get:
+          requests:
+            - max: 30
+              period:
+                amount: 1
+                unit: second
+     /BingVisualSearch/stats:
+        get:
+          requests:
+            - max: 30
+              period:
+                amount: 1
+                unit: second
+  S10:
+    pricing:
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+     /BingLocalBusinessSearch:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 2.5
+                  volume: 1000
+     /BingLocalBusinessSearch/stats:
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+              cost:
+                operation:
+                  cost: 1
+                  volume: 1000
+    rates:
+     /BingLocalBusinessSearch:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+     /BingLocalBusinessSearch/stats:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second

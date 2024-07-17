@@ -1,0 +1,122 @@
+context:
+  id: api-football
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/api-football-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 30
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                cost: 0.005
+  Pro:
+    pricing:
+      cost: 19
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 300
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 7500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                cost: 0.0025
+  Ultra:
+    pricing:
+      cost: 29
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 450
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 75000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                cost: 0.0015
+  Mega:
+    pricing:
+      cost: 39
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 900
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 150000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                cost: 0.001

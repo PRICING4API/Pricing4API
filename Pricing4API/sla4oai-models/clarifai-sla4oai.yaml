@@ -1,0 +1,6267 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/clarifai/clarifai.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  operations_prediction_prebuilt:
+    type: integer
+    format: int64
+    description: Number of operations_prediction_prebuilt
+    resolution: consumption
+  operations_prediction_custom:
+    type: integer
+    format: int64
+    description: Number of operations_prediction_custom
+    resolution: consumption
+  operations_search:
+    type: integer
+    format: int64
+    description: Number of operations_search
+    resolution: consumption
+  operations_addEdit:
+    type: integer
+    format: int64
+    description: Number of operations_addEdit
+    resolution: consumption
+  hosting_customModel:
+    type: integer
+    format: int64
+    description: Number of hosting_customModel
+    resolution: consumption
+  hosting_images:
+    type: integer
+    format: int64
+    description: Number of hosting_images
+    resolution: consumption
+  training_customModel:
+    type: integer
+    format: int64
+    description: Number of training_customModel
+    resolution: consumption
+  training_visualSearch:
+    type: integer
+    format: int64
+    description: Number of training_visualSearch
+    resolution: consumption
+  training_retraining:
+    type: integer
+    format: int64
+    description: Number of training_retraining
+    resolution: consumption
+  total_inputs:
+    type: integer
+    format: int64
+    description: Number of total_inputs
+    resolution: consumption
+  total_operations:
+    type: integer
+    format: int64
+    description: Number of total_operations
+    resolution: consumption
+  batchSize_image_regular:
+    type: integer
+    format: int64
+    description: Number of batchSize_image_regular
+    resolution: consumption
+  batchSize_image_workflow:
+    type: integer
+    format: int64
+    description: Number of batchSize_image_workflow
+    resolution: consumption
+  batchSize_video:
+    type: integer
+    format: int64
+    description: Number of batchSize_video
+    resolution: consumption
+  batchSize_search:
+    type: integer
+    format: int64
+    description: Number of batchSize_search
+    resolution: consumption
+  batchSize_other:
+    type: integer
+    format: int64
+    description: Number of batchSize_other
+    resolution: consumption
+  requests_imagePredict:
+    type: integer
+    format: int64
+    description: Number of requests_imagePredict
+    resolution: consumption
+  requests_videoPredict:
+    type: integer
+    format: int64
+    description: Number of requests_videoPredict
+    resolution: consumption
+  requests_search:
+    type: integer
+    format: int64
+    description: Number of requests_search
+    resolution: consumption
+  requests_other:
+    type: integer
+    format: int64
+    description: Number of requests_other
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Community:
+    pricing:
+      cost: 0
+    quotas:
+      '/v2/models/{model_id}/outputs':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models/{model_id}/versions/{version_id}/outputs':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/inputs':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        patch:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/inputs/status':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/inputs/{id}':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/searches':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        patch:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models/{model_id}/versions':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/workflows/{workflow_id}/results':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models/{model_id}/feedback':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/searches/feedback':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/concepts':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        patch:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/concepts/searches':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models/searches':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models/{model_id}':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models/{model_id}/inputs':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models/{model_id}/output_info':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models/{model_id}/versions/{version_id}':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+      '/v2/models/{model_id}/versions/{version_id}/inputs':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 16
+          batchSize_image_workflow:
+            - max: 8
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 1
+    rates:
+      '/v2/models/{model_id}/outputs':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/versions/{version_id}/outputs':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/inputs':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        patch:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/inputs/status':
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/inputs/{id}':
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/searches':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        patch:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/versions':
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/workflows/{workflow_id}/results':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/feedback':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/searches/feedback':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/concepts':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        patch:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/concepts/searches':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/searches':
+        post:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}':
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/inputs':
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/output_info':
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/versions/{version_id}':
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/versions/{version_id}/inputs':
+        get:
+          requests_imagePredict:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+  Essential:
+    pricing:
+      cost: 0
+    quotas:
+      '/v2/models/{model_id}/outputs':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models/{model_id}/versions/{version_id}/outputs':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/inputs':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        patch:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/inputs/status':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/inputs/{id}':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/searches':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        patch:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models/{model_id}/versions':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/workflows/{workflow_id}/results':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models/{model_id}/feedback':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/searches/feedback':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/concepts':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        patch:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/concepts/searches':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models/searches':
+        post:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models/{model_id}':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models/{model_id}/inputs':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models/{model_id}/output_info':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models/{model_id}/versions/{version_id}':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+        delete:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+      '/v2/models/{model_id}/versions/{version_id}/inputs':
+        get:
+          operations_prediction_prebuilt:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_prediction_custom:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 3.20
+          operations_search:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          operations_addEdit:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1.20
+          hosting_customModel:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 0.50
+          hosting_images:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          training_customModel:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1
+                  cost: 1.20
+          training_visualSearch:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          training_retraining:
+            - max: 0
+              period: 
+                amount: 1
+                unit: month
+          total_inputs:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          total_operations:
+            - max: unlimited
+              period: 
+                amount: 1
+                unit: month
+          batchSize_image_regular:
+            - max: 32
+          batchSize_image_workflow:
+            - max: 16
+          batchSize_video:
+            - max: 1
+          batchSize_search:
+            - max: 1
+          batchSize_other:
+            - max: 4
+    rates:
+      '/v2/models/{model_id}/outputs':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/versions/{version_id}/outputs':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/inputs':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        patch:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/inputs/status':
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/inputs/{id}':
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/searches':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        patch:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/versions':
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/workflows/{workflow_id}/results':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/feedback':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/searches/feedback':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/concepts':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        patch:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/concepts/searches':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/searches':
+        post:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}':
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/inputs':
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/output_info':
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/versions/{version_id}':
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+        delete:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+      '/v2/models/{model_id}/versions/{version_id}/inputs':
+        get:
+          requests_imagePredict:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+          requests_videoPredict:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+          requests_search:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+          requests_other:
+            - max: 4
+              period: 
+                amount: 1
+                unit: second
+

@@ -1,0 +1,336 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/fullcontact/fullcontact.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  matches:
+    type: integer
+    format: int64
+    description: Number of matches
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  SelfServe:
+    pricing:
+      cost: 0 #1499 (prepaid monthly)
+      # Resolve ($0.002 Per Match)
+      # Affinities ($0.01 Per Match)
+      # Employment History ($0.01 Per Match)
+      # Individual ($0.01 Per Match)
+      # Location ($0.01 Per Match)
+      # Mobile Advertising IDs (MAIDs) ($0.01 Per Match)
+      # Social ($0.01 Per Match)
+      # Automotive ($0.07 Per Match)
+      # Demographic ($0.07 Per Match)
+      # Email Hash ($0.07 Per Match)
+      # Finances ($0.07 Per Match)
+      # Household ($0.07 Per Match)
+      # Lifestyle ($0.07 Per Match)
+      # Professional ($0.07 Per Match)
+      # Purchases ($0.07 Per Match)
+      # Shopping Habits ($0.07 Per Match)
+    quotas:
+      'v3/person.enrich':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v3/company.enrich':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v3/company.search':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v2/person.json':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v3/person.subscribe':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v3/person.testSubscription':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v3/person.unsubscribe':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v3/stats.get':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v3/identity.map':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v3/identity.resolve':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.002
+      'v3/identity.delete':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v2/verification/email':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v2/stats.json':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v2/stats.xml':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v2/person.xml':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v2/person.html':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v2/company/lookup.json':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v2/company/search.json':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+      'v2/company/lookup':
+        post:
+          matches:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.04325 # avg cost for simplicity
+    rates:
+      'v3/person.enrich':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v3/company.enrich':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v3/company.search':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v2/person.json':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v3/person.subscribe':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v3/person.testSubscription':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v3/person.unsubscribe':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v3/stats.get':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v3/identity.map':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v3/identity.resolve':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v3/identity.delete':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v2/verification/email':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v2/stats.json':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v2/stats.xml':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v2/person.xml':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v2/person.html':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v2/company/lookup.json':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v2/company/search.json':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second
+      'v2/company/lookup':
+        post:
+          requests:
+            - max: 600
+              period: 
+                amount: 60
+                unit: second

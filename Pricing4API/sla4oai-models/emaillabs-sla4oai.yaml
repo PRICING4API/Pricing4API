@@ -1,0 +1,777 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/emaillabs/emaillabs.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  querySize:
+    type: integer
+    format: int64
+    description: Query size in MB
+    resolution: consumption
+    unit: MB
+  querySizeSum:
+    type: integer
+    format: int64
+    description: Aggregated query size in MB
+    resolution: consumption
+    unit: MB
+  history:
+    type: integer
+    format: int64
+    description: Days back in statistics
+    resolution: consumption
+  emails:
+    type: integer
+    format: int64
+    description: Number of emails sent
+    resolution: consumption
+pricing:
+  cost: 0
+  period:
+    amount: 1
+    unit: month 
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Startup:
+    pricing:
+      cost: 0     
+    quotas:
+      '/add_template':
+        post:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/agregate':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+          history:
+            - max: 62
+      '/agregate_tags':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+          history:
+            - max: 62
+      '/blacklist_reasons':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists_multi':
+        post:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists/email/{adres_e-mail}':
+        delete:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists/email/{e-mail}':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/clicks':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/delete_temlate/{template_id}':
+        delete:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/emails':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/get_event_api':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/get_event_api_logs':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/is_mail_tmp/email/{e-mail}':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/new_sendmail':
+        post:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+          querySize:
+            - max: 10
+          querySizeSum:
+            - max: 10000
+      '/opens':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/sendmail_templates':
+        post:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+          querySize:
+            - max: 10
+          querySizeSum:
+            - max: 10000
+      '/smtp':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/smtp_events/{status}':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/smtp/':
+        post:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+      '/vps/':
+        get:
+          emails:
+            - max: 800
+              period:
+                amount: 1
+                unit: day
+            - max: 24000
+              period:
+                amount: 1
+                unit: month
+  Essential:
+    pricing:
+      cost: 23.02     
+    quotas:
+      '/add_template':
+        post:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/agregate':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+          history:
+            - max: 62
+      '/agregate_tags':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+          history:
+            - max: 62
+      '/blacklist_reasons':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists_multi':
+        post:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists/email/{adres_e-mail}':
+        delete:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists/email/{e-mail}':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/clicks':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/delete_temlate/{template_id}':
+        delete:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/emails':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/get_event_api':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/get_event_api_logs':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/is_mail_tmp/email/{e-mail}':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/new_sendmail':
+        post:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+          querySize:
+            - max: 10
+          querySizeSum:
+            - max: 10000
+      '/opens':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/sendmail_templates':
+        post:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+          querySize:
+            - max: 10
+          querySizeSum:
+            - max: 10000
+      '/smtp':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/smtp_events/{status}':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/smtp/':
+        post:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+      '/vps/':
+        get:
+          emails:
+            - max: 40000
+              period:
+                amount: 1
+                unit: month
+  Pro:
+    pricing:
+      cost: 92.78
+    quotas:
+      '/add_template':
+        post:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/agregate':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+          history:
+            - max: 62
+      '/agregate_tags':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+          history:
+            - max: 62
+      '/blacklist_reasons':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists_multi':
+        post:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists/email/{adres_e-mail}':
+        delete:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists/email/{e-mail}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/clicks':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/delete_temlate/{template_id}':
+        delete:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/emails':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/get_event_api':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/get_event_api_logs':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/is_mail_tmp/email/{e-mail}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/new_sendmail':
+        post:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+          querySize:
+            - max: 10
+          querySizeSum:
+            - max: 10000
+      '/opens':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/sendmail_templates':
+        post:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+          querySize:
+            - max: 10
+          querySizeSum:
+            - max: 10000
+      '/smtp':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/smtp_events/{status}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/smtp/':
+        post:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+      '/vps/':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+  Enterprise:
+    pricing:
+      cost: 395.05
+    quotas:
+      '/add_template':
+        post:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/agregate':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          history:
+            - max: 62
+      '/agregate_tags':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          history:
+            - max: 62
+      '/blacklist_reasons':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists_multi':
+        post:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists/email/{adres_e-mail}':
+        delete:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/blacklists/email/{e-mail}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/clicks':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/delete_temlate/{template_id}':
+        delete:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/emails':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/get_event_api':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/get_event_api_logs':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/is_mail_tmp/email/{e-mail}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/new_sendmail':
+        post:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          querySize:
+            - max: 10
+          querySizeSum:
+            - max: 1000000
+      '/opens':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/sendmail_templates':
+        post:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          querySize:
+            - max: 10
+          querySizeSum:
+            - max: 1000000
+      '/smtp':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/smtp_events/{status}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/smtp/':
+        post:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      '/vps/':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month

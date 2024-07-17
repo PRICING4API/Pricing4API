@@ -1,0 +1,6804 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/dropbox/dropbox.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: http://supervisor.oai.governify.io/api/v2
+  monitor: http://monitor.oai.governify.io/api/v1
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests, regarding the resource
+    resolution: consumption
+  storage:
+    type: integer
+    format: int64
+    description: Number of storage in GB
+    resolution: consumption
+    unit: GB
+  uploadSize:
+    type: integer
+    description: Number of transfer sizer in GB
+    unit: GB
+  users:
+    type: integer
+    format: int64
+    description: Number of users
+    resolution: consumption
+pricing:
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Basic:
+    pricing:
+      cost: 0
+    rates:
+      /2/contacts/delete_manual_contacts:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/overwrite:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/add_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/get_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/list_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/remove_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/update_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/create:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/alpha/get_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch/check_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/save:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_upload_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_revisions:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch/check_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/permanently_delete:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/overwrite:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/restore:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url/check_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/search:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/archive:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/create:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/download:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/get_folder_info:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/permanently_delete:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/set:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/change_file_member_access:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_remove_member_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_share_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata/batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_folder_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_link_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_links:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_shared_links:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/modify_shared_link_settings:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/mount_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_file_membership:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_folder_membership:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member_2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/revoke_shared_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/set_access_inheritance:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/share_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/transfer_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unmount_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_file:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_policy:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_current_account:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_space_usage:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+    quotas:
+      /2/files/get_temporary_upload_link:
+        get:
+          storage:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          uploadSize:
+            - max: 0.1
+          users:
+            - max: 1
+      /2/files/upload_session/finish_batch:
+        get:
+          uploadSize:
+            - max: 0.1
+          storage:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          users:
+            - max: 1
+      /2/files/upload_session/finish_batch/check:
+        get:
+          uploadSize:
+            - max: 0.1
+          storage:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          users:
+            - max: 1
+      /2/contacts/delete_manual_contacts:
+        get:
+          users:
+            - max: 1
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/add:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/overwrite:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/remove:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/search:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/search/continue:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/update:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/add_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/get_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/list_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/remove_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/update_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/create:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/get:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/list:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/update:
+        get:
+          users:
+            - max: 1
+      /2/files/alpha/get_metadata:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_batch/check_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_batch_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_reference/get:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_reference/save:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/create_folder_batch:
+        get:
+          users:
+            - max: 1
+      /2/files/create_folder_batch/check:
+        get:
+          users:
+            - max: 1
+      /2/files/create_folder_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/delete_batch:
+        get:
+          users:
+            - max: 1
+      /2/files/delete_batch/check:
+        get:
+          users:
+            - max: 1
+      /2/files/delete_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/get_metadata:
+        get:
+          users:
+            - max: 1
+      /2/files/get_temporary_link:
+        get:
+          users:
+            - max: 1
+      /2/files/list_folder:
+        get:
+          users:
+            - max: 1
+      /2/files/list_folder/continue:
+        get:
+          users:
+            - max: 1
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          users:
+            - max: 1
+      /2/files/list_revisions:
+        get:
+          users:
+            - max: 1
+      /2/files/move_batch/check_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/move_batch_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/move_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/permanently_delete:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/add:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/overwrite:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/remove:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/template/get:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/template/list:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/update:
+        get:
+          users:
+            - max: 1
+      /2/files/restore:
+        get:
+          users:
+            - max: 1
+      /2/files/save_url:
+        get:
+          users:
+            - max: 1
+      /2/files/save_url/check_job_status:
+        get:
+          users:
+            - max: 1
+      /2/files/search:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/archive:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/create:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/download:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/folder_users/list:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/get_folder_info:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/list:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/list/continue:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/permanently_delete:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/sharing_policy/get:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/sharing_policy/set:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/update:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/add:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/list:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/list/continue:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/remove:
+        get:
+          users:
+            - max: 1
+      /2/sharing/add_file_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/add_folder_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/change_file_member_access:
+        get:
+          users:
+            - max: 1
+      /2/sharing/check_job_status:
+        get:
+          users:
+            - max: 1
+      /2/sharing/check_remove_member_job_status:
+        get:
+          users:
+            - max: 1
+      /2/sharing/check_share_job_status:
+        get:
+          users:
+            - max: 1
+      /2/sharing/create_shared_link:
+        get:
+          users:
+            - max: 1
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_file_metadata:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_file_metadata/batch:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_folder_metadata:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_shared_link_metadata:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_shared_links:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_file_members:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_file_members/batch:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_file_members/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folder_members:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folder_members/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folders:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folders/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_mountable_folders:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_received_files:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_received_files/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_shared_links:
+        get:
+          users:
+            - max: 1
+      /2/sharing/modify_shared_link_settings:
+        get:
+          users:
+            - max: 1
+      /2/sharing/mount_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/relinquish_file_membership:
+        get:
+          users:
+            - max: 1
+      /2/sharing/relinquish_folder_membership:
+        get:
+          users:
+            - max: 1
+      /2/sharing/remove_file_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/remove_file_member_2:
+        get:
+          users:
+            - max: 1
+      /2/sharing/remove_folder_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/revoke_shared_link:
+        get:
+          users:
+            - max: 1
+      /2/sharing/set_access_inheritance:
+        get:
+          users:
+            - max: 1
+      /2/sharing/share_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/transfer_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/unmount_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/unshare_file:
+        get:
+          users:
+            - max: 1
+      /2/sharing/unshare_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/update_file_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/update_folder_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/update_folder_policy:
+        get:
+          users:
+            - max: 1
+      /2/users/get_account:
+        get:
+          users:
+            - max: 1
+      /2/users/get_account_batch:
+        get:
+          users:
+            - max: 1
+      /2/users/get_current_account:
+        get:
+          users:
+            - max: 1
+      /2/users/get_space_usage:
+        get:
+          users:
+            - max: 1
+  Plus:
+    pricing:
+      cost: 11.99
+    rates:
+      /2/contacts/delete_manual_contacts:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/overwrite:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/add_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/get_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/list_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/remove_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/update_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/create:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/alpha/get_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch/check_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/save:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_upload_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_revisions:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch/check_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/permanently_delete:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/overwrite:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/restore:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url/check_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/search:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/archive:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/create:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/download:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/get_folder_info:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/permanently_delete:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/set:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/change_file_member_access:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_remove_member_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_share_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata/batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_folder_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_link_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_links:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_shared_links:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/modify_shared_link_settings:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/mount_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_file_membership:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_folder_membership:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member_2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/revoke_shared_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/set_access_inheritance:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/share_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/transfer_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unmount_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_file:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_policy:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_current_account:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_space_usage:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+    quotas:
+      /2/files/get_temporary_upload_link:
+        get:
+          storage:
+            - max: 2000
+              period:
+                amount: 1
+                unit: forever
+          uploadSize:
+            - max: 2
+          users:
+            - max: 1
+      /2/files/upload_session/finish_batch:
+        get:
+          uploadSize:
+            - max: 2
+          storage:
+            - max: 2000
+              period:
+                amount: 1
+                unit: forever
+          users:
+            - max: 1
+      /2/files/upload_session/finish_batch/check:
+        get:
+          uploadSize:
+            - max: 2
+          storage:
+            - max: 2000
+              period:
+                amount: 1
+                unit: forever
+          users:
+            - max: 1
+      /2/contacts/delete_manual_contacts:
+        get:
+          users:
+            - max: 1
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/add:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/overwrite:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/remove:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/search:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/search/continue:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/update:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/add_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/get_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/list_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/remove_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/update_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/create:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/get:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/list:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/update:
+        get:
+          users:
+            - max: 1
+      /2/files/alpha/get_metadata:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_batch/check_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_batch_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_reference/get:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_reference/save:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/create_folder_batch:
+        get:
+          users:
+            - max: 1
+      /2/files/create_folder_batch/check:
+        get:
+          users:
+            - max: 1
+      /2/files/create_folder_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/delete_batch:
+        get:
+          users:
+            - max: 1
+      /2/files/delete_batch/check:
+        get:
+          users:
+            - max: 1
+      /2/files/delete_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/get_metadata:
+        get:
+          users:
+            - max: 1
+      /2/files/get_temporary_link:
+        get:
+          users:
+            - max: 1
+      /2/files/list_folder:
+        get:
+          users:
+            - max: 1
+      /2/files/list_folder/continue:
+        get:
+          users:
+            - max: 1
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          users:
+            - max: 1
+      /2/files/list_revisions:
+        get:
+          users:
+            - max: 1
+      /2/files/move_batch/check_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/move_batch_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/move_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/permanently_delete:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/add:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/overwrite:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/remove:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/template/get:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/template/list:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/update:
+        get:
+          users:
+            - max: 1
+      /2/files/restore:
+        get:
+          users:
+            - max: 1
+      /2/files/save_url:
+        get:
+          users:
+            - max: 1
+      /2/files/save_url/check_job_status:
+        get:
+          users:
+            - max: 1
+      /2/files/search:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/archive:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/create:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/download:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/folder_users/list:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/get_folder_info:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/list:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/list/continue:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/permanently_delete:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/sharing_policy/get:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/sharing_policy/set:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/update:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/add:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/list:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/list/continue:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/remove:
+        get:
+          users:
+            - max: 1
+      /2/sharing/add_file_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/add_folder_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/change_file_member_access:
+        get:
+          users:
+            - max: 1
+      /2/sharing/check_job_status:
+        get:
+          users:
+            - max: 1
+      /2/sharing/check_remove_member_job_status:
+        get:
+          users:
+            - max: 1
+      /2/sharing/check_share_job_status:
+        get:
+          users:
+            - max: 1
+      /2/sharing/create_shared_link:
+        get:
+          users:
+            - max: 1
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_file_metadata:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_file_metadata/batch:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_folder_metadata:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_shared_link_metadata:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_shared_links:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_file_members:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_file_members/batch:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_file_members/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folder_members:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folder_members/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folders:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folders/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_mountable_folders:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_received_files:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_received_files/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_shared_links:
+        get:
+          users:
+            - max: 1
+      /2/sharing/modify_shared_link_settings:
+        get:
+          users:
+            - max: 1
+      /2/sharing/mount_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/relinquish_file_membership:
+        get:
+          users:
+            - max: 1
+      /2/sharing/relinquish_folder_membership:
+        get:
+          users:
+            - max: 1
+      /2/sharing/remove_file_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/remove_file_member_2:
+        get:
+          users:
+            - max: 1
+      /2/sharing/remove_folder_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/revoke_shared_link:
+        get:
+          users:
+            - max: 1
+      /2/sharing/set_access_inheritance:
+        get:
+          users:
+            - max: 1
+      /2/sharing/share_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/transfer_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/unmount_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/unshare_file:
+        get:
+          users:
+            - max: 1
+      /2/sharing/unshare_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/update_file_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/update_folder_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/update_folder_policy:
+        get:
+          users:
+            - max: 1
+      /2/users/get_account:
+        get:
+          users:
+            - max: 1
+      /2/users/get_account_batch:
+        get:
+          users:
+            - max: 1
+      /2/users/get_current_account:
+        get:
+          users:
+            - max: 1
+      /2/users/get_space_usage:
+        get:
+          users:
+            - max: 1
+  Family:
+    pricing:
+      cost: 16.99
+    rates:
+      /2/contacts/delete_manual_contacts:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/overwrite:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/add_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/get_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/list_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/remove_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/update_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/create:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/alpha/get_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch/check_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/save:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_upload_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_revisions:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch/check_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/permanently_delete:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/overwrite:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/restore:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url/check_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/search:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/archive:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/create:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/download:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/get_folder_info:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/permanently_delete:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/set:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/change_file_member_access:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_remove_member_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_share_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata/batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_folder_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_link_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_links:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_shared_links:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/modify_shared_link_settings:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/mount_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_file_membership:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_folder_membership:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member_2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/revoke_shared_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/set_access_inheritance:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/share_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/transfer_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unmount_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_file:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_policy:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_current_account:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_space_usage:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+    quotas:
+      /2/files/get_temporary_upload_link:
+        get:
+          storage:
+            - max: 2000
+              period:
+                amount: 1
+                unit: forever
+          uploadSize:
+            - max: 2
+          users:
+            - max: 6
+      /2/files/upload_session/finish_batch:
+        get:
+          uploadSize:
+            - max: 2
+          storage:
+            - max: 2000
+              period:
+                amount: 1
+                unit: forever
+          users:
+            - max: 6
+      /2/files/upload_session/finish_batch/check:
+        get:
+          uploadSize:
+            - max: 2
+          storage:
+            - max: 2000
+              period:
+                amount: 1
+                unit: forever
+          users:
+            - max: 6
+      /2/contacts/delete_manual_contacts:
+        get:
+          users:
+            - max: 6
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/properties/add:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/properties/overwrite:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/properties/remove:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/properties/search:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/properties/search/continue:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/properties/update:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/templates/add_for_user:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/templates/get_for_user:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/templates/list_for_user:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/templates/remove_for_user:
+        get:
+          users:
+            - max: 6
+      /2/file_properties/templates/update_for_user:
+        get:
+          users:
+            - max: 6
+      /2/file_requests/create:
+        get:
+          users:
+            - max: 6
+      /2/file_requests/get:
+        get:
+          users:
+            - max: 6
+      /2/file_requests/list:
+        get:
+          users:
+            - max: 6
+      /2/file_requests/update:
+        get:
+          users:
+            - max: 6
+      /2/files/alpha/get_metadata:
+        get:
+          users:
+            - max: 6
+      /2/files/copy_batch/check_v2:
+        get:
+          users:
+            - max: 6
+      /2/files/copy_batch_v2:
+        get:
+          users:
+            - max: 6
+      /2/files/copy_reference/get:
+        get:
+          users:
+            - max: 6
+      /2/files/copy_reference/save:
+        get:
+          users:
+            - max: 6
+      /2/files/copy_v2:
+        get:
+          users:
+            - max: 6
+      /2/files/create_folder_batch:
+        get:
+          users:
+            - max: 6
+      /2/files/create_folder_batch/check:
+        get:
+          users:
+            - max: 6
+      /2/files/create_folder_v2:
+        get:
+          users:
+            - max: 6
+      /2/files/delete_batch:
+        get:
+          users:
+            - max: 6
+      /2/files/delete_batch/check:
+        get:
+          users:
+            - max: 6
+      /2/files/delete_v2:
+        get:
+          users:
+            - max: 6
+      /2/files/get_metadata:
+        get:
+          users:
+            - max: 6
+      /2/files/get_temporary_link:
+        get:
+          users:
+            - max: 6
+      /2/files/list_folder:
+        get:
+          users:
+            - max: 6
+      /2/files/list_folder/continue:
+        get:
+          users:
+            - max: 6
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          users:
+            - max: 6
+      /2/files/list_revisions:
+        get:
+          users:
+            - max: 6
+      /2/files/move_batch/check_v2:
+        get:
+          users:
+            - max: 6
+      /2/files/move_batch_v2:
+        get:
+          users:
+            - max: 6
+      /2/files/move_v2:
+        get:
+          users:
+            - max: 6
+      /2/files/permanently_delete:
+        get:
+          users:
+            - max: 6
+      /2/files/properties/add:
+        get:
+          users:
+            - max: 6
+      /2/files/properties/overwrite:
+        get:
+          users:
+            - max: 6
+      /2/files/properties/remove:
+        get:
+          users:
+            - max: 6
+      /2/files/properties/template/get:
+        get:
+          users:
+            - max: 6
+      /2/files/properties/template/list:
+        get:
+          users:
+            - max: 6
+      /2/files/properties/update:
+        get:
+          users:
+            - max: 6
+      /2/files/restore:
+        get:
+          users:
+            - max: 6
+      /2/files/save_url:
+        get:
+          users:
+            - max: 6
+      /2/files/save_url/check_job_status:
+        get:
+          users:
+            - max: 6
+      /2/files/search:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/archive:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/create:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/download:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/folder_users/list:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/get_folder_info:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/list:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/list/continue:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/permanently_delete:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/sharing_policy/get:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/sharing_policy/set:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/update:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/users/add:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/users/list:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/users/list/continue:
+        get:
+          users:
+            - max: 6
+      /2/paper/docs/users/remove:
+        get:
+          users:
+            - max: 6
+      /2/sharing/add_file_member:
+        get:
+          users:
+            - max: 6
+      /2/sharing/add_folder_member:
+        get:
+          users:
+            - max: 6
+      /2/sharing/change_file_member_access:
+        get:
+          users:
+            - max: 6
+      /2/sharing/check_job_status:
+        get:
+          users:
+            - max: 6
+      /2/sharing/check_remove_member_job_status:
+        get:
+          users:
+            - max: 6
+      /2/sharing/check_share_job_status:
+        get:
+          users:
+            - max: 6
+      /2/sharing/create_shared_link:
+        get:
+          users:
+            - max: 6
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          users:
+            - max: 6
+      /2/sharing/get_file_metadata:
+        get:
+          users:
+            - max: 6
+      /2/sharing/get_file_metadata/batch:
+        get:
+          users:
+            - max: 6
+      /2/sharing/get_folder_metadata:
+        get:
+          users:
+            - max: 6
+      /2/sharing/get_shared_link_metadata:
+        get:
+          users:
+            - max: 6
+      /2/sharing/get_shared_links:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_file_members:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_file_members/batch:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_file_members/continue:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_folder_members:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_folder_members/continue:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_folders:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_folders/continue:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_mountable_folders:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_received_files:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_received_files/continue:
+        get:
+          users:
+            - max: 6
+      /2/sharing/list_shared_links:
+        get:
+          users:
+            - max: 6
+      /2/sharing/modify_shared_link_settings:
+        get:
+          users:
+            - max: 6
+      /2/sharing/mount_folder:
+        get:
+          users:
+            - max: 6
+      /2/sharing/relinquish_file_membership:
+        get:
+          users:
+            - max: 6
+      /2/sharing/relinquish_folder_membership:
+        get:
+          users:
+            - max: 6
+      /2/sharing/remove_file_member:
+        get:
+          users:
+            - max: 6
+      /2/sharing/remove_file_member_2:
+        get:
+          users:
+            - max: 6
+      /2/sharing/remove_folder_member:
+        get:
+          users:
+            - max: 6
+      /2/sharing/revoke_shared_link:
+        get:
+          users:
+            - max: 6
+      /2/sharing/set_access_inheritance:
+        get:
+          users:
+            - max: 6
+      /2/sharing/share_folder:
+        get:
+          users:
+            - max: 6
+      /2/sharing/transfer_folder:
+        get:
+          users:
+            - max: 6
+      /2/sharing/unmount_folder:
+        get:
+          users:
+            - max: 6
+      /2/sharing/unshare_file:
+        get:
+          users:
+            - max: 6
+      /2/sharing/unshare_folder:
+        get:
+          users:
+            - max: 6
+      /2/sharing/update_file_member:
+        get:
+          users:
+            - max: 6
+      /2/sharing/update_folder_member:
+        get:
+          users:
+            - max: 6
+      /2/sharing/update_folder_policy:
+        get:
+          users:
+            - max: 6
+      /2/users/get_account:
+        get:
+          users:
+            - max: 6
+      /2/users/get_account_batch:
+        get:
+          users:
+            - max: 6
+      /2/users/get_current_account:
+        get:
+          users:
+            - max: 6
+      /2/users/get_space_usage:
+        get:
+          users:
+            - max: 6
+  Professional:
+    pricing:
+      cost: 19.99
+    rates:
+      /2/contacts/delete_manual_contacts:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/overwrite:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/add_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/get_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/list_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/remove_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/update_for_user:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/create:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/alpha/get_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch/check_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/save:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_upload_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_revisions:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch/check_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_v2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/permanently_delete:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/overwrite:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/restore:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url/check_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/search:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch/check:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/archive:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/create:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/download:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/get_folder_info:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/permanently_delete:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/get:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/set:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/update:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/add:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/remove:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/change_file_member_access:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_remove_member_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_share_job_status:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata/batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_folder_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_link_metadata:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_links:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files/continue:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_shared_links:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/modify_shared_link_settings:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/mount_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_file_membership:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_folder_membership:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member_2:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/revoke_shared_link:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/set_access_inheritance:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/share_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/transfer_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unmount_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_file:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_folder:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_file_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_member:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_policy:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account_batch:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_current_account:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_space_usage:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+    quotas:
+      /2/files/get_temporary_upload_link:
+        get:
+          storage:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          uploadSize:
+            - max: 100
+          users:
+            - max: 1
+      /2/files/upload_session/finish_batch:
+        get:
+          uploadSize:
+            - max: 100
+          storage:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          users:
+            - max: 1
+      /2/files/upload_session/finish_batch/check:
+        get:
+          uploadSize:
+            - max: 100
+          storage:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          users:
+            - max: 1
+      /2/contacts/delete_manual_contacts:
+        get:
+          users:
+            - max: 1
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/add:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/overwrite:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/remove:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/search:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/search/continue:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/properties/update:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/add_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/get_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/list_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/remove_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_properties/templates/update_for_user:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/create:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/get:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/list:
+        get:
+          users:
+            - max: 1
+      /2/file_requests/update:
+        get:
+          users:
+            - max: 1
+      /2/files/alpha/get_metadata:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_batch/check_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_batch_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_reference/get:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_reference/save:
+        get:
+          users:
+            - max: 1
+      /2/files/copy_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/create_folder_batch:
+        get:
+          users:
+            - max: 1
+      /2/files/create_folder_batch/check:
+        get:
+          users:
+            - max: 1
+      /2/files/create_folder_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/delete_batch:
+        get:
+          users:
+            - max: 1
+      /2/files/delete_batch/check:
+        get:
+          users:
+            - max: 1
+      /2/files/delete_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/get_metadata:
+        get:
+          users:
+            - max: 1
+      /2/files/get_temporary_link:
+        get:
+          users:
+            - max: 1
+      /2/files/list_folder:
+        get:
+          users:
+            - max: 1
+      /2/files/list_folder/continue:
+        get:
+          users:
+            - max: 1
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          users:
+            - max: 1
+      /2/files/list_revisions:
+        get:
+          users:
+            - max: 1
+      /2/files/move_batch/check_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/move_batch_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/move_v2:
+        get:
+          users:
+            - max: 1
+      /2/files/permanently_delete:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/add:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/overwrite:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/remove:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/template/get:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/template/list:
+        get:
+          users:
+            - max: 1
+      /2/files/properties/update:
+        get:
+          users:
+            - max: 1
+      /2/files/restore:
+        get:
+          users:
+            - max: 1
+      /2/files/save_url:
+        get:
+          users:
+            - max: 1
+      /2/files/save_url/check_job_status:
+        get:
+          users:
+            - max: 1
+      /2/files/search:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/archive:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/create:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/download:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/folder_users/list:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/get_folder_info:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/list:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/list/continue:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/permanently_delete:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/sharing_policy/get:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/sharing_policy/set:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/update:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/add:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/list:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/list/continue:
+        get:
+          users:
+            - max: 1
+      /2/paper/docs/users/remove:
+        get:
+          users:
+            - max: 1
+      /2/sharing/add_file_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/add_folder_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/change_file_member_access:
+        get:
+          users:
+            - max: 1
+      /2/sharing/check_job_status:
+        get:
+          users:
+            - max: 1
+      /2/sharing/check_remove_member_job_status:
+        get:
+          users:
+            - max: 1
+      /2/sharing/check_share_job_status:
+        get:
+          users:
+            - max: 1
+      /2/sharing/create_shared_link:
+        get:
+          users:
+            - max: 1
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_file_metadata:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_file_metadata/batch:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_folder_metadata:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_shared_link_metadata:
+        get:
+          users:
+            - max: 1
+      /2/sharing/get_shared_links:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_file_members:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_file_members/batch:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_file_members/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folder_members:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folder_members/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folders:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_folders/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_mountable_folders:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_received_files:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_received_files/continue:
+        get:
+          users:
+            - max: 1
+      /2/sharing/list_shared_links:
+        get:
+          users:
+            - max: 1
+      /2/sharing/modify_shared_link_settings:
+        get:
+          users:
+            - max: 1
+      /2/sharing/mount_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/relinquish_file_membership:
+        get:
+          users:
+            - max: 1
+      /2/sharing/relinquish_folder_membership:
+        get:
+          users:
+            - max: 1
+      /2/sharing/remove_file_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/remove_file_member_2:
+        get:
+          users:
+            - max: 1
+      /2/sharing/remove_folder_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/revoke_shared_link:
+        get:
+          users:
+            - max: 1
+      /2/sharing/set_access_inheritance:
+        get:
+          users:
+            - max: 1
+      /2/sharing/share_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/transfer_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/unmount_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/unshare_file:
+        get:
+          users:
+            - max: 1
+      /2/sharing/unshare_folder:
+        get:
+          users:
+            - max: 1
+      /2/sharing/update_file_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/update_folder_member:
+        get:
+          users:
+            - max: 1
+      /2/sharing/update_folder_policy:
+        get:
+          users:
+            - max: 1
+      /2/users/get_account:
+        get:
+          users:
+            - max: 1
+      /2/users/get_account_batch:
+        get:
+          users:
+            - max: 1
+      /2/users/get_current_account:
+        get:
+          users:
+            - max: 1
+      /2/users/get_space_usage:
+        get:
+          users:
+            - max: 1
+  Standard:
+    pricing:
+      cost: 36
+    rates:
+      /2/contacts/delete_manual_contacts:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/add:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/overwrite:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/remove:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/update:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/add_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/get_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/list_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/remove_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/update_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/create:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/get:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/update:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/alpha/get_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch/check_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/get:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/save:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch/check:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch/check:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_link:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_upload_link:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_revisions:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch/check_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/permanently_delete:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/add:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/overwrite:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/remove:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/get:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/update:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/restore:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url/check_job_status:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/search:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch/check:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/archive:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/create:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/download:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/get_folder_info:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/permanently_delete:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/get:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/set:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/update:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/add:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/remove:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_file_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_folder_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/change_file_member_access:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_job_status:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_remove_member_job_status:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_share_job_status:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata/batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_folder_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_link_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_links:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_shared_links:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/modify_shared_link_settings:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/mount_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_file_membership:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_folder_membership:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member_2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_folder_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/revoke_shared_link:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/set_access_inheritance:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/share_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/transfer_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unmount_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_file:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_file_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_policy:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_current_account:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_space_usage:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+    quotas:
+      /2/files/get_temporary_upload_link:
+        get:
+          storage:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          uploadSize:
+            - max: 2
+      /2/files/upload_session/finish_batch:
+        get:
+          uploadSize:
+            - max: 2
+          storage:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+      /2/files/upload_session/finish_batch/check:
+        get:
+          uploadSize:
+            - max: 2
+          storage:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+  Advanced:
+    pricing:
+      cost: 54
+    rates:
+      /2/contacts/delete_manual_contacts:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/contacts/delete_manual_contacts_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/add:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/overwrite:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/remove:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/search/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/properties/update:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/add_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/get_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/list_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/remove_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_properties/templates/update_for_user:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/create:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/get:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/file_requests/update:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/alpha/get_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch/check_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_batch_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/get:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_reference/save:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/copy_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_batch/check:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/create_folder_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_batch/check:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/delete_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_link:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/get_temporary_upload_link:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_folder/get_latest_cursor:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/list_revisions:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch/check_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_batch_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/move_v2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/permanently_delete:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/add:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/overwrite:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/remove:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/get:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/template/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/properties/update:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/restore:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/save_url/check_job_status:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/search:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/files/upload_session/finish_batch/check:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/archive:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/create:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/download:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/folder_users/list/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/get_folder_info:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/list/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/permanently_delete:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/get:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/sharing_policy/set:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/update:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/add:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/list/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/paper/docs/users/remove:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_file_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/add_folder_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/change_file_member_access:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_job_status:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_remove_member_job_status:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/check_share_job_status:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/create_shared_link_with_settings:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_file_metadata/batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_folder_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_link_metadata:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/get_shared_links:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_file_members/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folder_members/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_folders/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_mountable_folders/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_received_files/continue:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/list_shared_links:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/modify_shared_link_settings:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/mount_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_file_membership:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/relinquish_folder_membership:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_file_member_2:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/remove_folder_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/revoke_shared_link:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/set_access_inheritance:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/share_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/transfer_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unmount_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_file:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/unshare_folder:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_file_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_member:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/sharing/update_folder_policy:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_account_batch:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_current_account:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+      /2/users/get_space_usage:
+        get:
+          requests:
+            - max: 25000
+              period:
+                amount: 1
+                unit: month
+    quotas:
+      /2/files/get_temporary_upload_link:
+        get:
+          uploadSize:
+            - max: 100
+      /2/files/upload_session/finish_batch:
+        get:
+          uploadSize:
+            - max: 100
+      /2/files/upload_session/finish_batch/check:
+        get:
+          uploadSize:
+            - max: 100

@@ -1,0 +1,377 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/soundcloud/soundcloud.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  uploadSize:
+    type: integer
+    description: Number of transfer sizer in GB
+    unit: GB
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  free:
+    pricing:
+      cost: 0
+    rates:
+      '/connect':
+        post:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/oauth2/token':
+        post:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/tracks':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/playlists':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/followings':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/followings/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        put:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        delete:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/followers':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/followers/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/comments':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/favorites':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/favorites/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        put:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        delete:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/users/{id}/web-profiles':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/tracks/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        put:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        delete:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/tracks/{id}/comments':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/tracks/{id}/comments/{comment-id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        delete:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/tracks/{id}/favoriters':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/tracks/{id}/favoriters/{user-id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/playlists/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/tracks':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/playlists':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/followings':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/followings/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        put:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        delete:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/followers':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/followers/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/comments':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/favorites':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/favorites/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        put:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+        delete:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/web-profiles':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/connections':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/connections/{id}':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/activities':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/activities/tracks/affiliated':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/activities/tracks/exclusive':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/me/activities/all/own':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/resolve':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+      '/oembed':
+        get:
+          requests:
+            - max: 15000
+              period: 
+                amount: 24
+                unit: hour
+    quotas:
+      '/tracks':
+        post:
+          uploadSize:
+            - max: 0.5

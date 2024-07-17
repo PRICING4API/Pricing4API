@@ -1,0 +1,2750 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/here/plans.oai-at?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  users:
+    type: integer
+    format: int64
+    description: Number of monthly active users
+    resolution: consumption
+  assets:
+    type: integer
+    format: int64
+    description: Number of assets
+    resolution: consumption
+  dataTransfer:
+    type: integer
+    format: int64
+    description: Number of dataTransfer in MB
+    resolution: consumption
+    unit: MB
+  dataStorage:
+    type: integer
+    format: int64
+    description: Number of dataStorage in GB
+    resolution: consumption
+    unit: GB
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Freemium:
+    pricing:
+      cost: 0
+    quotas:
+      '/mia/1.6/mapview':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/weather/1.0/report.xml':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/feedback/':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/6.2/geocode.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/6.2/suggest.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/6.2/jobs':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/places/v1/autosuggest':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/routing/7.2/calculateroute.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/v3/route.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/v1/route':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/traffic/6.3/incidents/xml/8/134/86':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/maptile/2.1/blinetile/{map id}/{scheme}/{zoom}/{column}/{row}/{size}/{format}':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/calculateroute.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/search/proximity.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/search/bbox.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/overlays/upload.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/1/tile.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/matchroute.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/findsequence.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/1/listupdates.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/positioning/v1/locate':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/device-associations/v2/health':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/v1/datasets':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 2.5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 1
+          dataStorage:
+            - max: 5
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+  Addon:
+    pricing:
+      cost: 45
+    quotas:
+      '/mia/1.6/mapview':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/weather/1.0/report.xml':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/feedback/':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/6.2/geocode.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/6.2/suggest.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/6.2/jobs':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/places/v1/autosuggest':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/routing/7.2/calculateroute.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/v3/route.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/v1/route':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/traffic/6.3/incidents/xml/8/134/86':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/maptile/2.1/blinetile/{map id}/{scheme}/{zoom}/{column}/{row}/{size}/{format}':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/calculateroute.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/search/proximity.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/search/bbox.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/overlays/upload.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/1/tile.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/matchroute.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/findsequence.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/1/listupdates.json':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/positioning/v1/locate':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/device-associations/v2/health':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/v1/datasets':
+        get:
+          requests:
+            - max: 250000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+  Pro:
+    pricing:
+      cost: 449
+    quotas:
+      '/mia/1.6/mapview':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/weather/1.0/report.xml':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/feedback/':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/6.2/geocode.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/6.2/suggest.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/6.2/jobs':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/places/v1/autosuggest':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/routing/7.2/calculateroute.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/v3/route.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/v1/route':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/traffic/6.3/incidents/xml/8/134/86':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/maptile/2.1/blinetile/{map id}/{scheme}/{zoom}/{column}/{row}/{size}/{format}':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/calculateroute.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/search/proximity.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/search/bbox.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/overlays/upload.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/1/tile.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/matchroute.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/2/findsequence.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/1/listupdates.json':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/positioning/v1/locate':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/device-associations/v2/health':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3
+      '/v1/datasets':
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 1
+          users:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+          assets:
+            - max: 250
+              period:
+                amount: 1
+                unit: month
+          dataTransfer:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 0.1
+                  cost: 0.45
+          dataStorage:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 5
+                  cost: 3

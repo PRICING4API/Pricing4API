@@ -1,0 +1,56 @@
+context:
+  id: listennotes
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/listennotes-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.005
+      /api/v1/search:
+        get:
+          requests:
+            - max: 10
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.01
+      /api/v1/typeahead:
+        get:
+          requests:
+            - max: 20
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.001

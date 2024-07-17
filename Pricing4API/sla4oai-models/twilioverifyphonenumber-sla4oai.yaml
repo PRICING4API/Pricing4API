@@ -1,0 +1,78 @@
+context:
+  id: twilioverifyphonenumber
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/twilioverifyphonenumber-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 10
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /Services/:serviceSid/VerificationCheck:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+  Pro:
+    pricing:
+      cost: 20
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /Services/:serviceSid/VerificationCheck:
+        post:
+          requests:
+            - max: 400
+              period:
+                amount: 1
+                unit: month
+  Ultra:
+    pricing:
+      cost: 50
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /Services/:serviceSid/VerificationCheck:
+        post:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+  Mega:
+    pricing:
+      cost: 200
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /Services/:serviceSid/VerificationCheck:
+        post:
+          requests:
+            - max: 4000
+              period:
+                amount: 1
+                unit: month

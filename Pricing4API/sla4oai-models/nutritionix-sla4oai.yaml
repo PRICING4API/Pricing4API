@@ -1,0 +1,235 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/nutritionix/nutritionix.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  activeUsers:
+    type: integer
+    format: int64
+    description: 'Number of activeUsers'
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Hacker:
+    pricing:
+      cost: 0
+    quotas:
+      /v2/auth/signin:
+        get:
+          activeUsers:
+            - max: 2
+              period:
+                amount: 1
+                unit: month
+      /v2/locations:
+        get:
+          activeUsers:
+            - max: 2
+              period:
+                amount: 1
+                unit: month
+      /v2/log:
+        get:
+          activeUsers:
+            - max: 2
+              period:
+                amount: 1
+                unit: month
+      /v2/natural/exercise:
+        get:
+          activeUsers:
+            - max: 2
+              period:
+                amount: 1
+                unit: month
+      /v2/natural/nutrient:
+        get:
+          activeUsers:
+            - max: 2
+              period:
+                amount: 1
+                unit: month
+      /v2/natural/nutrients:
+        get:
+          activeUsers:
+            - max: 2
+              period:
+                amount: 1
+                unit: month
+      /v2/search/instant:
+        get:
+          activeUsers:
+            - max: 2
+              period:
+                amount: 1
+                unit: month
+      /v2/search/item:
+        get:
+          activeUsers:
+            - max: 2
+              period:
+                amount: 1
+                unit: month
+  Starter:
+    pricing:
+      cost: 299
+    quotas:
+      /v2/auth/signin:
+        get:
+          activeUsers:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+      /v2/locations:
+        get:
+          activeUsers:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+          requests:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      /v2/log:
+        get:
+          activeUsers:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+      /v2/natural/exercise:
+        get:
+          activeUsers:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+          requests:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      /v2/natural/nutrient:
+        get:
+          activeUsers:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+          requests:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      /v2/natural/nutrients:
+        get:
+          activeUsers:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+          requests:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      /v2/search/instant:
+        get:
+          activeUsers:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+      /v2/search/item:
+        get:
+          activeUsers:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+  MVP:
+    pricing:
+      cost: 499
+    quotas:
+      /v2/auth/signin:
+        get:
+          activeUsers:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /v2/locations:
+        get:
+          activeUsers:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /v2/log:
+        get:
+          activeUsers:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /v2/natural/exercise:
+        get:
+          activeUsers:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /v2/natural/nutrient:
+        get:
+          activeUsers:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /v2/natural/nutrients:
+        get:
+          activeUsers:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /v2/search/instant:
+        get:
+          activeUsers:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+      /v2/search/item:
+        get:
+          activeUsers:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+  Unicorn:
+    pricing:
+      cost: 1250
+    
+    

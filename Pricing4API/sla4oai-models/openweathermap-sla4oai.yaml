@@ -1,0 +1,2516 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/openweathermap/openweathermap.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: http://supervisor.oai.governify.io/api/v2
+  monitor: http://monitor.oai.governify.io/api/v1
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests, regarding the resource
+    resolution: consumption
+  updateFrequency:
+    type: integer
+    format: int64
+    description: Update frequency (hours)
+    resolution: consumption
+    unit: hour
+  timeBack:
+    type: integer
+  squareDegrees:
+    type: integer
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Free:
+    pricing:
+      cost: 0
+    rates:
+      /data/2.5/find:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/weather:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/box/city:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+          squareDegrees:
+            - max: 25
+      /data/2.5/group:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+        post:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+        put:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 60
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: day
+    quotas:
+      /data/2.5/find:
+        get:
+          updateFrequency:
+            - max: 2
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/weather:
+        get:
+          updateFrequency:
+            - max: 2
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/box/city:
+        get:
+          updateFrequency:
+            - max: 2
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/group:
+        get:
+          updateFrequency:
+            - max: 2
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        post:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        put:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        delete:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        delete:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        delete:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: month
+  Startup:
+    pricing:
+      cost: 40
+    rates:
+      /data/2.5/find:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/weather:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/box/city:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+          squareDegrees:
+            - max: 25
+      /data/2.5/group:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/daily:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+        post:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+        put:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 600
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 2000
+              period:
+                amount: 1
+                unit: day
+    quotas:
+      /data/2.5/find:
+        get:
+          updateFrequency:
+            - max: 2
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/weather:
+        get:
+          updateFrequency:
+            - max: 2
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/box/city:
+        get:
+          updateFrequency:
+            - max: 2
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/group:
+        get:
+          updateFrequency:
+            - max: 2
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/forecast/daily:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        post:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        put:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        delete:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        delete:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+        delete:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 2
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 60000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 60000
+              period:
+                amount: 1
+                unit: month
+  Developer:
+    pricing:
+      cost: 180
+    rates:
+      /data/2.5/find:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/weather:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/box/city:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/group:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/daily:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/climate:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /maps/2.0/weather/{op}/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /maps/2.0/relief/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/hourly:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+        post:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+        put:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /data/2.5/find:
+        get:
+          updateFrequency:
+            - max: 1
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/weather:
+        get:
+          updateFrequency:
+            - max: 1
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/box/city:
+        get:
+          updateFrequency:
+            - max: 1
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/group:
+        get:
+          updateFrequency:
+            - max: 1
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+      /maps/2.0/weather/{op}/{z}/{x}/{y}:
+        get:
+          updateFrequency:
+            - max: 3
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/2.5/forecast/daily:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/2.5/forecast/climate:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/2.5/forecast/hourly:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+        post:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+        put:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+        delete:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+        delete:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+        delete:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 1
+      /maps/2.0/relief/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 100000000
+              period:
+                amount: 1
+                unit: month
+  Professional:
+    pricing:
+      cost: 470
+    rates:
+      /data/2.5/find:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/weather:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/box/city:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/group:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/daily:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/climate:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /maps/2.0/weather/{op}/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /maps/2.0/relief/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/hourly:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /snapshot/{BULK_FILE_NAME}:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /archive/{BULK_FILE_NAME}:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+        post:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+        put:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /maps/2.0/radar/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /data/2.5/find:
+        get:
+          updateFrequency:
+            - max: 0.167
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/weather:
+        get:
+          updateFrequency:
+            - max: 0.167
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/box/city:
+        get:
+          updateFrequency:
+            - max: 0.167
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/group:
+        get:
+          updateFrequency:
+            - max: 0.167
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+      /maps/2.0/weather/{op}/{z}/{x}/{y}:
+        get:
+          updateFrequency:
+            - max: 3
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/forecast/daily:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/forecast/climate:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/forecast/hourly:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /snapshot/{BULK_FILE_NAME}:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /archive/{BULK_FILE_NAME}:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        post:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        put:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        delete:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        delete:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        delete:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /maps/2.0/radar/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /maps/2.0/relief/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 1000000000
+              period:
+                amount: 1
+                unit: month
+  Enterprise:
+    pricing:
+      cost: 2000
+    rates:
+      /data/2.5/find:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/weather:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/box/city:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/group:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/daily:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/climate:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /maps/2.0/weather/{op}/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /maps/2.0/relief/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/forecast/hourly:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /snapshot/{BULK_FILE_NAME}:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /archive/{BULK_FILE_NAME}:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/roadrisk:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+        post:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+        put:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+        delete:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /maps/2.0/radar/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /data/2.5/find:
+        get:
+          updateFrequency:
+            - max: 0.167
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/weather:
+        get:
+          updateFrequency:
+            - max: 0.167
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/box/city:
+        get:
+          updateFrequency:
+            - max: 0.167
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/group:
+        get:
+          updateFrequency:
+            - max: 0.167
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+      /maps/2.0/weather/{op}/{z}/{x}/{y}:
+        get:
+          updateFrequency:
+            - max: 3
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+      /map/{layer}/{z}/{x}/{y}.png:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /data/2.5/forecast:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/forecast/daily:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/forecast/climate:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/air_pollution:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/air_pollution/forecast:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/air_pollution/history:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /geo/1.0/direct:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /geo/1.0/reverse:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/uvi:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/uvi/forecast:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/uvi/history:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/forecast/hourly:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /snapshot/{BULK_FILE_NAME}:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /archive/{BULK_FILE_NAME}:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/2.5/roadrisk:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/3.0/triggers:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        post:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/3.0/triggers/{id}:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        put:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        delete:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/3.0/triggers/{id}/history:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        delete:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /data/3.0/triggers/{id}/history/{alert_id}:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+        delete:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 0.167
+      /maps/2.0/radar/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /maps/2.0/relief/{z}/{x}/{y}:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+          updateFrequency:
+            - max: 3
+      /data/2.5/onecall:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+      /data/2.5/onecall/timemachine:
+        get:
+          requests:
+            - max: 5000000000
+              period:
+                amount: 1
+                unit: month
+  Historical-Starter:
+    pricing:
+      cost: 150
+    rates:
+      /data/2.5/history/accumulated_precipitation:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/history/accumulated_temperature:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/history/city:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+    quotas:
+      /data/2.5/history/accumulated_precipitation:
+        get:
+          timeBack:
+            - max: 1
+      /data/2.5/history/accumulated_temperature:
+        get:
+          timeBack:
+            - max: 1
+      /data/2.5/history/city:
+        get:
+          timeBack:
+            - max: 1
+  Historical-Medium:
+    pricing:
+      cost: 950
+    rates:
+      /data/2.5/history/accumulated_precipitation:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/history/accumulated_temperature:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/history/city:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/aggregated/year:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/aggregated/month:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/aggregated/day:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+    quotas:
+      /data/2.5/history/accumulated_precipitation:
+        get:
+          timeBack:
+            - max: 12
+      /data/2.5/history/accumulated_temperature:
+        get:
+          timeBack:
+            - max: 12
+      /data/2.5/history/city:
+        get:
+          timeBack:
+            - max: 12
+  Historical-Advanced:
+    rates:
+      /data/2.5/history/accumulated_precipitation:
+        get:
+          requests:
+            - max: 150000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/history/accumulated_temperature:
+        get:
+          requests:
+            - max: 150000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/history/city:
+        get:
+          requests:
+            - max: 150000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/aggregated/year:
+        get:
+          requests:
+            - max: 150000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/aggregated/month:
+        get:
+          requests:
+            - max: 150000
+              period:
+                amount: 1
+                unit: day
+      /data/2.5/aggregated/day:
+        get:
+          requests:
+            - max: 150000
+              period:
+                amount: 1
+                unit: day
+    quotas:
+      /data/2.5/history/accumulated_precipitation:
+        get:
+          timeBack:
+            - custom: true
+      /data/2.5/history/accumulated_temperature:
+        get:
+          timeBack:
+            - custom: true
+      /data/2.5/history/city:
+        get:
+          timeBack:
+            - custom: true

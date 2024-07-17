@@ -1,0 +1,4627 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/mailgun/mailgun.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  emails:
+    type: integer
+    format: int64
+    description: Number of domains
+    resolution: consumption
+  validations:
+    type: integer
+    format: int64
+    description: Number of validations
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Flex:
+    pricing:
+      cost: 0
+    rates:
+      '/v3/domains':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/connection':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/credentials':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/credentials/{login}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/dkim_authority':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/ips':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/ips/{ip}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/click':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/open':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/unsubscribe':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/verify':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/webhooks':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/webhooks/{webhookname}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/bounces':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/bounces/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/complaints':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/complaints/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/events':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/messages':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/messages/{message_id}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/routes/{id}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/stats':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/stats/total':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/countries':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/devices':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/providers':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/unsubscribes':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/unsubscribes/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+    quotas:
+      '/v3/domains':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/connection':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/credentials':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/credentials/{login}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/dkim_authority':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/ips':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/ips/{ip}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/tracking':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/tracking/click':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/tracking/open':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/tracking/unsubscribe':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/verify':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/webhooks':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/domains/{mydomain}/webhooks/{webhookname}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/bounces':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/bounces/{address}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/complaints':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/complaints/{address}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/events':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/messages':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/messages/{message_id}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/routes/{id}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/stats':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/stats/total':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/tags':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/tags/{tag}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/tags/{tag}/stats':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/countries':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/devices':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/providers':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/unsubscribes':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/{mydomain}/unsubscribes/{address}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/ips':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/ips/{ip}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/lists':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/lists/pages':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/lists/{address}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/lists/{address}/members':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/lists/{address}/members.json':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/lists/{address}/members/pages':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/lists/{address}/members/{memberaddress}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/routes':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/routes/{route}':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/address/parse':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/address/private/validate':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/address/private/varse':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+      '/v3/address/validate':
+        get:
+          emails:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+  Foundation:
+    pricing:
+      cost: 75
+    rates:
+      '/v3/domains':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/connection':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/credentials':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/credentials/{login}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/dkim_authority':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/ips':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/ips/{ip}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/click':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/open':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/unsubscribe':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/verify':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/webhooks':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/webhooks/{webhookname}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/bounces':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/bounces/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/complaints':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/complaints/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/events':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/messages':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/messages/{message_id}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/routes/{id}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/stats':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/stats/total':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/countries':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/devices':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/providers':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/unsubscribes':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/unsubscribes/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+    quotas:
+      '/v3/domains':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/connection':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/credentials':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/credentials/{login}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/dkim_authority':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/ips':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/ips/{ip}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking/click':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking/open':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking/unsubscribe':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/verify':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/webhooks':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/webhooks/{webhookname}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/bounces':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/bounces/{address}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/complaints':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/complaints/{address}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/events':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/messages':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/messages/{message_id}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/routes/{id}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/stats':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/stats/total':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/countries':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/devices':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/providers':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/unsubscribes':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/unsubscribes/{address}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/ips':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/ips/{ip}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/pages':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members.json':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members/pages':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members/{memberaddress}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/routes':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/routes/{route}':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/parse':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/private/validate':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/private/varse':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/validate':
+        get:
+          emails:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 0
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+  Growth:
+    pricing:
+      cost: 650
+    rates:
+      '/v3/domains':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/connection':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/credentials':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/credentials/{login}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/dkim_authority':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/ips':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/ips/{ip}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/click':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/open':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/unsubscribe':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/verify':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/webhooks':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/webhooks/{webhookname}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/bounces':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/bounces/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/complaints':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/complaints/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/events':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/messages':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/messages/{message_id}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/routes/{id}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/stats':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/stats/total':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/countries':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/devices':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/providers':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/unsubscribes':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/unsubscribes/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+    quotas:
+      '/v3/domains':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/connection':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/credentials':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/credentials/{login}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/dkim_authority':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/ips':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/ips/{ip}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking/click':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking/open':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking/unsubscribe':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/verify':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/webhooks':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/webhooks/{webhookname}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/bounces':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/bounces/{address}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/complaints':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/complaints/{address}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/events':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/messages':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/messages/{message_id}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/routes/{id}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/stats':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/stats/total':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/countries':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/devices':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/providers':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/unsubscribes':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/unsubscribes/{address}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/ips':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/ips/{ip}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/pages':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members.json':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members/pages':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members/{memberaddress}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/routes':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/routes/{route}':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/parse':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/private/validate':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/private/varse':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/validate':
+        get:
+          emails:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+  Scale:
+    pricing:
+      cost: 1250
+    rates:
+      '/v3/domains':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/connection':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/credentials':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/credentials/{login}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/dkim_authority':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/ips':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/ips/{ip}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/click':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/open':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/tracking/unsubscribe':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/verify':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/webhooks':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/domains/{mydomain}/webhooks/{webhookname}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/bounces':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/bounces/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/complaints':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/complaints/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/events':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/messages':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/messages/{message_id}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/routes/{id}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/stats':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/stats/total':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/countries':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/devices':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/providers':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/unsubscribes':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+      '/v3/{mydomain}/unsubscribes/{address}':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 1
+                unit: minute
+    quotas:
+      '/v3/domains':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/connection':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/credentials':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/credentials/{login}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/dkim_authority':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/ips':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/ips/{ip}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking/click':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking/open':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/tracking/unsubscribe':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/verify':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/webhooks':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/domains/{mydomain}/webhooks/{webhookname}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/bounces':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/bounces/{address}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/complaints':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/complaints/{address}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/events':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/messages':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/messages/{message_id}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/routes/{id}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/stats':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/stats/total':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/countries':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/devices':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/tags/{tag}/stats/aggregates/providers':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/unsubscribes':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/{mydomain}/unsubscribes/{address}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/ips':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/ips/{ip}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/pages':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members.json':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members/pages':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/lists/{address}/members/{memberaddress}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/routes':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/routes/{route}':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/parse':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/private/validate':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/private/varse':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20
+      '/v3/address/validate':
+        get:
+          emails:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 1000
+                  cost: 0.80
+          validations:
+            - max: 5000
+              period:
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 100
+                  cost: 1.20

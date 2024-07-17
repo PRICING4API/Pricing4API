@@ -1,0 +1,2253 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/meaningcloud/meaningcloud.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: >-
+      Number of requests, regarding the resource. Una peticiÃ³n a MeaningCloud
+      equivale al anÃ¡lisis de un texto de hasta 500 palabras para las API
+      pÃºblicas y 125 palabras para las API Premium. Si el texto superase ese
+      nÃºmero, se cobrarÃ¡ una peticiÃ³n adicional por cada 500/125 palabras de
+      mÃ¡s.
+    resolution: consumption
+  dictionaries:
+    type: integer
+    format: int64
+    description: number of dictionaries
+    resolution: consumption
+  categoriesPerModel:
+    type: integer
+    format: int64
+    description: number of categoriesPerModel
+    resolution: consumption
+  classificationModels:
+    type: integer
+    format: int64
+    description: number of classificationModels
+    resolution: consumption
+  entriesPerDictionary:
+    type: integer
+    format: int64
+    description: number of entriesPerDictionary
+    resolution: consumption
+  sentimentModels:
+    type: integer
+    format: int64
+    description: number of sentimentModels
+    resolution: consumption
+  entriesPerModel:
+    type: integer
+    format: int64
+    description: number of entriesPerModel
+    resolution: consumption
+  deepCatModels:
+    type: integer
+    format: int64
+    description: number of deepCatModels
+    resolution: consumption
+  deepCatPerModel:
+    type: integer
+    format: int64
+    description: number of deepCatPerModel
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Free:
+    pricing:
+      cost: 0
+    quotas:
+      /documentstructure-1.0:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+      /parser-2.0:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+      /reputation-1.0:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+      /clustering-1.1:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+      /summarization-1.0:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+      /lang-2.0:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+      /sentiment-2.1:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+      /class-1.1:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+      /topics-2.0:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+      /deepcategorization-1.0:
+        get:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 30
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+    rates:
+      /documentstructure-1.0:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /parser-2.0:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /reputation-1.0:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /clustering-1.1:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /summarization-1.0:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /lang-2.0:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /sentiment-2.1:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /class-1.1:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /topics-2.0:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /deepcategorization-1.0:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+  StartUp:
+    pricing:
+      cost: 99
+    quotas:
+      /documentstructure-1.0:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+      /parser-2.0:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+      /reputation-1.0:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+      /clustering-1.1:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+      /summarization-1.0:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+      /lang-2.0:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+      /sentiment-2.1:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+      /class-1.1:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+      /topics-2.0:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+      /deepcategorization-1.0:
+        get:
+          requests:
+            - max: 120000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 1000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+    rates:
+      /documentstructure-1.0:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+      /parser-2.0:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+      /reputation-1.0:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+      /clustering-1.1:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+      /summarization-1.0:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+      /lang-2.0:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+      /sentiment-2.1:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+      /class-1.1:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+      /topics-2.0:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+      /deepcategorization-1.0:
+        get:
+          requests:
+            - max: 5
+              period: 
+                amount: 1
+                unit: second
+  Professional:
+    pricing:
+      cost: 399
+    quotas:
+      /documentstructure-1.0:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+      /parser-2.0:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+      /reputation-1.0:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+      /clustering-1.1:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+      /summarization-1.0:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+      /lang-2.0:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+      /sentiment-2.1:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+      /class-1.1:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+      /topics-2.0:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+      /deepcategorization-1.0:
+        get:
+          requests:
+            - max: 700000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 3000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 300
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 2
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 100
+              period:
+                amount: 1
+                unit: forever
+    rates:
+      /documentstructure-1.0:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+      /parser-2.0:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+      /reputation-1.0:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+      /clustering-1.1:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+      /summarization-1.0:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+      /lang-2.0:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+      /sentiment-2.1:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+      /class-1.1:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+      /topics-2.0:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+      /deepcategorization-1.0:
+        get:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+  Business:
+    pricing:
+      cost: 999
+    quotas:
+      /documentstructure-1.0:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+      /parser-2.0:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+      /reputation-1.0:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+      /clustering-1.1:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+      /summarization-1.0:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+      /lang-2.0:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+      /sentiment-2.1:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+      /class-1.1:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+      /topics-2.0:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+      /deepcategorization-1.0:
+        get:
+          requests:
+            - max: 4200000
+              period:
+                amount: 1
+                unit: month
+          classificationModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          categoriesPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+          dictionaries:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          entriesPerDictionary:
+            - max: 5000
+              period:
+                amount: 1
+                unit: forever
+          sentimentModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          entriesPerModel:
+            - max: 600
+              period:
+                amount: 1
+                unit: forever
+          deepCatModels:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          deepCatPerModel:
+            - max: 200
+              period:
+                amount: 1
+                unit: forever
+    rates:
+      /documentstructure-1.0:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+      /parser-2.0:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+      /reputation-1.0:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+      /clustering-1.1:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+      /summarization-1.0:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+      /lang-2.0:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+      /sentiment-2.1:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+      /class-1.1:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+      /topics-2.0:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+      /deepcategorization-1.0:
+        get:
+          requests:
+            - max: 15
+              period: 
+                amount: 1
+                unit: second
+  Enterprise:
+    pricing:
+      cost: custom

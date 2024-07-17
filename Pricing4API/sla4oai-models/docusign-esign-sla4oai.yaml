@@ -1,0 +1,1566 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/docusign-esign/docusign-esign.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  documents:
+    type: integer
+    format: int64
+    description: Number of documents
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Starter:
+    pricing:
+      cost: 50
+      period:
+        amount: 1
+        unit: month
+    rates:
+      '/v2/accounts/{accountId}/templates/{templateId}/custom_fields':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/fields':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/tabs':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/tabs':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/document_visibility':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/document_visibility':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/lock':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/tabs':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/{templatePart}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/page_image':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/notification':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/views/edit':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/custom_settings':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/profile':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/profile/image':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/settings':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/signatures':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}/{imageType}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/social':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}/pages':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+    quotas:
+      '/v2/accounts/{accountId}/templates/{templateId}/custom_fields':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/fields':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/tabs':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/tabs':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/document_visibility':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/document_visibility':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/lock':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/tabs':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/{templatePart}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/page_image':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/notification':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/views/edit':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/custom_settings':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/profile':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/profile/image':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/settings':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/signatures':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}/{imageType}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/social':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}/pages':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}':
+        get:
+          documents:
+            - max: 40
+              period:
+                amount: 1
+                unit: month
+  Intermediate:
+    pricing:
+      cost: 300
+      period:
+        amount: 1
+        unit: month
+    rates:
+      '/v2/accounts/{accountId}/templates/{templateId}/custom_fields':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/fields':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/tabs':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/tabs':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/document_visibility':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/document_visibility':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/lock':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/tabs':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/{templatePart}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/page_image':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/notification':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/views/edit':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/custom_settings':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/profile':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/profile/image':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/settings':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/signatures':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}/{imageType}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/social':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}/pages':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+    quotas:
+      '/v2/accounts/{accountId}/templates/{templateId}/custom_fields':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/fields':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/tabs':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/tabs':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/document_visibility':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/document_visibility':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/lock':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/tabs':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/{templatePart}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/page_image':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/notification':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/views/edit':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/custom_settings':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/profile':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/profile/image':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/settings':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/signatures':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}/{imageType}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/social':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}/pages':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+  Advanced:
+    pricing:
+      cost: 480
+      period:
+        amount: 1
+        unit: month
+    rates:
+      '/v2/accounts/{accountId}/templates/{templateId}/custom_fields':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/fields':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/tabs':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/tabs':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/document_visibility':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/document_visibility':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/lock':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/tabs':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/{templatePart}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/page_image':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/notification':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/templates/{templateId}/views/edit':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/custom_settings':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/profile':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/profile/image':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/settings':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/signatures':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}/{imageType}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/users/{userId}/social':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}/pages':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}':
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: hour
+    quotas:
+      '/v2/accounts/{accountId}/templates/{templateId}/custom_fields':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/fields':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/tabs':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/tabs':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/document_visibility':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/document_visibility':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/lock':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/recipients/{recipientId}/tabs':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/{templatePart}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages/{pageNumber}/page_image':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/notification':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/documents/{documentId}/pages':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/templates/{templateId}/views/edit':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/custom_settings':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/profile':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/profile/image':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/settings':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/signatures':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/signatures/{signatureId}/{imageType}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/users/{userId}/social':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}/folders/{folderId}/files/{fileId}/pages':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      '/v2/accounts/{accountId}/workspaces/{workspaceId}':
+        get:
+          documents:
+            - max: 100
+              period:
+                amount: 1
+                unit: month

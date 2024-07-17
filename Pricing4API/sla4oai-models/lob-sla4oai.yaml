@@ -1,0 +1,2654 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/lob/lob.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  mailings:
+    type: integer
+    format: int64
+    description: Number of mailings
+    resolution: consumption
+  templates:
+    type: integer
+    format: int64
+    description: Number of templates
+    resolution: consumption
+  users:
+    type: integer
+    format: int64
+    description: Number of users
+    resolution: consumption
+  webhooks:
+    type: integer
+    format: int64
+    description: Number of webhooks
+    resolution: consumption
+  bookEntries:
+    type: integer
+    format: int64
+    description: Number of bookEntries
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+ Developer:
+    pricing:
+      cost: 0
+    rates:
+      '/v1/addresses':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/addresses/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/postcards':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/postcards/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/letters':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/letters/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{id}/versions':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{template_id}/versions/{version_id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_verifications':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_autocompletions':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_zip_lookups':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/intl_verifications':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/checks':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/checks/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts/{id}/verify':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+    quotas:
+      '/v1/us_verifications':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/us_autocompletions':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/us_zip_lookups':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/intl_verifications':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/checks':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/checks/{id}':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/bank_accounts/{id}/verify':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/bank_accounts':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/bank_accounts/{id}':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/addresses':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/addresses/{id}':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/postcards':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/postcards/{id}':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/letters':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/letters/{id}':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates/{id}':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates/{id}/versions':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates/{template_id}/versions/{version_id}':
+        get:
+          users:
+            - max: 1
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 1
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 10000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 500
+              period:
+                amount: 1
+                unit: month
+ Startup:
+    pricing:
+      cost: 225
+    rates:
+      '/v1/addresses':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/addresses/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/postcards':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/postcards/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/letters':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/letters/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{id}/versions':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{template_id}/versions/{version_id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_verifications':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_autocompletions':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_zip_lookups':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/intl_verifications':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/checks':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/checks/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts/{id}/verify':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+    quotas:
+      '/v1/us_verifications':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/us_autocompletions':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/us_zip_lookups':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/intl_verifications':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/checks':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/checks/{id}':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/bank_accounts/{id}/verify':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/bank_accounts':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/bank_accounts/{id}':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/addresses':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/addresses/{id}':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/postcards':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/postcards/{id}':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/letters':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/letters/{id}':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates/{id}':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates/{id}/versions':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates/{template_id}/versions/{version_id}':
+        get:
+          users:
+            - max: 3
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 3
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 25000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+ Growth:
+    pricing:
+      cost: 480
+    rates:
+      '/v1/addresses':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/addresses/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/postcards':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/postcards/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/letters':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/letters/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{id}/versions':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{template_id}/versions/{version_id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_verifications':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_autocompletions':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_zip_lookups':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/intl_verifications':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/checks':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/checks/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts/{id}/verify':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+    quotas:
+      '/v1/us_verifications':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/us_autocompletions':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/us_zip_lookups':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/intl_verifications':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/checks':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/checks/{id}':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/bank_accounts/{id}/verify':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/bank_accounts':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/bank_accounts/{id}':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/addresses':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/addresses/{id}':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/postcards':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/postcards/{id}':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/letters':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/letters/{id}':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates/{id}':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates/{id}/versions':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+      '/v1/templates/{template_id}/versions/{version_id}':
+        get:
+          users:
+            - max: 5
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 25
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 5
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 250000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 6000
+              period:
+                amount: 1
+                unit: month
+ Enterprise:
+    pricing:
+      cost: custom
+    rates:
+      '/v1/addresses':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/addresses/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/postcards':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/postcards/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/letters':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/letters/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{id}/versions':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/templates/{template_id}/versions/{version_id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_verifications':
+        get:
+          requests:
+            - max: 300
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_autocompletions':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/us_zip_lookups':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/intl_verifications':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/checks':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/checks/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts/{id}/verify':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+      '/v1/bank_accounts/{id}':
+        get:
+          requests:
+            - max: 150
+              period: 
+                amount: 5
+                unit: second
+    quotas:
+      '/v1/us_verifications':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 125000
+              period:
+                amount: 1
+                unit: year
+      '/v1/us_autocompletions':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 125000
+              period:
+                amount: 1
+                unit: year
+      '/v1/us_zip_lookups':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 125000
+              period:
+                amount: 1
+                unit: year
+      '/v1/intl_verifications':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/checks':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/checks/{id}':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/bank_accounts/{id}/verify':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/bank_accounts':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/bank_accounts/{id}':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/addresses':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/addresses/{id}':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/postcards':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/postcards/{id}':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/letters':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/letters/{id}':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/templates':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/templates/{id}':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/templates/{id}/versions':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year
+      '/v1/templates/{template_id}/versions/{version_id}':
+        get:
+          users:
+            - max: 20
+              period: 
+                amount: 1
+                unit: forever
+          templates:
+            - max: 50
+              period:
+                amount: 1
+                unit: forever
+          webhooks:
+            - max: 10
+              period:
+                amount: 1
+                unit: forever
+          bookEntries:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: forever
+          mailings:
+            - max: 150000
+              period:
+                amount: 1
+                unit: year

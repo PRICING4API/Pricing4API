@@ -1,0 +1,115 @@
+context:
+  id: sendgrid
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/sendgrid-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  emails:
+    type: integer
+    format: int64
+    description: 'Number of emails'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Base:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      /send:
+        post:
+          emails:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+  Pro:
+    pricing:
+      cost: 9.95
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      /send:
+        post:
+          emails:
+            - max: 40000
+              period: 
+                amount: 1
+                unit: month
+  Ultra:
+    pricing:
+      cost: 79.95
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      /send:
+        post:
+          emails:
+            - max: 100000
+              period: 
+                amount: 1
+                unit: month
+  Mega:
+    pricing:
+      cost: 199.95
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      /send:
+        post:
+          emails:
+            - max: 300000
+              period: 
+                amount: 1
+                unit: month

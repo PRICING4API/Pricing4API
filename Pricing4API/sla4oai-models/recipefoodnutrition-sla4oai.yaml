@@ -1,0 +1,774 @@
+context:
+  id: recipefoodnutrition
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/recipefoodnutrition-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  results:
+    type: integer
+    format: int64
+    description: 'Number of results in response'
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 50
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.007
+      /recipes/:id/similar:
+        get:
+          results:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/search:
+        get:
+          results:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/search:
+        get:
+          results:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/videos/search:
+        get:
+          results:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/findByIngredients:
+        get:
+          results:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/upc/:upc:
+        get:
+          results:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/random:
+        get:
+          results:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/findByNutrients:
+        get:
+          results:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/searchComplex:
+        get:
+          results:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/classify:
+        post:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/cuisine:
+        post:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/classifyBatch:
+        post:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/convert:
+        get:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /ingredients/autocomplete:
+        get:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/autocomplete:
+        get:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/converse/suggest:
+        get:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/site/search:
+        get:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+  Pro:
+    pricing:
+      cost: 29
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.004
+      /recipes/:id/similar:
+        get:
+          results:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/search:
+        get:
+          results:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/search:
+        get:
+          results:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/videos/search:
+        get:
+          results:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/findByIngredients:
+        get:
+          results:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/upc/:upc:
+        get:
+          results:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/random:
+        get:
+          results:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/findByNutrients:
+        get:
+          results:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/searchComplex:
+        get:
+          results:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/classify:
+        post:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/cuisine:
+        post:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/products/classifyBatch:
+        post:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/convert:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /ingredients/autocomplete:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/autocomplete:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/converse/suggest:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/site/search:
+        get:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+  Ultra:
+    pricing:
+      cost: 99
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.004
+      /recipes/:id/similar:
+        get:
+          results:
+            - max: 25000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/search:
+        get:
+          results:
+            - max: 25000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/search:
+        get:
+          results:
+            - max: 25000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/videos/search:
+        get:
+          results:
+            - max: 25000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/findByIngredients:
+        get:
+          results:
+            - max: 25000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/upc/:upc:
+        get:
+          results:
+            - max: 25000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/random:
+        get:
+          results:
+            - max: 25000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/findByNutrients:
+        get:
+          results:
+            - max: 25000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /recipes/searchComplex:
+        get:
+          results:
+            - max: 25000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.003
+      /food/products/classify:
+        post:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/cuisine:
+        post:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/products/classifyBatch:
+        post:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/convert:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /ingredients/autocomplete:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/autocomplete:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/converse/suggest:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/site/search:
+        get:
+          requests:
+            - max: 50000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+  Mega:
+    pricing:
+      cost: 999
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/:id/similar:
+        get:
+          results:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/products/search:
+        get:
+          results:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/search:
+        get:
+          results:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/videos/search:
+        get:
+          results:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/findByIngredients:
+        get:
+          results:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/products/upc/:upc:
+        get:
+          results:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/random:
+        get:
+          results:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/findByNutrients:
+        get:
+          results:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/searchComplex:
+        get:
+          results:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/products/classify:
+        post:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/cuisine:
+        post:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/products/classifyBatch:
+        post:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/convert:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /ingredients/autocomplete:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /recipes/autocomplete:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/converse/suggest:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001
+      /food/site/search:
+        get:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.001

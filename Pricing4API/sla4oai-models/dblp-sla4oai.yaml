@@ -1,0 +1,47 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/dblp/dblp.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2009-10-09T21:30:00.00Z'
+plans:
+  Free:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /search/publ/api:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /search/author/api:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second
+      /search/venue/api:
+        get:
+          requests:
+            - max: 2
+              period: 
+                amount: 1
+                unit: second

@@ -1,0 +1,81 @@
+context:
+  id: unogs
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/unogs-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.1
+  Pro:
+    pricing:
+      cost: 10
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: month
+  Ultra:
+    pricing:
+      cost: 25
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 75000
+              period:
+                amount: 1
+                unit: month
+  Mega:
+    pricing:
+      cost: 50
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 150000
+              period:
+                amount: 1
+                unit: month

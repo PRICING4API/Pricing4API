@@ -1,0 +1,2581 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/faceplusplus/faceplusplus.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  QPS:
+    type: integer
+    format: int64
+    description: Number of concurrent requests
+    resolution: consumption
+  QPS_invalidParam:
+    type: integer
+    format: int64
+    description: Number of requests with 400 status code
+    resolution: consumption
+  QPS_timeout:
+    type: integer
+    format: int64
+    description: Number of requests with 412 status code
+    resolution: consumption
+  fileSize:
+    type: integer
+    format: int64
+    description: Upload file size in MB
+    resolution: consumption
+    unit: MB
+  faceSets:
+    type: integer
+    format: int64
+    description: Number of face sets of 10000 facetokens
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Free:
+    pricing:
+      cost: 0
+    quotas:
+      '/facepp/v3/detect':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/compare':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/search':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/faceset/addface':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/create':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/async/addface':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/async/task_status':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v1/face/thousandlandmark':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v1/skinanalyze':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v1/3dface':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/detect':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/skeleton':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v2/segment':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/segment':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/gesture':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/mergeface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/createalbum':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/deletealbum':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getfacealbums':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/addimage':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/deleteface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/findcandidate':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/groupface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/groupfacetaskquery':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/searchimage':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/searchimagetaskquery':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getfacedetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getimagedetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getalbumdetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/updateface':
+        post:
+          fileSize:
+            - max: 2
+    rates:
+      '/facepp/v3/detect':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v3/compare':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v3/search':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v3/faceset/getfacesets':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+ 
+      '/facepp/v3/faceset/delete':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+ 
+      '/facepp/v3/faceset/getdetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+ 
+      '/facepp/v3/faceset/update':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+ 
+      '/facepp/v3/faceset/removeface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+ 
+      '/facepp/v3/faceset/addface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v3/faceset/create':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v3/faceset/async/addface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v3/faceset/async/task_status':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v3/face/analyze':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v3/face/getdetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v3/face/setuserid':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v1/face/thousandlandmark':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v1/skinanalyze':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/facepp/v1/3dface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/humanbodypp/v1/detect':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/humanbodypp/v1/skeleton':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/humanbodypp/v2/segment':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/humanbodypp/v1/segment':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/humanbodypp/v1/gesture':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/mergeface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/createalbum':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/deletealbum':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/getfacealbums':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/addimage':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/deleteface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/findcandidate':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/groupface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/groupfacetaskquery':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/searchimage':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/searchimagetaskquery':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/getfacedetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/getimagedetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/getalbumdetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/imagepp/v1/facealbum/updateface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+  PayAsYouGo:
+    pricing:
+      cost: 0
+    quotas:
+      '/facepp/v3/detect':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/compare':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/search':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/faceset/addface':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/create':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/async/addface':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/async/task_status':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v1/face/thousandlandmark':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v1/skinanalyze':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v1/3dface':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/detect':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/skeleton':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v2/segment':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/segment':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/gesture':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/mergeface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/createalbum':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/deletealbum':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getfacealbums':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/addimage':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/deleteface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/findcandidate':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/groupface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/groupfacetaskquery':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/searchimage':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/searchimagetaskquery':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getfacedetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getimagedetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getalbumdetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/updateface':
+        post:
+          fileSize:
+            - max: 2
+    rates:
+      '/facepp/v3/detect':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/facepp/v3/compare':
+        post: 
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.002
+      '/facepp/v3/search':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.002
+      '/facepp/v3/faceset/getfacesets':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v3/faceset/delete':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v3/faceset/getdetail':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v3/faceset/update':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v3/faceset/removeface':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v3/faceset/addface':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v3/faceset/create':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v3/faceset/async/addface':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v3/faceset/async/task_status':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0
+      '/facepp/v3/face/analyze':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/facepp/v3/face/getdetail':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v3/face/setuserid':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+      '/facepp/v1/face/thousandlandmark':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.03
+      '/facepp/v1/skinanalyze':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.10
+      '/facepp/v1/3dface':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 2
+      '/humanbodypp/v1/detect':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.001
+      '/humanbodypp/v1/skeleton':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.002
+      '/humanbodypp/v2/segment':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.004
+      '/humanbodypp/v1/segment':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.004
+      '/humanbodypp/v1/gesture':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.01
+      '/imagepp/v1/mergeface':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.10
+      '/imagepp/v1/facealbum/createalbum':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/imagepp/v1/facealbum/deletealbum':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/imagepp/v1/facealbum/getfacealbums':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/imagepp/v1/facealbum/addimage':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0025
+      '/imagepp/v1/facealbum/deleteface':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/imagepp/v1/facealbum/findcandidate':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0025
+      '/imagepp/v1/facealbum/groupface':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.01
+      '/imagepp/v1/facealbum/groupfacetaskquery':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/imagepp/v1/facealbum/searchimage':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.01
+      '/imagepp/v1/searchimagetaskquery':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/imagepp/v1/facealbum/getfacedetail':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/imagepp/v1/facealbum/getimagedetail':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/imagepp/v1/facealbum/getalbumdetail':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+      '/imagepp/v1/facealbum/updateface':
+        post:
+          QPS_invalidParam:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0001
+          QPS_timeout:
+            - max: unlimited
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0002
+          QPS:
+            - max: 10
+              period: 
+                amount: 1
+                unit: second
+              cost:
+                operation:
+                  volume: 1
+                  cost: 0.0005
+  Daily_1QPS:
+    pricing:
+      cost: 4307 # Not a real plan. It's the sum of purchasing every API resource
+      period:
+        amount: 1
+        unit: day
+    quotas:
+      '/facepp/v3/detect':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/compare':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/search':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/faceset/addface':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/create':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/async/addface':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/async/task_status':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v1/face/thousandlandmark':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v1/skinanalyze':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v1/3dface':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/detect':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/skeleton':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v2/segment':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/segment':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/gesture':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/mergeface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/createalbum':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/deletealbum':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getfacealbums':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/addimage':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/deleteface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/findcandidate':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/groupface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/groupfacetaskquery':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/searchimage':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/searchimagetaskquery':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getfacedetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getimagedetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getalbumdetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/updateface':
+        post:
+          fileSize:
+            - max: 2
+    rates:
+      '/facepp/v3/detect':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/compare':
+        post: 
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/search':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/faceset/getfacesets':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/faceset/delete':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/faceset/getdetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/faceset/update':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/faceset/removeface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/faceset/addface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/faceset/create':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/faceset/async/addface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/faceset/async/task_status':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/face/analyze':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/face/getdetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/face/setuserid':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v1/face/thousandlandmark':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v1/skinanalyze':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v1/3dface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/humanbodypp/v1/detect':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/humanbodypp/v1/skeleton':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/humanbodypp/v2/segment':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/humanbodypp/v1/segment':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/humanbodypp/v1/gesture':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/mergeface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/createalbum':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/deletealbum':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/getfacealbums':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/addimage':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/deleteface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/findcandidate':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/groupface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/groupfacetaskquery':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/searchimage':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/searchimagetaskquery':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/getfacedetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/getimagedetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/getalbumdetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/imagepp/v1/facealbum/updateface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+  Monthly_1QPS:
+    pricing:
+      cost: 84500 # Not a real plan. It's the sum of purchasing every API resource
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      '/facepp/v3/detect':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/compare':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/search':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v3/faceset/addface':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/create':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/async/addface':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v3/faceset/async/task_status':
+        post:
+          faceSets:
+            - max: 1000
+              period: 
+                amount: 1
+                unit: forever
+      '/facepp/v1/face/thousandlandmark':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v1/skinanalyze':
+        post:
+          fileSize:
+            - max: 2
+      '/facepp/v1/3dface':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/detect':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/skeleton':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v2/segment':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/segment':
+        post:
+          fileSize:
+            - max: 2
+      '/humanbodypp/v1/gesture':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/mergeface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/createalbum':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/deletealbum':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getfacealbums':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/addimage':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/deleteface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/findcandidate':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/groupface':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/groupfacetaskquery':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/searchimage':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/searchimagetaskquery':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getfacedetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getimagedetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/getalbumdetail':
+        post:
+          fileSize:
+            - max: 2
+      '/imagepp/v1/facealbum/updateface':
+        post:
+          fileSize:
+            - max: 2
+    rates:
+      '/facepp/v3/detect':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 86400
+              period: 
+                amount: 1
+                unit: day
+      '/facepp/v3/compare':
+        post: 
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/search':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/faceset/getfacesets':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/faceset/delete':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/faceset/getdetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/faceset/update':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/faceset/removeface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/faceset/addface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/faceset/create':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/faceset/async/addface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/faceset/async/task_status':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/face/analyze':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/face/getdetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v3/face/setuserid':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v1/face/thousandlandmark':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v1/skinanalyze':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/facepp/v1/3dface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/humanbodypp/v1/detect':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/humanbodypp/v1/skeleton':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/humanbodypp/v2/segment':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/humanbodypp/v1/segment':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/humanbodypp/v1/gesture':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/mergeface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/createalbum':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/deletealbum':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/getfacealbums':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/addimage':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/deleteface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/findcandidate':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/groupface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/groupfacetaskquery':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/searchimage':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/searchimagetaskquery':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/getfacedetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/getimagedetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/getalbumdetail':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month
+      '/imagepp/v1/facealbum/updateface':
+        post:
+          QPS:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+            - max: 2628000
+              period: 
+                amount: 1
+                unit: month

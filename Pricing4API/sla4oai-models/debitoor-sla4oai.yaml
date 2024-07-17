@@ -1,0 +1,2059 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/debitoor/debitoor.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: http://supervisor.oai.governify.io/api/v2
+  monitor: http://monitor.oai.governify.io/api/v1
+metrics:
+  invoiceOrExpenseResource:
+    type: integer
+    format: int64
+    description: invoice or expense resources
+    resolution: consumption
+  requests:
+    type: integer
+    format: int64
+    description: Number the overall requests, regardeless the resource
+    resolution: consumption
+  users:
+    type: integer
+    format: int64
+    description: Number of users
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: year
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  XS:
+    pricing:
+      cost: 4
+    quotas:
+      /api/invoices/{id}/recurring/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/activate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/deactivate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/book/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/booksend/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/email/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/validate/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/email/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/paymentreceipt/email/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/share/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/book/range/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/validate/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/export.datev/v1:
+        get:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/validate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/income/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/deliverynotes/{id}/copy/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/deliverynotes/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/deliverynote/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/deliverynote/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/invoice/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/headers/v3:
+        get:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/v3:
+        delete:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+        put:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/v1:
+        delete:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/v3:
+        put:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/headers/v3:
+        get:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/suppliers/export.datev/v1:
+        get:
+          invoiceOrExpenseResource:
+            - max: 100
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+  S:
+    pricing:
+      cost: 7
+    quotas:
+      /api/invoices/{id}/recurring/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/activate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/deactivate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/book/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/booksend/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/email/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/validate/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/email/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/paymentreceipt/email/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/share/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/book/range/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/validate/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/export.datev/v1:
+        get:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/validate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/income/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/deliverynotes/{id}/copy/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/deliverynotes/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/deliverynote/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/deliverynote/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/invoice/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/headers/v3:
+        get:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/v3:
+        delete:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+        put:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/v1:
+        delete:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/v3:
+        put:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/headers/v3:
+        get:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/suppliers/export.datev/v1:
+        get:
+          invoiceOrExpenseResource:
+            - max: 400
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+  M:
+    pricing:
+      cost: 10
+    quotas:
+      /api/invoices/{id}/recurring/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/activate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/deactivate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/book/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/booksend/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/email/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/validate/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/email/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/paymentreceipt/email/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/share/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/book/range/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/validate/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/export.datev/v1:
+        get:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/validate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/income/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/deliverynotes/{id}/copy/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/deliverynotes/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/deliverynote/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/deliverynote/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/invoice/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/headers/v3:
+        get:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/v3:
+        delete:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+        put:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/v1:
+        delete:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/v3:
+        put:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/headers/v3:
+        get:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/suppliers/export.datev/v1:
+        get:
+          invoiceOrExpenseResource:
+            - max: 800
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 1
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+  L:
+    pricing:
+      cost: 20
+    quotas:
+      /api/invoices/{id}/recurring/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/activate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/deactivate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/book/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/booksend/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/email/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/validate/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/email/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/paymentreceipt/email/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/share/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/book/range/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/expenses/validate/v4:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/export.datev/v1:
+        get:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/customers/validate/v1:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/income/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/deliverynotes/{id}/copy/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/deliverynotes/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/deliverynote/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/deliverynote/v2:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/invoice/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/headers/v3:
+        get:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/draftinvoices/{id}/v3:
+        delete:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+        put:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/recurring/invoices/{id}/v1:
+        delete:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/{id}/v3:
+        put:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/invoices/headers/v3:
+        get:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/{id}/copy/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/sales/quotes/v3:
+        post:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour
+      /api/suppliers/export.datev/v1:
+        get:
+          invoiceOrExpenseResource:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: year
+          users:
+            - max: 3
+          requests:
+            - max: 2500
+              period:
+                amount: 1
+                unit: hour

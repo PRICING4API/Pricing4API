@@ -1,0 +1,992 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/shodan/shodan.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  # exportCredits:
+  #   type: integer
+  #   format: int64
+  #   description: >-
+  #     1 export credit lets you download up to 10,000 results. They are
+  #     single-use which means that once you use them they don't automatically
+  #     renew at the start of the month. This is different than the query and scan
+  #     credits!
+  #   resolution: consumption
+  queryCredits:
+    type: integer
+    format: int64
+    description: >-
+      1 query credit lets you download 100 results. They renew at the start of
+      the month. Query credits are used when searching Shodan via the API and
+      one of the following 2 conditions is met. A search filter is used. Page 2
+      or beyond is requested
+    resolution: consumption
+  scanCredits:
+    type: integer
+    format: int64
+    description: 1 scan credit lets you scan 1 IP. They renew at the start of the month.
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  free:
+    pricing:
+      cost: 0
+    rates:
+      /account/profile:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /api-info:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /dns/resolve:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /dns/reverse:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/labs/honeyscore/{ip}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /org:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/org/member/{user}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/alert:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/alert/info:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/alert/{id}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/alert/{id}/info':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/data:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/data/{dataset}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/count:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/search:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/search/tokens:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/host/{ip}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/ports:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/protocols:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query/search:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query/tags:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/scan:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/scan/internet:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/scan/{id}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /tools/httpheaders:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /tools/myip:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      /shodan/query:
+        get:
+          queryCredits:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      /shodan/query/search:
+        get:
+          queryCredits:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      /shodan/query/tags:
+        get:
+          queryCredits:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      /shodan/scan:
+        get:
+          scanCredits:
+            - max: 50
+              period:
+                amount: 1
+                unit: month
+      /shodan/scan/internet:
+        get:
+          scanCredits:
+            - max: 50
+              period:
+                amount: 1
+                unit: month
+      '/shodan/scan/{id}':
+        get:
+          scanCredits:
+            - max: 50
+              period:
+                amount: 1
+                unit: month
+  freelancer:
+    pricing:
+      cost: 59
+    rates:
+      /account/profile:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /api-info:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /dns/resolve:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /dns/reverse:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/labs/honeyscore/{ip}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /org:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/org/member/{user}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/alert:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/alert/info:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/alert/{id}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/alert/{id}/info':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/data:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/data/{dataset}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/count:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/search:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/search/tokens:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/host/{ip}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/ports:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/protocols:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query/search:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query/tags:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/scan:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/scan/internet:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/scan/{id}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /tools/httpheaders:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /tools/myip:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      /shodan/query:
+        get:
+          queryCredits:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+      /shodan/query/search:
+        get:
+          queryCredits:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+      /shodan/query/tags:
+        get:
+          queryCredits:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+      /shodan/scan:
+        get:
+          scanCredits:
+            - max: 5120
+              period:
+                amount: 1
+                unit: month
+      /shodan/scan/internet:
+        get:
+          scanCredits:
+            - max: 5120
+              period:
+                amount: 1
+                unit: month
+      '/shodan/scan/{id}':
+        get:
+          scanCredits:
+            - max: 5120
+              period:
+                amount: 1
+                unit: month
+  smallBusiness:
+    pricing:
+      cost: 299
+    rates:
+      /account/profile:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /api-info:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /dns/resolve:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /dns/reverse:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/labs/honeyscore/{ip}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /org:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/org/member/{user}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/alert:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/alert/info:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/alert/{id}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/alert/{id}/info':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/data:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/data/{dataset}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/count:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/search:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/search/tokens:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/host/{ip}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/ports:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/protocols:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query/search:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query/tags:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/scan:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/scan/internet:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/scan/{id}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /tools/httpheaders:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /tools/myip:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      /shodan/query:
+        get:
+          queryCredits:
+            - max: 200000
+              period:
+                amount: 1
+                unit: month
+      /shodan/query/search:
+        get:
+          queryCredits:
+            - max: 200000
+              period:
+                amount: 1
+                unit: month
+      /shodan/query/tags:
+        get:
+          queryCredits:
+            - max: 200000
+              period:
+                amount: 1
+                unit: month
+      /shodan/scan:
+        get:
+          scanCredits:
+            - max: 65536
+              period:
+                amount: 1
+                unit: month
+      /shodan/scan/internet:
+        get:
+          scanCredits:
+            - max: 65536
+              period:
+                  amount: 1
+                  unit: month
+      '/shodan/scan/{id}':
+        get:
+          scanCredits:
+            - max: 65536
+              period:
+                  amount: 1
+                  unit: month
+  corporate:
+    pricing:
+      cost: 899
+    rates:
+      /account/profile:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /api-info:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /dns/resolve:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /dns/reverse:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/labs/honeyscore/{ip}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /org:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/org/member/{user}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/alert:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/alert/info:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/alert/{id}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/alert/{id}/info':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/data:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/data/{dataset}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/count:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/search:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/host/search/tokens:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/host/{ip}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/ports:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/protocols:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query/search:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/query/tags:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/scan:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /shodan/scan/internet:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      '/shodan/scan/{id}':
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /tools/httpheaders:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+      /tools/myip:
+        get:
+          requests:
+            - max: 1
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      /shodan/query:
+        get:
+          queryCredits:
+            - max: 'unlimited'
+              period:
+                amount: 1
+                unit: month
+      /shodan/query/search:
+        get:
+          queryCredits:
+            - max: 'unlimited'
+              period:
+                amount: 1
+                unit: month
+      /shodan/query/tags:
+        get:
+          queryCredits:
+            - max: 'unlimited'
+              period:
+                amount: 1
+                unit: month
+      /shodan/scan:
+        get:
+          scanCredits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+      /shodan/scan/internet:
+        get:
+          scanCredits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+      '/shodan/scan/{id}':
+        get:
+          scanCredits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month

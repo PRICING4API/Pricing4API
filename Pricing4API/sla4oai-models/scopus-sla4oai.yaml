@@ -1,0 +1,699 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/scopus/scopus.oai-at?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests
+    resolution: consumption
+  results:
+    type: integer
+    format: int64
+    description: Number of returned results
+    resolution: consumption
+  # views:
+  #   type: string
+  #   description: Allowed views
+  #   resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  NonSubscriber:
+    pricing:
+      cost: 0
+    rates:
+      # Serial title
+      '/serial/title':
+        get:
+          requests:
+            - max: 6
+              period: 
+                amount: 1
+                unit: second
+      # Serial title
+      '/serial/title/issn/{issn}':
+        get:
+          requests:
+            - max: 6
+              period: 
+                amount: 1
+                unit: second
+
+
+	    # Abstract Retrieval
+      '/abstract/pii/{pii}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/pubmed_id/{pubmed_id}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/pui/{pui}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/scopus_id/{scopus_id}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/doi/{doi}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/eid/{eid}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/group_id/{group_id}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+
+
+	    # Scopus Search
+      '/search/scopus':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      # Serial title
+      '/serial/title':
+        get:
+          requests:
+            - max: 20000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD, COVERIMAGE"]
+          results:
+            - max: 200
+      # Serial title
+      '/serial/title/issn/{issn}':
+        get:
+          requests:
+            - max: 20000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD, COVERIMAGE"]
+          results:
+            - max: 200
+
+      # Citations count metadata
+      '/abstract/citation-count':
+        get:
+          requests:
+            - max: 0
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: []
+          results:
+            - max: 0
+
+
+      # Citations overview
+      '/abstract/citations':
+        get:
+          requests:
+            - max: 0
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: []
+          results:
+            - max: 0
+
+
+	    # Abstract Retrieval
+      '/abstract/pii/{pii}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META"]
+	    # Abstract Retrieval
+      '/abstract/pubmed_id/{pubmed_id}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META"]
+	    # Abstract Retrieval
+      '/abstract/pui/{pui}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META"]
+	    # Abstract Retrieval
+      '/abstract/scopus_id/{scopus_id}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META"]
+	    # Abstract Retrieval
+      '/abstract/doi/{doi}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META"]
+	    # Abstract Retrieval
+      '/abstract/eid/{eid}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META"]
+	    # Abstract Retrieval
+      '/abstract/group_id/{group_id}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META"]
+
+
+      # Affiliation Retrieval
+      '/affiliation/affiliation_id/{affiliation_id}':
+        get:
+          requests:
+            - max: 0
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: []
+      # Affiliation Retrieval
+      '/affiliation/eid/{eid}':
+        get:
+          requests:
+            - max: 0
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: []
+
+
+      # Author Retrieval
+      '/author/eid/{eid}':
+        get:
+          requests:
+            - max: 0
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: []
+      # Author Retrieval
+      '/author/author_id/{author_id}':
+        get:
+          requests:
+            - max: 0
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: []
+
+
+	    # Affiliation Search
+      '/search/affiliation':
+        get:
+          requests:
+            - max: 0
+              period: 
+                amount: 1
+                unit: week
+          results:
+            - max: 0
+
+
+	    # Author Search
+      '/search/author':
+        get:
+          requests:
+            - max: 0
+              period: 
+                amount: 1
+                unit: week
+          results:
+            - max: 0
+
+
+	    # Scopus Search
+      '/search/scopus':
+        get:
+          requests:
+            - max: 20000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD"]
+          results:
+            - max: 25
+  Subscriber:
+    pricing:
+      cost: 25516
+    rates:
+      # Serial title
+      '/serial/title':
+        get:
+          requests:
+            - max: 6
+              period: 
+                amount: 1
+                unit: second
+      # Serial title
+      '/serial/title/issn/{issn}':
+        get:
+          requests:
+            - max: 6
+              period: 
+                amount: 1
+                unit: second
+
+
+      # Citations count metadata
+      '/abstract/citation-count':
+        get:
+          requests:
+            - max: 24
+              period: 
+                amount: 1
+                unit: second
+
+
+      # Citations overview
+      '/abstract/citations':
+        get:
+          requests:
+            - max: 6
+              period: 
+                amount: 1
+                unit: second
+
+
+	    # Abstract Retrieval
+      '/abstract/pii/{pii}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/pubmed_id/{pubmed_id}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/pui/{pui}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/scopus_id/{scopus_id}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/doi/{doi}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/eid/{eid}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+	    # Abstract Retrieval
+      '/abstract/group_id/{group_id}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+
+
+      # Affiliation Retrieval
+      '/affiliation/affiliation_id/{affiliation_id}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+      # Affiliation Retrieval
+      '/affiliation/eid/{eid}':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+
+
+      # Author Retrieval
+      '/author/eid/{eid}':
+        get:
+          requests:
+            - max: 6
+              period: 
+                amount: 1
+                unit: second
+      # Author Retrieval
+      '/author/author_id/{author_id}':
+        get:
+          requests:
+            - max: 6
+              period: 
+                amount: 1
+                unit: second
+
+
+	    # Affiliation Search
+      '/search/affiliation':
+        get:
+          requests:
+            - max: 6
+              period: 
+                amount: 1
+                unit: second
+
+
+	    # Author Search
+      '/search/author':
+        get:
+          requests:
+            - max: 6
+              period: 
+                amount: 1
+                unit: second
+
+
+	    # Scopus Search
+      '/search/scopus':
+        get:
+          requests:
+            - max: 9
+              period: 
+                amount: 1
+                unit: second
+    quotas:
+      # Serial title
+      '/serial/title':
+        get:
+          requests:
+            - max: 20000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD, COVERIMAGE", "ENHANCED"]
+          results:
+            - max: 200
+      # Serial title
+      '/serial/title/issn/{issn}':
+        get:
+          requests:
+            - max: 20000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD, COVERIMAGE", "ENHANCED"]
+          results:
+            - max: 200
+
+      # Citations count metadata
+      '/abstract/citation-count':
+        get:
+          requests:
+            - max: 50000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD"]
+          results:
+            - max: 200
+
+
+      # Citations overview
+      '/abstract/citations':
+        get:
+          requests:
+            - max: 20000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD"]
+          results:
+            - max: 200
+
+
+	    # Abstract Retrieval
+      '/abstract/pii/{pii}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META", "FULL"]
+	    # Abstract Retrieval
+      '/abstract/pubmed_id/{pubmed_id}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META", "FULL"]
+	    # Abstract Retrieval
+      '/abstract/pui/{pui}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META", "FULL"]
+	    # Abstract Retrieval
+      '/abstract/scopus_id/{scopus_id}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META", "FULL"]
+	    # Abstract Retrieval
+      '/abstract/doi/{doi}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META", "FULL"]
+	    # Abstract Retrieval
+      '/abstract/eid/{eid}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META", "FULL"]
+	    # Abstract Retrieval
+      '/abstract/group_id/{group_id}':
+        get:
+          requests:
+            - max: 10000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["META", "FULL"]
+
+
+      # Affiliation Retrieval
+      '/affiliation/affiliation_id/{affiliation_id}':
+        get:
+          requests:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD"]
+      # Affiliation Retrieval
+      '/affiliation/eid/{eid}':
+        get:
+          requests:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD"]
+
+
+      # Author Retrieval
+      '/author/eid/{eid}':
+        get:
+          requests:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD"]
+      # Author Retrieval
+      '/author/author_id/{author_id}':
+        get:
+          requests:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD"]
+
+
+	    # Affiliation Search
+      '/search/affiliation':
+        get:
+          requests:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: week
+          results:
+            - max: 200
+
+
+	    # Author Search
+      '/search/author':
+        get:
+          requests:
+            - max: 5000
+              period: 
+                amount: 1
+                unit: week
+          results:
+            - max: 200
+
+
+	    # Scopus Search
+      '/search/scopus':
+        get:
+          requests:
+            - max: 20000
+              period: 
+                amount: 1
+                unit: week
+          # views:
+          #   - max: ["STANDARD", "COMPLETE", "COMPONENT"]
+          results:
+            - max: 200
+

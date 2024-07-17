@@ -1,0 +1,153 @@
+context:
+  id: customqrcodewithlogo
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/customqrcodewithlogo-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 9
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 3
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /qr/uploadImage:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.04
+      /qr/custom:
+        get:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.04
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.04
+  Pro:
+    pricing:
+      cost: 19
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 3
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /qr/uploadImage:
+        post:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.02
+      /qr/custom:
+        get:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.02
+        post:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.02
+  Ultra:
+    pricing:
+      cost: 99
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 3
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /qr/uploadImage:
+        post:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.01
+      /qr/custom:
+        get:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.01
+        post:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.01

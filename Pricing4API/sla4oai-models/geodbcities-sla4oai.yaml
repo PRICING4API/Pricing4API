@@ -1,0 +1,111 @@
+context:
+  id: geodbcities
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/geodbcities-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  paging:
+    type: integer
+    format: int64
+  radius:
+    type: integer
+    format: int64
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 1
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: day
+          paging:
+            - max: 10
+          radius:
+            - max: 100
+  Pro:
+    pricing:
+      cost: 10
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 10
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 200000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.0001
+          paging:
+            - max: 100
+          radius:
+            - max: 500
+  Ultra:
+    pricing:
+      cost: 25
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 50
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.00001
+          paging:
+            - max: 1000
+          radius:
+            - max: 1000

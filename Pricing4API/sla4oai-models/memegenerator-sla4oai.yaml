@@ -1,0 +1,90 @@
+context:
+  id: memegenerator
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/memegenerator-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.001
+  Pro:
+    pricing:
+      cost: 25
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.001
+  Ultra:
+    pricing:
+      cost: 75
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.001
+  Mega:
+    pricing:
+      cost: 250
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 10000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.0007

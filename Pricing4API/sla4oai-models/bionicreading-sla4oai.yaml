@@ -1,0 +1,48 @@
+context:
+  id: bionicreading
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/bionicreading-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 50
+              period:
+                amount: 1
+                unit: day
+  Pro:
+    pricing:
+      cost: 19
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: day

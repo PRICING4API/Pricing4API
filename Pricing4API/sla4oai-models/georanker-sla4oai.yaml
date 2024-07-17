@@ -1,0 +1,1096 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/georanker/georanker.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  concurrentRequests:
+    type: integer
+    format: int64
+    description: 'Number of concurrent requests'
+    resolution: consumption
+  credits:
+    type: integer
+    format: int64
+    description: 'Number of credits'
+    resolution: consumption
+pricing:
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  Small:
+    pricing:
+      cost: 300
+    quotas:
+      '/heartbeat':
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+      '/technologies/{domain}':
+        get:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/whois/{domain}':
+        get:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/region/list':
+        get:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/keyword/new':
+        post:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/keyword/new/list':
+        post:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/keyword/{id}':
+        get:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+        delete:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/keyword/list':
+        post:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/serp/new':
+        post:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/serp/new/list':
+        post:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/serp/{id}':
+        get:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+        delete:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/serp/list':
+        post:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      '/user':
+        get:
+          requests:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 300000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+    rates:
+      '/heartbeat':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/technologies/{domain}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/whois/{domain}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/region/list':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/new':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/new/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/{id}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/new':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/new/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/{id}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/user':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+  Medium:
+    pricing:
+      cost: 800
+    quotas:
+      '/heartbeat':
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+      '/technologies/{domain}':
+        get:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/whois/{domain}':
+        get:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/region/list':
+        get:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/keyword/new':
+        post:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/keyword/new/list':
+        post:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/keyword/{id}':
+        get:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+        delete:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/keyword/list':
+        post:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/serp/new':
+        post:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/serp/new/list':
+        post:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/serp/{id}':
+        get:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+        delete:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/serp/list':
+        post:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+      '/user':
+        get:
+          requests:
+            - max: 2000000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 1000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.0008
+    rates:
+      '/heartbeat':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/technologies/{domain}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/whois/{domain}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/region/list':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/new':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/new/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/{id}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/new':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/new/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/{id}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/user':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+  Large:
+    pricing:
+      cost: 1500
+    quotas:
+      '/heartbeat':
+        get:
+          requests:
+            - max: unlimited
+              period:
+                amount: 1
+                unit: month
+      '/technologies/{domain}':
+        get:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/whois/{domain}':
+        get:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/region/list':
+        get:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/keyword/new':
+        post:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/keyword/new/list':
+        post:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/keyword/{id}':
+        get:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+        delete:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/keyword/list':
+        post:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/serp/new':
+        post:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/serp/new/list':
+        post:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/serp/{id}':
+        get:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+        delete:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/serp/list':
+        post:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+      '/user':
+        get:
+          requests:
+            - max: 4500000
+              period:
+                amount: 1
+                unit: month
+          credits:
+            - max: 2500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.00067
+    rates:
+      '/heartbeat':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/technologies/{domain}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/whois/{domain}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/region/list':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/new':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/new/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/{id}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/keyword/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/new':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/new/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/{id}':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+        delete:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/serp/list':
+        post:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+      '/user':
+        get:
+          concurrentRequests:
+            - max: 15
+          credits:
+            - max: 100000
+              period:
+                amount: 1
+                unit: hour
+  Enterprise:
+    pricing:
+      cost: custom

@@ -1,0 +1,70 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/htm2pdf/htm2pdf.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  credits:
+    type: integer
+    format: int64
+    description: Number of credits
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  PaidTrial:
+    pricing:
+      cost: 9
+      billing: onepay
+    quotas:
+      /urltopdf:
+        get:
+          credits:
+            - max: 500
+              period:
+                amount: 1
+                unit: forever
+  Starter:
+    pricing:
+      cost: 19
+    quotas:
+      /urltopdf:
+        get:
+          credits:
+            - max: 1000
+              period:
+                amount: 1
+                unit: month
+  Professional:
+    pricing:
+      cost: 39
+    quotas:
+      /urltopdf:
+        get:
+          credits:
+            - max: 3000
+              period:
+                amount: 1
+                unit: month
+  Advanced:
+    pricing:
+      cost: 79
+    quotas:
+      /urltopdf:
+        get:
+          credits:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month

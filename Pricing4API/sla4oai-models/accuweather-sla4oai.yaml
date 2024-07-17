@@ -1,0 +1,2175 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/accuweather/accuweather.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number the overall requests, regardeless the resource'
+    resolution: consumption
+availability: '2009-10-09T21:30:00.00Z'
+plans:
+  LimitedTrial:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      '/currentconditions/v1/topcities/{group}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/currentconditions/v1/{locationKey}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/currentconditions/v1/{locationKey}/historical':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/currentconditions/v1/{locationKey}/historical/24':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/forecasts/v1/daily/1day/{locationKey}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/forecasts/v1/daily/5day/{locationKey}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/forecasts/v1/hourly/1hour/{locationKey}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/forecasts/v1/hourly/12hour/{locationKey}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /indices/v1/daily:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/indices/v1/daily/1day/{locationKey}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/indices/v1/daily/1day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/indices/v1/daily/1day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/indices/v1/daily/5day/{locationKey}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/indices/v1/daily/5day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/indices/v1/daily/5day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /indices/v1/daily/groups:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/indices/v1/daily/groups/{ID}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/indices/v1/daily/{ID}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/adminareas/{countryCode}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /locations/v1/cities/autocomplete:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /locations/v1/cities/geoposition/search:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /locations/v1/cities/ipaddress:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/cities/neighbors/{locationKey}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /locations/v1/cities/search:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/cities/{countryCode}/search':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/cities/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/countries/{regionCode}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /locations/v1/poi/search:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/poi/{countryCode}/search':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/poi/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /locations/v1/postalcodes/search:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/postalcodes/{countryCode}/search':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /locations/v1/regions:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      /locations/v1/search:
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/topcities/{group}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/{countryCode}/search':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+      '/locations/v1/{locationKey}':
+        get:
+          requests:
+            - max: 50
+              period: 
+                amount: 1
+                unit: day
+  Standard:
+    pricing:
+      cost: 25.0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      '/alarms/v1/1day/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/alarms/v1/5day/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/currentconditions/v1/topcities/{group}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/currentconditions/v1/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/currentconditions/v1/{locationKey}/historical':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/currentconditions/v1/{locationKey}/historical/24':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/forecasts/v1/daily/1day/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/forecasts/v1/daily/5day/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/forecasts/v1/hourly/1hour/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/forecasts/v1/hourly/12hour/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /indices/v1/daily:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/indices/v1/daily/1day/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/indices/v1/daily/1day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/indices/v1/daily/1day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/indices/v1/daily/5day/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/indices/v1/daily/5day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/indices/v1/daily/5day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /indices/v1/daily/groups:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/indices/v1/daily/groups/{ID}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/indices/v1/daily/{ID}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/adminareas/{countryCode}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /locations/v1/cities/autocomplete:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /locations/v1/cities/geoposition/search:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /locations/v1/cities/ipaddress:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/cities/neighbors/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /locations/v1/cities/search:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/cities/{countryCode}/search':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/cities/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/countries/{regionCode}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /locations/v1/poi/search:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/poi/{countryCode}/search':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/poi/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /locations/v1/postalcodes/search:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/postalcodes/{countryCode}/search':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /locations/v1/regions:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /locations/v1/search:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/topcities/{group}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/{countryCode}/search':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/locations/v1/{locationKey}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /translations/v1/groups:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      '/translations/v1/groups/{groupID}':
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+      /translations/v1/languages:
+        get:
+          requests:
+            - max: 225000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00012
+  Prime:
+    pricing:
+      cost: 250.0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      '/alarms/v1/1day/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/alarms/v1/5day/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/alarms/v1/10day/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/alerts/v1/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/currentconditions/v1/topcities/{group}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/currentconditions/v1/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/currentconditions/v1/{locationKey}/historical':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/currentconditions/v1/{locationKey}/historical/24':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/forecasts/v1/daily/1day/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/forecasts/v1/daily/5day/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/forecasts/v1/daily/10day/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/forecasts/v1/hourly/1hour/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/forecasts/v1/hourly/12hour/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/forecasts/v1/hourly/24hour/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/forecasts/v1/hourly/72hour/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/imagery/v1/maps/radsat/{resolution}/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /indices/v1/daily:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/1day/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/1day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/1day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/5day/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/5day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/5day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/10day/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/10day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/10day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /indices/v1/daily/groups:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/groups/{ID}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/indices/v1/daily/{ID}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/adminareas/{countryCode}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /locations/v1/cities/autocomplete:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /locations/v1/cities/geoposition/search:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /locations/v1/cities/ipaddress:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/cities/neighbors/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /locations/v1/cities/search:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/cities/{countryCode}/search':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/cities/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/countries/{regionCode}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /locations/v1/poi/search:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/poi/{countryCode}/search':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/poi/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /locations/v1/postalcodes/search:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/postalcodes/{countryCode}/search':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /locations/v1/regions:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /locations/v1/search:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/topcities/{group}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/{countryCode}/search':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/locations/v1/{locationKey}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /translations/v1/groups:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/translations/v1/groups/{groupID}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /translations/v1/languages:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      /tropical/v1/storms/active:
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/tropical/v1/storms/active/{basinId}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/tropical/v1/storms/active/{basinId}/{depressionId}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/tropical/v1/storms/{yyyy}/{basinId}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/tropical/v1/storms/{yyyy}/{basinId}/{depressionId}':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/tropical/v1/storms/{yyyy}/{basinId}/{depressionId}/forecasts':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/tropical/v1/storms/{yyyy}/{basinId}/{depressionId}/positions':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+      '/tropical/v1/storms/{yyyy}/{basinId}/{depressionId}/positions/current':
+        get:
+          requests:
+            - max: 1800000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00015
+  Elite:
+    pricing:
+      cost: 500.0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      '/alarms/v1/1day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/alarms/v1/5day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/alarms/v1/10day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/alarms/v1/15day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/alerts/v1/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/currentconditions/v1/topcities/{group}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/currentconditions/v1/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/currentconditions/v1/{locationKey}/historical':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/currentconditions/v1/{locationKey}/historical/24':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/forecasts/v1/daily/1day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/forecasts/v1/daily/5day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/forecasts/v1/daily/10day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/forecasts/v1/daily/15day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/forecasts/v1/hourly/1hour/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/forecasts/v1/hourly/12hour/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/forecasts/v1/hourly/24hour/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/forecasts/v1/hourly/72hour/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/forecasts/v1/hourly/120hour/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/imagery/v1/maps/radsat/{resolution}/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /indices/v1/daily:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/1day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/1day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/1day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/5day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/5day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/5day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/10day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/10day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/10day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/15day/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/15day/{locationKey}/groups/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/15day/{locationKey}/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /indices/v1/daily/groups:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/groups/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/indices/v1/daily/{ID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/adminareas/{countryCode}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /locations/v1/cities/autocomplete:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /locations/v1/cities/geoposition/search:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /locations/v1/cities/ipaddress:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/cities/neighbors/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /locations/v1/cities/search:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/cities/{countryCode}/search':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/cities/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/countries/{regionCode}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /locations/v1/poi/search:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/poi/{countryCode}/search':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/poi/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /locations/v1/postalcodes/search:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/postalcodes/{countryCode}/search':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /locations/v1/regions:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /locations/v1/search:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/topcities/{group}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/{countryCode}/search':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/{countryCode}/{adminCode}/search':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/locations/v1/{locationKey}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /translations/v1/groups:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/translations/v1/groups/{groupID}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /translations/v1/languages:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      /tropical/v1/storms/active:
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/tropical/v1/storms/active/{basinId}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/tropical/v1/storms/active/{basinId}/{depressionId}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/tropical/v1/storms/{yyyy}/{basinId}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/tropical/v1/storms/{yyyy}/{basinId}/{depressionId}':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/tropical/v1/storms/{yyyy}/{basinId}/{depressionId}/forecasts':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/tropical/v1/storms/{yyyy}/{basinId}/{depressionId}/positions':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022
+      '/tropical/v1/storms/{yyyy}/{basinId}/{depressionId}/positions/current':
+        get:
+          requests:
+            - max: 2400000
+              period: 
+                amount: 1
+                unit: day
+              cost:
+                overage:
+                  excess: 1
+                  cost: 0.00022

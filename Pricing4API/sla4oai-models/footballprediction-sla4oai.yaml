@@ -1,0 +1,165 @@
+context:
+  id: footballprediction
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/fottballprediction-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: month
+      /v2/performance:
+        get:
+          requests:
+            - max: 25
+              period:
+                amount: 1
+                unit: day
+      /v2/list-markets:
+        get:
+          requests:
+            - max: 25
+              period:
+                amount: 1
+                unit: day
+      /v2/list-federations:
+        get:
+          requests:
+            - max: 25
+              period:
+                amount: 1
+                unit: day
+  Pro:
+    pricing:
+      cost: 14.99
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 1500
+              period:
+                amount: 1
+                unit: day
+      /v2/performance:
+        get:
+          requests:
+            - max: 1500
+              period:
+                amount: 1
+                unit: day
+      /v2/list-markets:
+        get:
+          requests:
+            - max: 1500
+              period:
+                amount: 1
+                unit: day
+      /v2/list-federations:
+        get:
+          requests:
+            - max: 1500
+              period:
+                amount: 1
+                unit: day
+  Ultra:
+    pricing:
+      cost: 24.99
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+      /v2/performance:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: day
+      /v2/list-markets:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: day
+      /v2/list-federations:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: day
+  Mega:
+    pricing:
+      cost: 29.99
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 30000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.0005
+      /v2/performance:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: day
+      /v2/list-markets:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: day
+      /v2/list-federations:
+        get:
+          requests:
+            - max: 3000
+              period:
+                amount: 1
+                unit: day

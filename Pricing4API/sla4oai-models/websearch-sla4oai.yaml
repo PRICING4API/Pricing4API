@@ -1,0 +1,67 @@
+context:
+  id: websearch
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/websearch-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 0
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 1
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: day
+  Pro:
+    pricing:
+      cost: 129
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 5
+              period:
+                amount: 1
+                unit: second
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                amount: 0.001

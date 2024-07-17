@@ -1,0 +1,117 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/eversign/eversign.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  templates:
+    type: integer
+    format: int64
+    description: 'Number of templates'
+    resolution: consumption
+  documents:
+    type: integer
+    format: int64
+    description: 'Number of documents'
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: USD
+  period:
+    amount: 1
+    unit: month
+availability: '2009-10-09T21:30:00.00Z'
+configuration: {}
+plans:
+  API-Light:
+    pricing:
+      cost: 49.99
+    quotas:
+      /api/document:
+        get:
+          templates:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          documents:
+            - max: 50
+              period: 
+                amount: 1
+                unit: month
+      /api/file:
+        get:
+          templates:
+            - max: 10
+              period: 
+                amount: 1
+                unit: forever
+          documents:
+            - max: 50
+              period: 
+                amount: 1
+                unit: month
+  API-Business:
+    pricing:
+      cost: 179.99
+    quotas:
+      /api/document:
+        get:
+          templates:
+            - max: 25
+              period: 
+                amount: 1
+                unit: forever
+          documents:
+            - max: 200
+              period: 
+                amount: 1
+                unit: month
+      /api/file:
+        get:
+          templates:
+            - max: 25
+              period: 
+                amount: 1
+                unit: forever
+          documents:
+            - max: 200
+              period: 
+                amount: 1
+                unit: month
+  API-BusinessPro:
+    pricing:
+      cost: 399.99
+    quotas:
+      /api/document:
+        get:
+          templates:
+            - max: 25
+              period: 
+                amount: 1
+                unit: forever
+          documents:
+            - max: 500
+              period: 
+                amount: 1
+                unit: month
+      /api/file:
+        get:
+          templates:
+            - max: 25
+              period: 
+                amount: 1
+                unit: forever
+          documents:
+            - max: 500
+              period: 
+                amount: 1
+                unit: month
+  API-Custom:
+    pricing:
+      cost: custom

@@ -1,0 +1,925 @@
+context:
+  id: plans
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://repo.designer.governify.io:10880/antgamdia/api_modeling_paper/modeling/moz/moz.oai-spec?accessToken=165a1761634db1e9bd304ea6f3ffcf2b
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  rows:
+    type: integer
+    format: int64
+    description: Data rows
+    resolution: consumption
+    unit: row
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2009-10-09T21:30:00.00Z'
+plans:
+  EntryLevel:
+    pricing:
+      cost: 250
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      '/v2/anchor_text':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/final_redirect':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/global_top_pages':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/global_top_root_domains':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/index_metadata':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/link_intersect':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/link_status':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/linking_root_domains':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/links':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/top_pages':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/url_metrics':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+      '/v2/usage_data':
+        post:
+          rows:
+            - max: 120000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 20
+    rates:
+      '/v2/anchor_text':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/final_redirect':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/global_top_pages':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/global_top_root_domains':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/index_metadata':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/link_intersect':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/link_status':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/linking_root_domains':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/links':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/top_pages':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/url_metrics':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/usage_data':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+  LowVolume:
+    pricing:
+      cost: 500
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      '/v2/anchor_text':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/final_redirect':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/global_top_pages':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/global_top_root_domains':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/index_metadata':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/link_intersect':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/link_status':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/linking_root_domains':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/links':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/top_pages':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/url_metrics':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+      '/v2/usage_data':
+        post:
+          rows:
+            - max: 500000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 10
+    rates:
+      '/v2/anchor_text':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/final_redirect':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/global_top_pages':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/global_top_root_domains':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/index_metadata':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/link_intersect':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/link_status':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/linking_root_domains':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/links':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/top_pages':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/url_metrics':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/usage_data':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+  MidVolume:
+    pricing:
+      cost: 2000
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      '/v2/anchor_text':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/final_redirect':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/global_top_pages':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/global_top_root_domains':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/index_metadata':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/link_intersect':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/link_status':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/linking_root_domains':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/links':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/top_pages':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/url_metrics':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+      '/v2/usage_data':
+        post:
+          rows:
+            - max: 4000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 5
+    rates:
+      '/v2/anchor_text':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/final_redirect':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/global_top_pages':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/global_top_root_domains':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/index_metadata':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/link_intersect':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/link_status':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/linking_root_domains':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/links':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/top_pages':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/url_metrics':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/usage_data':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+  Enterprise:
+    pricing:
+      cost: 10000
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      '/v2/anchor_text':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/final_redirect':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/global_top_pages':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/global_top_root_domains':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/index_metadata':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/link_intersect':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/link_status':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/linking_root_domains':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/links':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/top_pages':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/url_metrics':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+      '/v2/usage_data':
+        post:
+          rows:
+            - max: 40000000
+              period: 
+                amount: 1
+                unit: month
+              cost:
+                overage: 
+                  excess: 10000
+                  cost: 3.50
+    rates:
+      '/v2/anchor_text':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/final_redirect':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/global_top_pages':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/global_top_root_domains':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/index_metadata':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/link_intersect':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/link_status':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/linking_root_domains':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/links':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/top_pages':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/url_metrics':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+      '/v2/usage_data':
+        post:
+          requests:
+            - max: 200
+              period: 
+                amount: 1
+                unit: second
+

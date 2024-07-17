@@ -1,0 +1,90 @@
+context:
+  id: telize
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/telize-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Basic:
+    pricing:
+      cost: 7
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.0005
+  Pro:
+    pricing:
+      cost: 22
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 5000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.0002
+  Ultra:
+    pricing:
+      cost: 50
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 20000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.0001
+  Mega:
+    pricing:
+      cost: 100
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+              overage:
+                excess: 1
+                amount: 0.00005

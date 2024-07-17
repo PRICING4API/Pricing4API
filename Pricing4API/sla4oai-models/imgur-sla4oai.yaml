@@ -1,0 +1,167 @@
+context:
+  id: imgur
+  sla: '1.0'
+  type: plans
+  api: >-
+    http://specs.com/imgur-spec.yaml
+  provider: ISA Group
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: 'Number of requests, regarding the resource'
+    resolution: consumption
+  uploads:
+    type: integer
+    format: int64
+    description: 'Number of uploads'
+    resolution: consumption
+availability: '2022-12-22T00:00:00.00Z'
+plans:
+  Pro:
+    pricing:
+      cost: 25
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 600000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      /3/gallery/image/:id:
+        post:
+          uploads:
+            - max: 60000
+              period: 
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.01
+      /3/album:
+        post:
+          uploads:
+            - max: 60000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.01
+      /3/image:
+        post:
+          uploads:
+            - max: 60000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.01
+  Ultra:
+    pricing:
+      cost: 250
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 7500000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      /3/gallery/image/:id:
+        post:
+          uploads:
+            - max: 750000
+              period: 
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.01
+      /3/album:
+        post:
+          uploads:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.01
+      /3/image:
+        post:
+          uploads:
+            - max: 750000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.01
+  Mega:
+    pricing:
+      cost: 4000
+      currency: USD
+      period:
+        amount: 1
+        unit: month
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 150000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.001
+      /3/gallery/image/:id:
+        post:
+          uploads:
+            - max: 15000000
+              period: 
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.01
+      /3/album:
+        post:
+          uploads:
+            - max: 15000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.01
+      /3/image:
+        post:
+          uploads:
+            - max: 15000000
+              period:
+                amount: 1
+                unit: month
+              overage:
+                excess: 1
+                cost: 0.01
