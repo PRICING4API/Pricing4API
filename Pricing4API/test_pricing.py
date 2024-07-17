@@ -1,6 +1,6 @@
 import unittest
-from pricing import Pricing
-from plan import Plan
+from .pricing import Pricing
+from .plan import Plan
 
 class TestPricingAdditional(unittest.TestCase):
     
