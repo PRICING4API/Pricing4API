@@ -75,3 +75,8 @@ pricing = Pricing("Amadeus", plans, "requests")
 pricing.link_plans()
 
 pricing.show_datasheet()
+
+pricing_test_1 = Pricing("Amadeus", [amadeus_hardcoded_plan_test], "requests")
+pricing_test_2 = Pricing("Amadeus", [plans[0]], "requests")
+
+pricing_test_1.compareTo(pricing_test_2)
