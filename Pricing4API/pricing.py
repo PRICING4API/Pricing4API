@@ -100,6 +100,19 @@ class Pricing:
         df = self.create_table()
         df = self.show_more_table(df)
         print(df)
+
+    def compareTo(self, other_pricing) -> None:
+        """
+        Compare the pricing object with another pricing object.
+        """
+        if self.__name == other_pricing.name:
+            df = self.create_table()
+            df = self.show_more_table(df)
+            df_other = other_pricing.create_table()
+            df_other = other_pricing.show_more_table(df_other)
+            print(df == df_other)
+        else:
+            print('The pricing objects are different.')
             
     
 
