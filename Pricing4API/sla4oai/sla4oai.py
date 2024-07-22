@@ -147,7 +147,7 @@ class SLA4OAI:
         """
         return self._configuration
 
-    def get_billing(self):
+    def get_billing(self, endpoint: str | None = None, method: str | None = None, plan_name: str | None = None):
         """
         Returns the billing of the SLA to Plan.
 
@@ -156,7 +156,7 @@ class SLA4OAI:
         """
         cost = self.get_pricing().get_cost()
         time = time_unit_to_seconds(self.get_pricing().get_billing())
-        overage_cost = 0  # TODO: Implement overage cost
+        overage_cost = self.get_plans().get_plan_by_name(plan_name).get_quotas().get_limit_by_method(endpoint, method)[0].get_cost().get_overage().get_cost() if endpoint and method and plan_name else 0
 
         return (cost, time, overage_cost)
 

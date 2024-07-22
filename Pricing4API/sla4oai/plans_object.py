@@ -5,6 +5,7 @@ This module provides the PlansObject class for the SLA4OAI model.
 from typing import Any, Dict, List
 
 from .plan_object import PlanObject
+from .pricing_object import PricingObject
 
 
 class PlansObject:
@@ -59,7 +60,7 @@ class PlansObject:
         """
         return list(self._plan.keys())
 
-    def get_pricing_by_plan(self, plan_name: str) -> Dict[str, Any]:
+    def get_pricing_by_plan(self, plan_name: str) -> PricingObject:
         """
         Returns the pricing of a plan.
 
@@ -67,6 +68,6 @@ class PlansObject:
             plan_name (str): The name of the plan.
 
         Returns:
-            Dict[str, Any]: The pricing of the plan.
+            PricingObject: The pricing of the plan.
         """
         return self._plan[plan_name].get_pricing()
