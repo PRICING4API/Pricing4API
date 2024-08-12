@@ -154,9 +154,15 @@ class SLA4OAI:
         Returns:
             Tuple[float, int, Optional[float]]: The billing of the SLA.
         """
-        cost = self.get_pricing().get_cost()
-        time = time_unit_to_seconds(self.get_pricing().get_billing())
-        overage_cost = self.get_plans().get_plan_by_name(plan_name).get_quotas().get_limit_by_method(endpoint, method)[0].get_cost().get_overage().get_cost() if endpoint and method and plan_name else 0
+        if endpoint and method and plan_name:
+            try:
+                cost = self.get_plans().get_plan_by_name(plan_name).get_pricing().get_cost()
+                time = time_unit_to_seconds(self.get_plans().get_plan_by_name(plan_name).get_pricing().get_billing())
+                overage_cost = self.get_plans().get_plan_by_name(plan_name).get_quotas().get_limit_by_method(endpoint, method)[0].get_cost().get_overage().get_cost()
+            except:
+                cost = self.get_pricing().get_cost()
+                time = time_unit_to_seconds(self.get_pricing().get_billing())
+                overage_cost = 0.0
 
         return (cost, time, overage_cost)
 
