@@ -1,0 +1,138 @@
+context:
+  id: plans
+  sla: '1.0'
+  version: '1.0'
+  type: plans
+  api: ../openapi-specification/stripe/stripe_oas.yaml
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests
+    resolution: consumption
+  writeRequests:
+    type: integer
+    format: int64
+    description: Number of write requests
+    resolution: consumption
+  readRequests:
+    type: integer
+    format: int64
+    description: Number of read requests
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: EUR
+  billing: monthly
+plans:
+  Test:
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+          writeRequests:
+            - max: 25
+              period:
+                amount: 1
+                unit: second
+          readRequests:
+            - max: 25
+              period:
+                amount: 1
+                unit: second
+      /v1/files/*:
+        all:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+          writeRequests:
+            - max: 20
+              period:
+                amount: 1
+                unit: second
+          readRequests:
+            - max: 20
+              period:
+                amount: 1
+                unit: second
+      /v1/*/search:
+        all:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+          writeRequests:
+            - max: 20
+              period:
+                amount: 1
+                unit: second
+          readRequests:
+            - max: 20
+              period:
+                amount: 1
+                unit: second
+  Live:
+    pricing:
+      custom: true
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+          writeRequests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+          readRequests:
+            - max: 100
+              period:
+                amount: 1
+                unit: second
+      /v1/files/*:
+        all:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+          writeRequests:
+            - max: 20
+              period:
+                amount: 1
+                unit: second
+          readRequests:
+            - max: 20
+              period:
+                amount: 1
+                unit: second
+      /v1/*/search:
+        all:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: month
+          writeRequests:
+            - max: 20
+              period:
+                amount: 1
+                unit: second
+          readRequests:
+            - max: 20
+              period:
+                amount: 1
+                unit: second

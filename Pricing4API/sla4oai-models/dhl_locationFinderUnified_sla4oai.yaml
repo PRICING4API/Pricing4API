@@ -1,0 +1,42 @@
+context:
+  id: plans
+  sla: '1.0'
+  version: '1.0'
+  type: plans
+  api: ../openapi-specification/DHL/DHL_locationFinderUnified_oas.yaml
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests, regarding the resource
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: EUR
+  billing: monthly
+plans:
+  Free:
+    pricing:
+      cost: 0
+      custom: true
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day

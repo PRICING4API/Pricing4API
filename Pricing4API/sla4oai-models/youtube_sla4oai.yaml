@@ -1,0 +1,232 @@
+context:
+  id: plans
+  sla: '1.0'
+  version: '1.0'
+  type: plans
+  api: ../openapi-specification/youtube/youtube_oas.yaml
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests, regarding the resource
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: EUR
+  billing: monthly
+plans:
+  Free:
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: day
+      /captions:
+        get:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        post:
+          requests:
+            - max: 25
+              period:
+                amount: 1
+                unit: day
+        put:
+          requests:
+            - max: 22
+              period:
+                amount: 1
+                unit: day
+        delete:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /channelBanners/insert:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /channelSections:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        put:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        delete:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /channels:
+        put:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /commentThreads:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /comments:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        put:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        delete:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /comments/setModerationStatus:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /playlistItems:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        put:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        delete:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /playlists:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        put:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        delete:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /search:
+        get:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: day
+      /subscriptions:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        delete:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /thumbnails/set:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /videos:
+        post:
+          requests:
+            - max: 6
+              period:
+                amount: 1
+                unit: day
+        put:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+        delete:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /videos/reportAbuse:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /videos/rate:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /watermarks/set:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day
+      /watermarks/unset:
+        post:
+          requests:
+            - max: 200
+              period:
+                amount: 1
+                unit: day

@@ -1,0 +1,315 @@
+context:
+  id: plans
+  sla: '1.0'
+  version: '1.0'
+  type: plans
+  api: ../openapi-specification/languagetool/languagetool_oas.yaml
+infrastructure:
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
+metrics:
+  requests:
+    type: integer
+    format: int64
+    description: Number of requests, regarding the resource
+    resolution: consumption
+  maxNumberCharsForRequests:
+    type: integer
+    format: int64
+    description: Maximum number of characters for requests
+    resolution: consumption
+  maxNumberCharsForMinutes:
+    type: integer
+    format: int64
+    description: Maximum number of characters for minutes
+    resolution: consumption
+pricing:
+  cost: 0
+  currency: EUR
+  billing: monthly
+plans:
+  Free-100:
+    pricing:
+      cost: 29
+      custom: true
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 20
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 20000
+          maxNumberCharsForMinutes:
+            - max: 75000
+              period:
+                amount: 1
+                unit: minute
+  Free-250:
+    pricing:
+      cost: 39
+      custom: true
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 20
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 20000
+          maxNumberCharsForMinutes:
+            - max: 75000
+              period:
+                amount: 1
+                unit: minute
+  Free-500:
+    pricing:
+      cost: 59
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 20
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 20000
+          maxNumberCharsForMinutes:
+            - max: 75000
+              period:
+                amount: 1
+                unit: minute
+  Free-1000:
+    pricing:
+      cost: 99
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 20
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 20000
+          maxNumberCharsForMinutes:
+            - max: 75000
+              period:
+                amount: 1
+                unit: minute
+  Free-custom:
+    pricing:
+      cost: 0
+      custom: true
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 20
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100000
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 20000
+          maxNumberCharsForMinutes:
+            - max: 75000
+              period:
+                amount: 1
+                unit: minute
+
+  Premium-100:
+    pricing:
+      cost: 34.92
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 80
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 100
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 600000
+          maxNumberCharsForMinutes:
+            - max: 300000
+              period:
+                amount: 1
+                unit: minute
+  Premium-250:
+    pricing:
+      cost: 44.92
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 80
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 250
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 600000
+          maxNumberCharsForMinutes:
+            - max: 300000
+              period:
+                amount: 1
+                unit: minute
+  Premium-500:
+    pricing:
+      cost: 64.92
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 80
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 500
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 600000
+          maxNumberCharsForMinutes:
+            - max: 300000
+              period:
+                amount: 1
+                unit: minute
+  Premium-1000:
+    pricing:
+      cost: 104.92
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 80
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 1000
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 600000
+          maxNumberCharsForMinutes:
+            - max: 300000
+              period:
+                amount: 1
+                unit: minute
+  Premium-cutom:
+    pricing:
+      cost: 15.92
+      custom: true
+      currency: EUR
+      billing: monthly
+    rates:
+      /*:
+        all:
+          requests:
+            - max: 80
+              period:
+                amount: 1
+                unit: minute
+    quotas:
+      /*:
+        all:
+          requests:
+            - max: 10000
+              period:
+                amount: 1
+                unit: day
+          maxNumberCharsForRequests:
+            - max: 600000
+          maxNumberCharsForMinutes:
+            - max: 300000
+              period:
+                amount: 1
+                unit: minute
