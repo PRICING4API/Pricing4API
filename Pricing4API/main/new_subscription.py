@@ -138,16 +138,61 @@ class Subscription:
         df = pd.DataFrame(responses, columns=['Status Code', 'Response Time'])
         return df
     
+    def generate_real_capacity_curve(self):
+        """
+        Genera la curva de capacidad real incorporando los errores 429 (cooling down periods).
+        """
+        # Obtener la curva ideal del plan asociado
+        ideal_capacity_curve = self.plan.generate_ideal_capacity_curve()
+        real_capacity_curve = []
+        error_429_index = 0  # Índice para recorrer los errores 429
+        accumulated_errors = 0  # Contador de peticiones perdidas por errores
+
+        # Recorrer la curva ideal y ajustar por errores 429
+        for i, (time, capacity) in enumerate(ideal_capacity_curve):
+            # Si no hay más errores, copiamos la capacidad ideal
+            if error_429_index >= len(self.requests_429):
+                real_capacity_curve.append((time, capacity))
+                continue
+
+            # Verificar si este índice coincide con el próximo error 429
+            error_index, cooling_down_period = self.requests_429[error_429_index]
+            adjusted_index = error_index - accumulated_errors  # Ajustar índice por errores acumulados
+
+            if i < adjusted_index:
+                # Antes del error, copiar directamente la capacidad ideal
+                real_capacity_curve.append((time, capacity))
+            elif i == adjusted_index:
+                # En el índice del error, insertar meseta de cooling down
+                cooling_end_time = time + int(cooling_down_period)
+                last_capacity = real_capacity_curve[-1][1] if real_capacity_curve else 0
+                while time < cooling_end_time:
+                    real_capacity_curve.append((time, last_capacity))
+                    time += self.plan.rate_wait_period.to_seconds()
+
+                # Ajustar por el cooling down
+                accumulated_errors += 1
+                error_429_index += 1
+            else:
+                # Después del error, continuar con la capacidad ideal ajustada
+                real_capacity_curve.append((time, capacity - accumulated_errors))
+
+        return real_capacity_curve
+    
 
 if __name__ == "__main__":
     plan_dblp = Plan('DBLP', (0.0, TimeDuration(1, TimeUnit.MONTH)), overage_cost=None, 
-                     unitary_rate=Limit(1, TimeDuration(2, TimeUnit.SECOND)), quotes=[Limit(20, TimeDuration(1, TimeUnit.MINUTE))])
+                     unitary_rate=Limit(1, TimeDuration(2, TimeUnit.SECOND)), quotes=[Limit(20, TimeDuration(1, TimeUnit.MINUTE)), Limit(100, TimeDuration(1, TimeUnit.HOUR))], max_number_of_subscriptions=1)
     
     dblp_subscription = Subscription(plan_dblp, 'https://dblp.org/search/publ/api')
     
     dblp_subscription.regulated(False)
     
-    plan_dblp.show_available_capacity_curve(TimeDuration(2, TimeUnit.MINUTE))
+    # dblp_subscription.api_usage_simulator(TimeDuration(1, TimeUnit.SECOND))
+    
+    
+    print(plan_dblp.generate_ideal_capacity_curve_v2())
+
 
 
 
