@@ -1,3 +1,6 @@
+from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
+
+
 def heaviside(x):
     if x < 0:
         return 0
@@ -22,3 +25,87 @@ def format_time(seconds: int)->str:
             time_string += f"{seconds}s"
 
         return time_string.rstrip(", ")
+    
+def format_time_with_unit(time_duration: TimeDuration) -> str:
+    """
+    Formatea una duración dada en una unidad de tiempo específica a un string legible.
+
+    Args:
+        time_duration (TimeDuration): La duración con su unidad de tiempo.
+
+    Returns:
+        str: La duración formateada como un string legible.
+    """
+    # Convertir la duración a segundos
+    duration_seconds = time_duration.value * time_duration.unit.to_seconds()
+
+    days = int(duration_seconds // (24 * 60 * 60))
+    hours = int((duration_seconds % (24 * 60 * 60)) // (60 * 60))
+    minutes = int((duration_seconds % (60 * 60)) // 60)
+    seconds = int(duration_seconds % 60)
+
+    time_string = ""
+    if days > 0:
+        time_string += f"{days}d"
+    if hours > 0:
+        time_string += f"{hours}h"
+    if minutes > 0:
+        time_string += f"{minutes}m"
+    if seconds > 0:
+        time_string += f"{seconds}s"
+
+    return time_string.rstrip(", ")
+
+def select_best_time_unit(duration_ms: float) -> TimeDuration:
+    """
+    Selecciona la mejor unidad de tiempo para representar la duración, basado en la magnitud del valor en milisegundos.
+
+    Args:
+        duration_ms (float): La duración en milisegundos.
+
+    Returns:
+        TimeDuration: Una nueva instancia de TimeDuration con el valor convertido a la unidad más apropiada.
+    """
+    if duration_ms < 1000:
+        # Menos de 1 segundo, usar milisegundos
+        return TimeDuration(duration_ms, TimeUnit.MILLISECOND)
+    elif duration_ms < 60000:
+        # Menos de 1 minuto, usar segundos
+        return TimeDuration(duration_ms / 1000, TimeUnit.SECOND)
+    elif duration_ms < 3600000:
+        # Menos de 1 hora, usar minutos
+        return TimeDuration(duration_ms / 60000, TimeUnit.MINUTE)
+    elif duration_ms < 86400000:
+        # Menos de 1 día, usar horas
+        return TimeDuration(duration_ms / 3600000, TimeUnit.HOUR)
+    elif duration_ms < 604800000:
+        # Menos de 1 semana, usar días
+        return TimeDuration(duration_ms / 86400000, TimeUnit.DAY)
+    elif duration_ms < 2592000000:
+        # Menos de 1 mes, usar semanas
+        return TimeDuration(duration_ms / 604800000, TimeUnit.WEEK)
+    elif duration_ms < 31104000000:
+        # Menos de 1 año, usar meses
+        return TimeDuration(duration_ms / 2592000000, TimeUnit.MONTH)
+    else:
+        # Más de un año, usar años
+        return TimeDuration(duration_ms / 31104000000, TimeUnit.YEAR)
+    
+# Función global para reorganizar el eje del tiempo
+def rearrange_time_axis_function(label, original_times_ms, calls, ax, fig, plan_name):
+    # Cambiar la unidad de tiempo basada en el label del radio button seleccionado
+    new_time_unit = TimeUnit(label)
+
+    # Convertir los tiempos desde milisegundos a la nueva unidad seleccionada
+    times_in_new_unit = [time / new_time_unit.to_milliseconds() for time in original_times_ms]
+
+    # Limpiar y redibujar la gráfica
+    ax.clear()
+    ax.step(times_in_new_unit, calls, where='post', color='blue', label='Llamadas acumuladas')
+    ax.set_xlabel(f'Tiempo ({new_time_unit.value})')
+    ax.set_ylabel('Número de llamadas')
+    ax.set_ylim(0)
+    ax.set_title(f'Curva de capacidad - {plan_name}')
+    ax.grid(True)
+    ax.legend()
+    fig.canvas.draw_idle()

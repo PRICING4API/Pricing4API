@@ -1,0 +1,32 @@
+!Pricing
+DBLP Pricing:
+  metrics:
+    name: requests
+  plans:
+    Free DBLP:
+      cost: 0.0
+      billing_cycle:
+        value: 1
+        unit: year
+      unitary_rate: 
+        /*:
+          all:
+            requests:
+              period:
+                value: 2
+                unit: second
+      quotas:
+        /*:
+          all:
+            requests:
+              - max: 20
+                period:
+                  value: 1
+                  unit: minute
+              - max: 100
+                period:
+                  value: 1
+                  unit: hour
+      overage:
+        cost: 0.001
+      max_number_of_subscriptions: 1
