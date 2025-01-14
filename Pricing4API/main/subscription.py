@@ -68,95 +68,11 @@ class Subscription:
         '''Check if the subscription is regulated by the plan.'''
         self.__regulated = regulated
         
-        
-    def available_request(self, t) -> bool:
-        pos = len(self.__plan.limits) - 1
-        
-        t_milliseconds = int(t) * 1000
-        time_duration = TimeDuration(t_milliseconds, TimeUnit.MILLISECOND)
-        
-        available_capacity = self.__plan.available_capacity(time_duration, pos)
-        if available_capacity < self.__accumulated_requests:
-            return False
-        else:
-            return True
-        
-        
-    def make_request(self, method='GET', custom_rate = None, **kwargs):
-        '''
-        Make a request to the API. If the subscription is regulated, it will wait until the next request is available.
-        '''
-        
-        plan_rate = self.__plan.rate_frequency if custom_rate is None else custom_rate
-        if self.__regulated:
-            if self.available_request(time.time() - self.__subscription_time):
-                if self.__accumulated_requests > 0:
-                    logging.info(f"Waiting {plan_rate}")
-                    time.sleep(plan_rate.to_seconds())
-            else:
-                logging.info(f"Waiting {plan_rate}")
-                time.sleep(plan_rate.to_seconds())
-                logging.info(f"Request ({self.__accumulated_requests}) to {self.__url} may be exceeding the rate limit.")
-        
-        response = requests.request(method, self.__url, **kwargs)
-        if response.status_code == 429:
-            logging.info(f"Request ({self.__accumulated_requests + 1}) to {self.__url} exceeded the rate limit.")
-            if 'Retry-After' in response.headers:
-                logging.info(f"The Retry-After header is: {response.headers['Retry-After']} seconds")
-            else:
-                logging.info(f"The Retry-After header is not present.")
-        elif response.status_code == 200:
-            logging.info(f"Valid request ({self.__accumulated_requests + 1}) to {self.__url}")
-        else:
-            logging.info(f"Request ({self.__accumulated_requests + 1}) to {self.__url} failed with status code: {response.status_code}")
-        self.__accumulated_requests += 1
-        return response
 
-    def api_usage_simulator(self, time_simulation: TimeDuration):
-        """
-        Simulate API usage for a given time duration. If the quota is exceeded,
-        wait until the quota resets and continue.
-        """
-        RWP = self.plan.rate_wait_period.to_seconds()
-        self.__accumulated_requests = 0
-        end_time = time.time() + time_simulation.to_seconds()
-        responses = []
-
-        while time.time() < end_time:
-            elapsed_time = time.time() - self.__subscription_time
-
-            if self.__accumulated_requests >= self.plan.quotes_values[-1]:
-                wait_time = self.plan.quotes_frequencies[-1].to_seconds() - elapsed_time
-                if wait_time > 0:
-                    logging.info(f"Max. Quota reached. Waiting {wait_time} seconds for quota reset...")
-                    time.sleep(wait_time)
-                     
-                self.__accumulated_requests = 0
-                self.__subscription_time = time.time()
-            response = self.make_request()
-            responses.append((response.status_code, response.elapsed.total_seconds()))
-            
-            if response.status_code == 429:
-                self.__429_requests.append((len(responses), response.headers['Retry-After']))
-                
-        self.__requests_log = responses
-
-        
-        for i in range(1, len(self.__requests_log) - 1):
-            self.__requests_log[i] = (self.__requests_log[i][0], self.__requests_log[i][1] + self.__requests_log[i-1][1] + RWP)
-            
-        
-        self.__requests_log[self.plan.quotes_values[-1]] = (self.__requests_log[i][0],self.plan.quotes_frequencies[-1].to_seconds() + self.__requests_log[self.plan.quotes_values[-1]][1] )
-
-
-        df = pd.DataFrame(responses, columns=['Status Code', 'Response Time'])
-        return df
-    
-    
     async def api_usage_simulator_async(self, time_simulation: TimeDuration):
         """
         Simula el uso de la API durante un tiempo definido utilizando un limitador asíncrono.
-        Calcula las llamadas permitidas usando `available_capacity` del plan.
+        Maneja múltiples cuotas simultáneamente sin reiniciar `__accumulated_requests`.
         """
         # Configuración inicial
         start_time = time.time()
@@ -165,33 +81,33 @@ class Subscription:
         logging.info(f"Inicio de la simulación para {total_llamadas_teoricas} llamadas en un intervalo de {time_simulation.value} {time_simulation.unit.name}")
 
         semaforo = asyncio.Semaphore(0)
-        quota_exceeded = asyncio.Event()
+        quota_states = {limit: {'requests': 0, 'reset_time': start_time + limit.duration.to_seconds()} for limit in self.plan.limits}
         self.__requests_log = []
         self.__429_requests = []
         self.__accumulated_requests = 0
         cooling_down = asyncio.Event()
         cooling_down.clear()  # Inicialmente no estamos en cooling down
 
-        # Función para gestionar permisos y cuotas
+        # Función para gestionar permisos
         async def gestionar_permisos_y_cuotas():
             rate_value = self.plan.rate_value
             rate_wait_period = self.plan.rate_wait_period.to_seconds()
             while time.time() < end_time:
-                # Verificar si se excede alguna cuota
-                elapsed_time = time.time() - start_time
-                for limit in self.plan.limits:
-                    if self.__accumulated_requests >= limit.value:
-                        reset_time = limit.duration.to_seconds() - elapsed_time
-                        if reset_time > 0:
-                            logging.info(f"Quota for {limit.value} calls per {limit.duration.unit.name} exceeded. Waiting {reset_time:.2f} seconds for reset.")
-                            quota_exceeded.set()
-                            await asyncio.sleep(reset_time)
-                            quota_exceeded.clear()
-                            self.__accumulated_requests = 0
-                            break
+                # Comprobar límites de las cuotas
+                for limit, state in quota_states.items():
+                    if state['requests'] >= limit.value:
+                        now = time.time()
+                        reset_time = state['reset_time']
+                        if now < reset_time:
+                            wait_time = reset_time - now
+                            logging.info(f"Quota for {limit.value} calls per {limit.duration.value, limit.duration.unit.name} exceeded. Waiting {wait_time:.2f} seconds for reset.")
+                            await asyncio.sleep(wait_time)
+                        # Resetear la cuota específica
+                        state['requests'] = 0
+                        state['reset_time'] = time.time() + limit.duration.to_seconds()
 
-                # Liberar permisos solo si no hay cuota excedida o cooling down activo
-                if not quota_exceeded.is_set() and not cooling_down.is_set():
+                # Liberar permisos solo si no estamos en cooling down
+                if not cooling_down.is_set():
                     for _ in range(rate_value):
                         semaforo.release()
                     await asyncio.sleep(rate_wait_period)
@@ -202,13 +118,9 @@ class Subscription:
             async with httpx.AsyncClient() as client:
                 try:
                     await semaforo.acquire()
-                    if quota_exceeded.is_set():
-                        logging.info(f"Task {n} is waiting for quota reset.")
-                        await quota_exceeded.wait()  # Espera activa por el reset de cuota
-
                     if cooling_down.is_set():
                         logging.info(f"Task {n} is waiting for cooling down to end.")
-                        await cooling_down.wait()  # Espera activa por el fin del cooling down
+                        await cooling_down.wait()  # Espera activa por el cooling down
 
                     # Realizar la solicitud
                     timestamp_sent = time.time() - start_time
@@ -224,6 +136,9 @@ class Subscription:
                         cooling_down.clear()  # Reiniciar después del cooling down
                     elif response.status_code == 200:
                         self.__accumulated_requests += 1
+                        # Incrementar contador para cada cuota
+                        for limit, state in quota_states.items():
+                            state['requests'] += 1
                         logging.info(f"Valid request ({n + 1}) to {self.url}")
                     else:
                         logging.warning(f"Request {n + 1} failed with status code: {response.status_code}")
@@ -252,9 +167,6 @@ class Subscription:
         df = pd.DataFrame(self.__requests_log, columns=['Status Code', 'Timestamp Sent (seconds)'])
         logging.info("Simulación finalizada.")
         return df
-
-
-
 
 
     def show_real_capacity_curve_v2(self, mock_429_list=None): # TODO: que dependa del tiempo de suscripción real digamos...
@@ -383,7 +295,7 @@ class Subscription:
                 
 if __name__ == "__main__":
     plan_dblp = Plan('DBLP', (0.0, TimeDuration(1, TimeUnit.MONTH)), overage_cost=None, 
-                     unitary_rate=Limit(1, TimeDuration(2, TimeUnit.SECOND)), quotes=[Limit(20, TimeDuration(1, TimeUnit.MINUTE))], max_number_of_subscriptions=1)
+                     unitary_rate=Limit(1, TimeDuration(500, TimeUnit.MILLISECOND)), quotes=[Limit(3, TimeDuration(4, TimeUnit.SECOND)), Limit(7, TimeDuration(1, TimeUnit.MINUTE))], max_number_of_subscriptions=1)
     
     dblp_subscription = Subscription(plan_dblp, 'https://dblp.org/search/publ/api')
     

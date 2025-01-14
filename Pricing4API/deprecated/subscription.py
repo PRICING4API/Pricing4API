@@ -198,6 +198,90 @@ while(time.time() < end):
             logging.info(f"Request ({self.__accumulated_requests + 1}) to {self.__url} failed with status code: {response.status_code}")
         self.__accumulated_requests += 1
         return response
+    
+    
+    def available_request(self, t) -> bool:
+        pos = len(self.__plan.limits) - 1
+        
+        t_milliseconds = int(t) * 1000
+        time_duration = TimeDuration(t_milliseconds, TimeUnit.MILLISECOND)
+        
+        available_capacity = self.__plan.available_capacity(time_duration, pos)
+        if available_capacity < self.__accumulated_requests:
+            return False
+        else:
+            return True
+        
+        
+    def make_request(self, method='GET', custom_rate = None, **kwargs):
+        '''
+        Make a request to the API. If the subscription is regulated, it will wait until the next request is available.
+        '''
+        
+        plan_rate = self.__plan.rate_frequency if custom_rate is None else custom_rate
+        if self.__regulated:
+            if self.available_request(time.time() - self.__subscription_time):
+                if self.__accumulated_requests > 0:
+                    logging.info(f"Waiting {plan_rate}")
+                    time.sleep(plan_rate.to_seconds())
+            else:
+                logging.info(f"Waiting {plan_rate}")
+                time.sleep(plan_rate.to_seconds())
+                logging.info(f"Request ({self.__accumulated_requests}) to {self.__url} may be exceeding the rate limit.")
+        
+        response = requests.request(method, self.__url, **kwargs)
+        if response.status_code == 429:
+            logging.info(f"Request ({self.__accumulated_requests + 1}) to {self.__url} exceeded the rate limit.")
+            if 'Retry-After' in response.headers:
+                logging.info(f"The Retry-After header is: {response.headers['Retry-After']} seconds")
+            else:
+                logging.info(f"The Retry-After header is not present.")
+        elif response.status_code == 200:
+            logging.info(f"Valid request ({self.__accumulated_requests + 1}) to {self.__url}")
+        else:
+            logging.info(f"Request ({self.__accumulated_requests + 1}) to {self.__url} failed with status code: {response.status_code}")
+        self.__accumulated_requests += 1
+        return response
+
+    def api_usage_simulator(self, time_simulation: TimeDuration):
+        """
+        Simulate API usage for a given time duration. If the quota is exceeded,
+        wait until the quota resets and continue.
+        """
+        RWP = self.plan.rate_wait_period.to_seconds()
+        self.__accumulated_requests = 0
+        end_time = time.time() + time_simulation.to_seconds()
+        responses = []
+
+        while time.time() < end_time:
+            elapsed_time = time.time() - self.__subscription_time
+
+            if self.__accumulated_requests >= self.plan.quotes_values[-1]:
+                wait_time = self.plan.quotes_frequencies[-1].to_seconds() - elapsed_time
+                if wait_time > 0:
+                    logging.info(f"Max. Quota reached. Waiting {wait_time} seconds for quota reset...")
+                    time.sleep(wait_time)
+                     
+                self.__accumulated_requests = 0
+                self.__subscription_time = time.time()
+            response = self.make_request()
+            responses.append((response.status_code, response.elapsed.total_seconds()))
+            
+            if response.status_code == 429:
+                self.__429_requests.append((len(responses), response.headers['Retry-After']))
+                
+        self.__requests_log = responses
+
+        
+        for i in range(1, len(self.__requests_log) - 1):
+            self.__requests_log[i] = (self.__requests_log[i][0], self.__requests_log[i][1] + self.__requests_log[i-1][1] + RWP)
+            
+        
+        self.__requests_log[self.plan.quotes_values[-1]] = (self.__requests_log[i][0],self.plan.quotes_frequencies[-1].to_seconds() + self.__requests_log[self.plan.quotes_values[-1]][1] )
+
+
+        df = pd.DataFrame(responses, columns=['Status Code', 'Response Time'])
+        return df
 
 
 
