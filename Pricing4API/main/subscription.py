@@ -165,36 +165,53 @@ class Subscription:
         logging.info(f"Inicio de la simulación para {total_llamadas_teoricas} llamadas en un intervalo de {time_simulation.value} {time_simulation.unit.name}")
 
         semaforo = asyncio.Semaphore(0)
+        quota_exceeded = asyncio.Event()
         self.__requests_log = []
         self.__429_requests = []
         self.__accumulated_requests = 0
-        cooling_down = False  # Bandera para controlar el enfriamiento
+        cooling_down = asyncio.Event()
+        cooling_down.clear()  # Inicialmente no estamos en cooling down
 
-        # Función para liberar permisos periódicamente
-        async def liberar_permisos():
+        # Función para gestionar permisos y cuotas
+        async def gestionar_permisos_y_cuotas():
             rate_value = self.plan.rate_value
             rate_wait_period = self.plan.rate_wait_period.to_seconds()
-            for _ in range(rate_value):
-                semaforo.release()
-
             while time.time() < end_time:
-                if not cooling_down:  # Solo liberar permisos si no estamos enfriándonos
-                    await asyncio.sleep(rate_wait_period)
-                    logging.info(f"Waiting {rate_wait_period} seconds to release more permissions.")
+                # Verificar si se excede alguna cuota
+                elapsed_time = time.time() - start_time
+                for limit in self.plan.limits:
+                    if self.__accumulated_requests >= limit.value:
+                        reset_time = limit.duration.to_seconds() - elapsed_time
+                        if reset_time > 0:
+                            logging.info(f"Quota for {limit.value} calls per {limit.duration.unit.name} exceeded. Waiting {reset_time:.2f} seconds for reset.")
+                            quota_exceeded.set()
+                            await asyncio.sleep(reset_time)
+                            quota_exceeded.clear()
+                            self.__accumulated_requests = 0
+                            break
+
+                # Liberar permisos solo si no hay cuota excedida o cooling down activo
+                if not quota_exceeded.is_set() and not cooling_down.is_set():
                     for _ in range(rate_value):
                         semaforo.release()
-                    
+                    await asyncio.sleep(rate_wait_period)
+                    logging.info(f"Released {rate_value} permissions after {rate_wait_period} seconds.")
 
         # Función para realizar una solicitud
         async def realizar_llamada(n):
-            nonlocal cooling_down
             async with httpx.AsyncClient() as client:
                 try:
                     await semaforo.acquire()
-                    if time.time() > end_time:  # Si el tiempo de simulación ha terminado
-                        return
+                    if quota_exceeded.is_set():
+                        logging.info(f"Task {n} is waiting for quota reset.")
+                        await quota_exceeded.wait()  # Espera activa por el reset de cuota
 
-                    timestamp_sent = time.time() - start_time  # Tiempo acumulado desde el inicio
+                    if cooling_down.is_set():
+                        logging.info(f"Task {n} is waiting for cooling down to end.")
+                        await cooling_down.wait()  # Espera activa por el fin del cooling down
+
+                    # Realizar la solicitud
+                    timestamp_sent = time.time() - start_time
                     response = await client.get(self.url)
                     self.__requests_log.append((response.status_code, timestamp_sent))
 
@@ -202,9 +219,9 @@ class Subscription:
                         retry_after = float(response.headers.get('Retry-After', self.plan.rate_wait_period.to_seconds()))
                         self.__429_requests.append((n + 1, retry_after))
                         logging.info(f"Request {n + 1} exceeded rate limit. Retry-After: {retry_after} seconds. Entering cooling down.")
-                        cooling_down = True
-                        await asyncio.sleep(retry_after)  # Pausa durante el enfriamiento
-                        cooling_down = False  # Reiniciar después del enfriamiento
+                        cooling_down.set()  # Activar cooling down
+                        await asyncio.sleep(retry_after)  # Pausar durante el cooling down
+                        cooling_down.clear()  # Reiniciar después del cooling down
                     elif response.status_code == 200:
                         self.__accumulated_requests += 1
                         logging.info(f"Valid request ({n + 1}) to {self.url}")
@@ -216,25 +233,26 @@ class Subscription:
 
         # Tarea para controlar el tiempo de simulación
         async def controlador_tiempo():
-            while time.time() < end_time:
-                await asyncio.sleep(0.1)  # Intervalos cortos para verificar el tiempo
+            await asyncio.sleep(time_simulation.to_seconds())  # Espera el tiempo definido
             logging.info("Tiempo de simulación alcanzado. Cancelando tareas.")
+            # Cancelar todas las tareas
             for task in tasks:
                 task.cancel()
+            permisos_task.cancel()
 
         # Crear tareas
-        asyncio.create_task(liberar_permisos())  # Inicia el liberador de permisos
+        permisos_task = asyncio.create_task(gestionar_permisos_y_cuotas())  # Inicia el manejo de permisos y cuotas
         tasks = [asyncio.create_task(realizar_llamada(i)) for i in range(total_llamadas_teoricas)]
         tiempo_task = asyncio.create_task(controlador_tiempo())  # Controla el tiempo límite
 
-        # Esperar a que todas las tareas finalicen o se alcance el tiempo límite
-        await asyncio.gather(*tasks, return_exceptions=True)
-        await tiempo_task  # Esperar a que el controlador de tiempo termine
+        # Esperar a que todas las tareas finalicen
+        await asyncio.gather(permisos_task, *tasks, tiempo_task, return_exceptions=True)
 
         # Crear un DataFrame con los resultados
         df = pd.DataFrame(self.__requests_log, columns=['Status Code', 'Timestamp Sent (seconds)'])
         logging.info("Simulación finalizada.")
         return df
+
 
 
 
@@ -381,8 +399,8 @@ if __name__ == "__main__":
     print(dblp_subscription.requests_log)
     print(dblp_subscription.accumulated_requests)
     print(dblp_subscription.subscription_time)
-    
-    
+
+
 
 
 
