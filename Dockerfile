@@ -11,7 +11,16 @@ COPY setup.py /home/jovyan/work/setup.py
 RUN pip install -e /home/jovyan/work
 
 # Copiar los notebook al contenedor
-COPY notebooks /home/jovyan/work/notebooks
+COPY new_notebooks/entrega-1 /home/jovyan/work/notebooks
+
+# Cambiar temporalmente al usuario root
+USER root
+
+# Cambiar permisos
+RUN chmod -R 777 /home/jovyan/work/notebooks
+
+# Volver al usuario por defecto
+USER jovyan
 
 # Exponer el puerto 8888 para Jupyter
 EXPOSE 8888

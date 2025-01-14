@@ -3,7 +3,7 @@
 from typing import List
 
 import pandas as pd
-from Pricing4API.main.new_plan import Plan
+from Pricing4API.main.plan import Plan
 from Pricing4API.utils import format_time_with_unit
 
 

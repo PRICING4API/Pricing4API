@@ -1,8 +1,8 @@
 import yaml
 from Pricing4API.ancillary.limit import Limit
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
-from Pricing4API.main.new_plan import Plan
-from Pricing4API.main.new_pricing import Pricing
+from Pricing4API.main.plan import Plan
+from Pricing4API.main.pricing import Pricing
 
 
 class PricingYamlHandler:

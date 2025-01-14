@@ -494,11 +494,11 @@ class Plan:
         # Mostrar la gráfica
         plt.show()
 
-    def generate_ideal_capacity_curve_v2(self):
+    def generate_ideal_capacity_curve(self, subscription_time: TimeDuration = None) -> List[Tuple[int, int]]:
         
-        max_quota = self.max_quota_burning_time + self.max_quota_recovery_interval
+        quota = self.max_quota_burning_time + self.max_quota_recovery_interval if not subscription_time else subscription_time
         
-        values = self.show_available_capacity_curve(max_quota, debug=True)
+        values = self.show_available_capacity_curve(quota, debug=True)
         
         return [(v[0]/1000, v[1]) for v in values]
 
