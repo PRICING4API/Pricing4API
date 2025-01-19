@@ -29,6 +29,7 @@ setup(
         'requests==2.32.3',
         'asyncio==3.4.3',
         'httpx==0.28.1',
-        'python-dotenv==1.0.1'
+        'python-dotenv==1.0.1',
+        'plotly==5.24.1'
     ]
 )
