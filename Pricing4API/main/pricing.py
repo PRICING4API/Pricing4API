@@ -109,7 +109,7 @@ class Pricing:
         Genera una gráfica combinada de las curvas de capacidad de todos los planes,
         asignando colores únicos a cada uno y mostrando la leyenda correspondiente.
         """
-        # Definir una lista de colores únicos (excluyendo azul, rojo y naranja)
+        # Lista de colores predefinidos (excluyendo azul, rojo y naranja)
         predefined_colors = [
             "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
         ]
@@ -117,33 +117,50 @@ class Pricing:
         if len(self.__plans) > len(predefined_colors):
             raise ValueError("No hay suficientes colores disponibles para todos los planes.")
 
-        # Crear la figura y el eje combinados
+        # Crear una figura y ejes combinados
         fig, ax = plt.subplots(figsize=(12, 8))
         ax.set_title(f'Curvas de capacidad combinadas - {self.__name}')
         ax.set_xlabel(f"Tiempo ({time_interval.unit.value})")
         ax.set_ylabel("Capacidad")
         ax.grid(True)
 
-        # Generar las gráficas de cada plan con colores únicos
+        # Generar gráficas individuales y combinarlas
         for plan, color in zip(self.__plans, predefined_colors):
-            fig_plan, ax_plan = plan.show_available_capacity_curve(
-                time_interval, debug=False, color=color, return_fig=True
+            # Obtener los datos del plan en modo debug
+            debug_data = plan.show_available_capacity_curve(
+                time_interval, debug=True
+            )
+            times_ms, capacities = zip(*debug_data)
+
+            # Convertir los tiempos al formato original especificado
+            original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
+
+            # Añadir la línea escalonada al gráfico combinado
+            ax.step(
+                original_times,
+                capacities,
+                where='post',
+                color=color,
+                label=f"{plan.name} ({color})"
             )
 
-            # Extraer las líneas y colecciones de la gráfica del plan
-            for line in ax_plan.lines:
-                ax.add_line(line)
-            for collection in ax_plan.collections:
-                ax.add_collection(collection)
-
-            # Añadir entrada a la leyenda con el color y el nombre del plan
-            ax.plot([], [], color=color, label=f"{plan.name} ({color})")
+            # Añadir el área bajo la curva (sombreado)
+            ax.fill_between(
+                original_times,
+                0,
+                capacities,
+                step="post",
+                color=color,
+                alpha=0.3
+            )
 
         # Añadir la leyenda final
         ax.legend(loc="upper left")
 
         # Mostrar la gráfica combinada
         plt.show()
+
+
 
             
    

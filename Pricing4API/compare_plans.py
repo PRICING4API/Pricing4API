@@ -4,8 +4,10 @@ import plotly.graph_objects as go
 from Pricing4API.ancillary.limit import Limit
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
 from Pricing4API.main.plan import Plan
+from matplotlib.colors import to_rgba
 
-def compare_plans(plans: List, time_interval: TimeDuration):
+
+def compare_plans(plans, time_interval):
     """
     Compara las curvas de capacidad de una lista de planes de forma interactiva utilizando Plotly.
 
@@ -34,12 +36,17 @@ def compare_plans(plans: List, time_interval: TimeDuration):
         # Convertir los tiempos al formato especificado por el usuario
         original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
 
-        # Añadir la curva al gráfico interactivo
+        # Convertir el color base a rgba con menor opacidad
+        rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+
+        # Añadir la curva al gráfico interactivo con sombreado
         fig.add_trace(go.Scatter(
             x=original_times,
             y=capacities,
-            mode='lines+markers',
-            line=dict(color=color, shape='hv'),  # 'hv' mantiene el estilo escalonado
+            mode='lines',  # Solo líneas
+            line=dict(color=color, shape='hv', width=1.3),  # Grosor reducido y escalonado
+            fill='tonexty',  # Sombreado bajo la curva
+            fillcolor=rgba_color,  # Color del sombreado con transparencia
             name=f"{plan.name} ({color})"
         ))
 
@@ -52,8 +59,9 @@ def compare_plans(plans: List, time_interval: TimeDuration):
         template="plotly_white"
     )
 
-    # Mostrar la gráfica interactiva (funciona en Deepnote)
+    # Mostrar la gráfica interactiva en el notebook
     fig.show()
+
     
     
 if __name__ == "__main__":
