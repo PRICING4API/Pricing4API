@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import patch
-from plan import Plan
-from pricing import Pricing
-from optimal_subscription import get_optimal_subscription
+from .plan import Plan
+from .pricing import Pricing
+from .optimal_subscription import get_optimal_subscription
 
 
 s_month = 3600 * 24 * 30

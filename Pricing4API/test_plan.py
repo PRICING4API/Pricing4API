@@ -2,8 +2,8 @@ import random
 from typing import List, Tuple
 import unittest
 import numpy as np
-from plan import Plan
-from pricing import Pricing
+from .plan import Plan
+from .pricing import Pricing
 
 s_second = 1
 s_minute= 60

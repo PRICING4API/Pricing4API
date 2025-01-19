@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
-from plan import Plan
-from utils import format_time
+from .plan import Plan
+from .utils import format_time
 import pandas as pd
 
 
