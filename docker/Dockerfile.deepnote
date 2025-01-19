@@ -9,7 +9,7 @@ COPY Pricing4API /app/Pricing4API
 COPY setup.py /app/setup.py
 
 # Copiar el archivo .env al directorio de trabajo
-COPY ../.env /app/.env
+COPY .env.docker /app/.env
 
 # Instalar la librería en modo editable
 RUN pip install -e /app
