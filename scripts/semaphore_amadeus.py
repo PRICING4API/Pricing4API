@@ -75,9 +75,9 @@ async def controlador(intervalo_s, total_llamadas, permisos_por_intervalo, url, 
         await asyncio.gather(*tareas)
 
 # Configuración
-INTERVALO_S = 1  # Intervalo de tiempo entre lotes de llamadas
+INTERVALO_S = 0.1  # Intervalo de tiempo entre lotes de llamadas
 PERMISOS_POR_INTERVALO = 1  # Llamadas permitidas por intervalo
-TOTAL_LLAMADAS = 10  # Número total de llamadas para simular
+TOTAL_LLAMADAS = 40  # Número total de llamadas para simular
 URL = "https://test.api.amadeus.com/v2/shopping/flight-offers"  # Endpoint real
 PARAMS = {'originLocationCode': 'MAD', 'destinationLocationCode': 'SVQ', 'departureDate': '2025-01-15', 'returnDate': '2025-01-17', 'adults': 1, 'max': 1}
 

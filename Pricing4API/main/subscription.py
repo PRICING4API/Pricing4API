@@ -122,10 +122,13 @@ class Subscription:
                         logging.info(f"Task {n} is waiting for cooling down to end.")
                         await cooling_down.wait()  # Espera activa por el cooling down
 
-                    # Realizar la solicitud
-                    timestamp_sent = time.time() - start_time
+                    # Capturar el tiempo antes de enviar la solicitud
+                    timestamp_sent = time.time()
                     response = await client.get(self.url)
-                    self.__requests_log.append((response.status_code, timestamp_sent))
+
+                    # Calcular el tiempo desde el inicio del simulador
+                    elapsed_time = timestamp_sent - start_time
+                    self.__requests_log.append((response.status_code, elapsed_time))
 
                     if response.status_code == 429:
                         retry_after = float(response.headers.get('Retry-After', self.plan.rate_wait_period.to_seconds()))
@@ -249,15 +252,21 @@ class Subscription:
         plt.show()
         
 
-    def demand_curve_vs_ideal_capacity(self):
+    def demand_curve_vs_ideal_capacity(self, shortened = None, time_simulation = None):
         """
         Genera y visualiza una gráfica comparando la curva de demanda con la curva de capacidad ideal.
         """
         # Convertir requests_log directamente a puntos de la curva de demanda
         demand_points = [(x[1], i + 1) for i, x in enumerate(self.requests_log) if x[0] == 200]
 
+
+        subscription_time = time.time() - self.subscription_time
+        if shortened:
+            subscription_time = time_simulation
+        else:
+            subscription_time = TimeDuration(subscription_time, TimeUnit.SECOND)
         # Generar puntos de la curva ideal
-        ideal_points = self.plan.generate_ideal_capacity_curve()
+        ideal_points = self.plan.generate_ideal_capacity_curve(subscription_time=subscription_time)
 
         # Extraer ejes para la curva ideal
         ideal_times = [point[0] for point in ideal_points]
@@ -271,12 +280,12 @@ class Subscription:
         fig, ax = plt.subplots(figsize=(10, 6))
 
         # Graficar la curva ideal
-        ax.step(ideal_times, ideal_capacities, where='post', color='blue', label='Capacidad Ideal')
+        ax.step(ideal_times, ideal_capacities, where='post', color='green', label='Capacidad Ideal')
         ax.fill_between(ideal_times, 0, ideal_capacities, step='post', color="green", alpha=0.3)
 
         # Graficar la curva de demanda
-        ax.step(demand_times, demand_capacities, where='post', color='red', label='Demanda Real', linestyle='--')
-        ax.scatter(demand_times, demand_capacities, color='red', s=10)  # Añadir puntos individuales
+        ax.step(demand_times, demand_capacities, where='post', color='blue', label='Demanda Real', linestyle='--')
+        ax.scatter(demand_times, demand_capacities, color='blue', s=10)  # Añadir puntos individuales
 
         # Etiquetas y título
         ax.set_xlabel('Tiempo (segundos)')
@@ -295,13 +304,13 @@ class Subscription:
                 
 if __name__ == "__main__":
     plan_dblp = Plan('DBLP', (0.0, TimeDuration(1, TimeUnit.MONTH)), overage_cost=None, 
-                     unitary_rate=Limit(1, TimeDuration(500, TimeUnit.MILLISECOND)), quotes=[Limit(3, TimeDuration(4, TimeUnit.SECOND)), Limit(7, TimeDuration(1, TimeUnit.MINUTE))], max_number_of_subscriptions=1)
+                     unitary_rate=Limit(1, TimeDuration(1, TimeUnit.SECOND)), quotes=[Limit(3, TimeDuration(4, TimeUnit.SECOND)), Limit(5, TimeDuration(1, TimeUnit.MINUTE))], max_number_of_subscriptions=1)
     
     dblp_subscription = Subscription(plan_dblp, 'https://dblp.org/search/publ/api')
     
     # Simulación de uso de la API
     
-    time_simulation = (TimeDuration(1, TimeUnit.MINUTE))
+    time_simulation = (TimeDuration(2.5, TimeUnit.MINUTE))
     
     df = asyncio.run(dblp_subscription.api_usage_simulator_async(time_simulation))
     
@@ -311,6 +320,8 @@ if __name__ == "__main__":
     print(dblp_subscription.requests_log)
     print(dblp_subscription.accumulated_requests)
     print(dblp_subscription.subscription_time)
+    
+    dblp_subscription.demand_curve_vs_ideal_capacity()
 
 
 

@@ -85,7 +85,6 @@ class Subscription:
         return response
 
 
-
 PlanDBLP = Plan('DBLP', (9.99, 1, None), (1, 2), [(20, 60)])
 DBLPSubscription = Subscription(PlanDBLP,  'https://dblp.org/search/publ/api')
 

@@ -8,7 +8,7 @@ import yaml
 
 from Pricing4API.ancillary.limit import Limit
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
-from Pricing4API.utils import rearrange_time_axis_function, select_best_time_unit, format_time
+from Pricing4API.utils import rearrange_time_axis_function, select_best_time_unit, format_time, format_time_with_unit
 
 
 class Plan:
@@ -290,7 +290,7 @@ class Plan:
         return c
     
     # Método de la clase Plan para mostrar la curva de capacidad
-    def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False) -> None:
+    def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color = None, return_fig = False) -> None:
         # Convertir el intervalo de tiempo a milisegundos para cálculos internos
         t_miliseconds = int(time_interval.to_milliseconds())
 
@@ -318,11 +318,17 @@ class Plan:
         # Configurar la gráfica inicial
         fig, ax = plt.subplots(figsize=(10, 6))
 
+        if not color:
         # Graficar la señal de tipo escalón con la unidad de tiempo original
-        ax.step(original_times_in_specified_unit, defined_capacity_values, where='post', color='blue', label='Capacidad acumulada')
-        
-        # Rellenar el área bajo la curva de capacidad acumulada
-        ax.fill_between(original_times_in_specified_unit, 0, defined_capacity_values, step='post', color="green", alpha=0.3)
+            ax.step(original_times_in_specified_unit, defined_capacity_values, where='post', color='green', label='Capacidad acumulada')
+            
+            # Rellenar el área bajo la curva de capacidad acumulada
+            ax.fill_between(original_times_in_specified_unit, 0, defined_capacity_values, step='post', color="green", alpha=0.3)
+        else:
+            ax.step(original_times_in_specified_unit, defined_capacity_values, where='post', color=color, label='Capacidad acumulada')
+            
+            # Rellenar el área bajo la curva de capacidad acumulada
+            ax.fill_between(original_times_in_specified_unit, 0, defined_capacity_values, step='post', color=color, alpha=0.3)
         
         ax.set_xlabel(x_label)
         ax.set_ylabel('Capacidad')
@@ -331,11 +337,13 @@ class Plan:
         ax.grid(True)
         ax.legend()
 
+        if return_fig:
+            return fig, ax
         # Mostrar la gráfica
         plt.show()
 
     
-    def min_time(self, capacity_goal: int, return_unit: Optional[TimeUnit] = None, i_initial: Optional[int] = None) -> TimeDuration:
+    def min_time(self, capacity_goal: int, return_unit: Optional[TimeUnit] = None, i_initial: Optional[int] = None, display = None) -> TimeDuration:
         """
         Calcula el tiempo mínimo para alcanzar una meta de capacidad usando los límites dados.
 
@@ -401,7 +409,12 @@ class Plan:
             return_unit = self.__limits[0].duration.unit
 
         # Convertir el resultado a la unidad especificada usando el nuevo método to_desired_time_unit
-        return result_duration.to_desired_time_unit(return_unit)
+        duration_desired = result_duration.to_desired_time_unit(return_unit)
+
+        if display:
+            return format_time_with_unit(duration_desired)
+        
+        return duration_desired
     
     
     def compute_t_ast(self) -> List[TimeDuration]:
@@ -476,7 +489,7 @@ class Plan:
         line_width = 2
 
         # Dibujar la capacidad acumulada (azul)
-        ax.step(original_times_in_specified_unit, defined_capacity_values, where='post', color="blue", linewidth=line_width, label="Accumulated capacity")
+        ax.step(original_times_in_specified_unit, defined_capacity_values, where='post', color="green", linewidth=line_width, label="Accumulated capacity")
         ax.fill_between(original_times_in_specified_unit, 0, defined_capacity_values, step='post', color="green", alpha=0.3)
 
         # Dibujar la capacidad desplazada (naranja)

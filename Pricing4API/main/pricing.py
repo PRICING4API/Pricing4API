@@ -3,8 +3,12 @@
 from typing import List
 
 import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+from Pricing4API.ancillary.time_unit import TimeDuration
 from Pricing4API.main.plan import Plan
 from Pricing4API.utils import format_time_with_unit
+
 
 
 class Pricing:
@@ -99,5 +103,47 @@ class Pricing:
         df = self.show_more_table(df)
         
         print(df)
+
+    def show_combined_capacity_curves(self, time_interval: TimeDuration) -> None:
+        """
+        Genera una gráfica combinada de las curvas de capacidad de todos los planes,
+        asignando colores únicos a cada uno y mostrando la leyenda correspondiente.
+        """
+        # Definir una lista de colores únicos (excluyendo azul, rojo y naranja)
+        predefined_colors = [
+            "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
+        ]
+
+        if len(self.__plans) > len(predefined_colors):
+            raise ValueError("No hay suficientes colores disponibles para todos los planes.")
+
+        # Crear la figura y el eje combinados
+        fig, ax = plt.subplots(figsize=(12, 8))
+        ax.set_title(f'Curvas de capacidad combinadas - {self.__name}')
+        ax.set_xlabel(f"Tiempo ({time_interval.unit.value})")
+        ax.set_ylabel("Capacidad")
+        ax.grid(True)
+
+        # Generar las gráficas de cada plan con colores únicos
+        for plan, color in zip(self.__plans, predefined_colors):
+            fig_plan, ax_plan = plan.show_available_capacity_curve(
+                time_interval, debug=False, color=color, return_fig=True
+            )
+
+            # Extraer las líneas y colecciones de la gráfica del plan
+            for line in ax_plan.lines:
+                ax.add_line(line)
+            for collection in ax_plan.collections:
+                ax.add_collection(collection)
+
+            # Añadir entrada a la leyenda con el color y el nombre del plan
+            ax.plot([], [], color=color, label=f"{plan.name} ({color})")
+
+        # Añadir la leyenda final
+        ax.legend(loc="upper left")
+
+        # Mostrar la gráfica combinada
+        plt.show()
+
             
    

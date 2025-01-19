@@ -1,0 +1,39 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - refactor/rgavira  # O la rama que quieras (por ejemplo, develop)
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Loguearse en Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 3. Construir la imagen con `latest` y el SHA del commit
+      - name: Build Docker image
+        run: |
+          IMAGE_NAME=rgavira123/pricing4api
+          GIT_SHA=$(echo $GITHUB_SHA | cut -c1-7)  # Usar solo los primeros 7 caracteres del SHA
+          
+          docker build -f docker/Dockerfile.deepnote -t $IMAGE_NAME:latest -t $IMAGE_NAME:$GIT_SHA .
+      
+      # 4. Subir las imágenes al Docker Hub
+      - name: Push Docker image
+        run: |
+          IMAGE_NAME=rgavira123/pricing4api
+          GIT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
+          
+          docker push $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$GIT_SHA

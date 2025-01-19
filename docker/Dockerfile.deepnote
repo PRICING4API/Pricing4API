@@ -1,0 +1,12 @@
+# Usar la imagen base oficial de Deepnote con Python
+FROM deepnote/python:3.10
+
+# Crear y establecer el directorio de trabajo
+WORKDIR /app
+
+# Copiar la librería y el setup.py al contenedor
+COPY Pricing4API /app/Pricing4API
+COPY setup.py /app/setup.py
+
+# Instalar la librería en modo editable
+RUN pip install -e /app

@@ -26,6 +26,9 @@ setup(
         'ipywidgets==8.1.0',
         'pyarrow',
         'PyYAML==6.0.2',
-        'requests==2.32.3'
+        'requests==2.32.3',
+        'asyncio==3.4.3',
+        'httpx==0.28.1',
+        'python-dotenv==1.0.1'
     ]
 )

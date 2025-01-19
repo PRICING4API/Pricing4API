@@ -13,6 +13,8 @@ RUN pip install -e /home/jovyan/work
 # Copiar los notebook al contenedor
 COPY new_notebooks/entrega-1 /home/jovyan/work/notebooks
 
+COPY .env /home/jovyan/work/.env
+
 # Cambiar temporalmente al usuario root
 USER root
 
