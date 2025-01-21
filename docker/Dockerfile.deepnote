@@ -1,8 +1,11 @@
 # Usar la imagen base oficial de Deepnote con Python
 FROM deepnote/python:3.10
 
-# Cambiar al usuario root para poder escribir en /datasets
-USER root
+# Crear el directorio /datasets
+RUN mkdir -p /datasets && chmod 777 /datasets
+
+# Copiar el archivo .env al directorio /datasets
+COPY .env /datasets/.env
 
 # Copiar el archivo .env al contenedor
 COPY .env /datasets/.env
