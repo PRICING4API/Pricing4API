@@ -1,15 +1,6 @@
 # Usar la imagen base oficial de Deepnote con Python
 FROM deepnote/python:3.10
 
-# Crear el directorio /datasets
-RUN mkdir -p /datasets && chmod 777 /datasets
-
-# Copiar el archivo .env al directorio /datasets
-COPY .env /datasets/.env
-
-# Copiar el archivo .env al contenedor
-COPY .env /datasets/.env
-
 # Crear y establecer el directorio de trabajo
 WORKDIR /app
 

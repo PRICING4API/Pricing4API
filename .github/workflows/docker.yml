@@ -21,10 +21,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Reconstruct .env file
-        run: |
-          echo "${{ secrets.ENV_BASE64 }}" | base64 --decode > .env
-
       # 3. Construir la imagen con `latest`
       - name: Build Docker image
         run: |
