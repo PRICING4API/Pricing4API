@@ -9,7 +9,7 @@ COPY Pricing4API /app/Pricing4API
 COPY setup.py /app/setup.py
 
 # Copiar el archivo .env al contenedor
-COPY .env /app/.env
+COPY .env /datasets/.env
 
 # Instalar la librería en modo editable
 RUN pip install -e /app
