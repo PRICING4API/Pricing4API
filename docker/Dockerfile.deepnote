@@ -1,6 +1,12 @@
 # Usar la imagen base oficial de Deepnote con Python
 FROM deepnote/python:3.10
 
+# Cambiar al usuario root para poder escribir en /datasets
+USER root
+
+# Copiar el archivo .env al contenedor
+COPY .env /datasets/.env
+
 # Crear y establecer el directorio de trabajo
 WORKDIR /app
 
