@@ -8,5 +8,7 @@ WORKDIR /app
 COPY Pricing4API /app/Pricing4API
 COPY setup.py /app/setup.py
 
+COPY .env /
+
 # Instalar la librería en modo editable
 RUN pip install -e /app
