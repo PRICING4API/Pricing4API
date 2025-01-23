@@ -9,6 +9,7 @@ import requests
 from Pricing4API.ancillary.limit import Limit
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
 from Pricing4API.main.plan import Plan
+import plotly.graph_objects as go
 
 
 class Subscription:
@@ -235,36 +236,48 @@ class Subscription:
         real_times, real_capacities = zip(*real_points)
 
         # Crear la gráfica
-        plt.figure(figsize=(12, 6))
+        fig = go.Figure()
 
         # Graficar la curva ideal
-        plt.step(ideal_times, ideal_capacities, where='post', color='blue', label='Capacidad Ideal')
-        
+        fig.add_trace(go.Scatter(
+            x=ideal_times,
+            y=ideal_capacities,
+            mode='lines',
+            line=dict(color='blue', shape='hv', width=1.3),
+            name='Capacidad Ideal'
+        ))
+
         # Graficar la curva real
-        plt.step(real_times, real_capacities, where='post', color='red', label='Capacidad Real')
+        fig.add_trace(go.Scatter(
+            x=real_times,
+            y=real_capacities,
+            mode='lines',
+            line=dict(color='red', shape='hv', width=1.3),
+            name='Capacidad Real'
+        ))
 
         # Configuración de la gráfica
-        plt.xlabel('Tiempo (s)')
-        plt.ylabel('Capacidad')
-        plt.title('Curvas de Capacidad: Ideal vs Real')
-        plt.grid(True)
-        plt.legend()
-        plt.show()
-        
+        fig.update_layout(
+            title='Curvas de Capacidad: Ideal vs Real',
+            xaxis_title='Tiempo (s)',
+            yaxis_title='Capacidad',
+            legend_title='Curvas',
+            template='plotly_white',
+            width=1500,
+            height=900
+        )
 
-    def demand_curve_vs_ideal_capacity(self, shortened = None, time_simulation = None):
+        fig.show()
+
+    def demand_curve_vs_ideal_capacity(self):
         """
         Genera y visualiza una gráfica comparando la curva de demanda con la curva de capacidad ideal.
         """
         # Convertir requests_log directamente a puntos de la curva de demanda
         demand_points = [(x[1], i + 1) for i, x in enumerate(self.requests_log) if x[0] == 200]
 
-
         subscription_time = time.time() - self.subscription_time
-        if shortened:
-            subscription_time = time_simulation
-        else:
-            subscription_time = TimeDuration(subscription_time, TimeUnit.SECOND)
+        subscription_time = TimeDuration(subscription_time, TimeUnit.SECOND)
         # Generar puntos de la curva ideal
         ideal_points = self.plan.generate_ideal_capacity_curve(subscription_time=subscription_time)
 
@@ -276,27 +289,42 @@ class Subscription:
         demand_times = [point[0] for point in demand_points]
         demand_capacities = [point[1] for point in demand_points]
 
-        # Configurar la gráfica
-        fig, ax = plt.subplots(figsize=(10, 6))
+        # Crear la gráfica
+        fig = go.Figure()
 
         # Graficar la curva ideal
-        ax.step(ideal_times, ideal_capacities, where='post', color='green', label='Capacidad Ideal')
-        ax.fill_between(ideal_times, 0, ideal_capacities, step='post', color="green", alpha=0.3)
+        fig.add_trace(go.Scatter(
+            x=ideal_times,
+            y=ideal_capacities,
+            mode='lines',
+            line=dict(color='green', shape='hv', width=1.3),
+            fill='tonexty',
+            fillcolor='rgba(0, 255, 0, 0.3)',
+            name='Capacidad Ideal'
+        ))
 
         # Graficar la curva de demanda
-        ax.step(demand_times, demand_capacities, where='post', color='blue', label='Demanda Real', linestyle='--')
-        ax.scatter(demand_times, demand_capacities, color='blue', s=10)  # Añadir puntos individuales
+        fig.add_trace(go.Scatter(
+            x=demand_times,
+            y=demand_capacities,
+            mode='lines+markers',
+            line=dict(color='blue', shape='hv', width=1.3, dash='dash'),
+            marker=dict(color='blue', size=5),
+            name='Demanda Real'
+        ))
 
-        # Etiquetas y título
-        ax.set_xlabel('Tiempo (segundos)')
-        ax.set_ylabel('Capacidad Acumulada')
-        ax.set_ylim(0)
-        ax.set_title('Curva de Demanda vs Capacidad Ideal')
-        ax.grid(True)
-        ax.legend()
+        # Configuración de la gráfica
+        fig.update_layout(
+            title='Curva de Demanda vs Capacidad Ideal',
+            xaxis_title='Tiempo (segundos)',
+            yaxis_title='Capacidad Acumulada',
+            legend_title='Curvas',
+            template='plotly_white',
+            width=1500,
+            height=900
+        )
 
-        # Mostrar la gráfica
-        plt.show()
+        fig.show()
 
 
 

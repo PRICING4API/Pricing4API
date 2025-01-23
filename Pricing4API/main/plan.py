@@ -2,9 +2,11 @@ import math
 from typing import List, Optional, Tuple
 
 from matplotlib import pyplot as plt
+from matplotlib.colors import to_rgba
 from matplotlib.widgets import RadioButtons
 import numpy as np
 import yaml
+import plotly.graph_objects as go
 
 from Pricing4API.ancillary.limit import Limit
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
@@ -289,58 +291,157 @@ class Plan:
         
         return c
     
-    # Método de la clase Plan para mostrar la curva de capacidad
-    def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color = None, return_fig = False) -> None:
-        # Convertir el intervalo de tiempo a milisegundos para cálculos internos
-        t_miliseconds = int(time_interval.to_milliseconds())
+    def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
+        t_milliseconds = int(time_interval.to_milliseconds())
 
-        # Convertir el 'step' a milisegundos
         step = int(self.rate_frequency.to_milliseconds())
 
-        # Determinar los puntos definidos de tiempo en milisegundos
-        defined_t_values_ms = range(0, t_miliseconds + 1, step)
+        defined_t_values_ms = range(0, t_milliseconds + 1, step)
 
-        # Calcular valores de capacidad solo en los puntos definidos
         defined_capacity_values = [
             self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.__limits) - 1)
             for t in defined_t_values_ms
         ]
-        
+
         if debug:
             return list(zip(defined_t_values_ms, defined_capacity_values))
 
-        # Convertir los valores del eje x al formato inicial especificado por el usuario
         original_times_in_specified_unit = [
             t / time_interval.unit.to_milliseconds() for t in defined_t_values_ms
         ]
         x_label = f"Tiempo ({time_interval.unit.value})"
 
-        # Configurar la gráfica inicial
-        fig, ax = plt.subplots(figsize=(10, 6))
+        fig = go.Figure()
 
-        if not color:
+        rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'green')[:3]]))},0.3)"
+
         # Graficar la señal de tipo escalón con la unidad de tiempo original
-            ax.step(original_times_in_specified_unit, defined_capacity_values, where='post', color='green', label='Capacidad acumulada')
-            
-            # Rellenar el área bajo la curva de capacidad acumulada
-            ax.fill_between(original_times_in_specified_unit, 0, defined_capacity_values, step='post', color="green", alpha=0.3)
-        else:
-            ax.step(original_times_in_specified_unit, defined_capacity_values, where='post', color=color, label='Capacidad acumulada')
-            
-            # Rellenar el área bajo la curva de capacidad acumulada
-            ax.fill_between(original_times_in_specified_unit, 0, defined_capacity_values, step='post', color=color, alpha=0.3)
-        
-        ax.set_xlabel(x_label)
-        ax.set_ylabel('Capacidad')
-        ax.set_ylim(0)
-        ax.set_title(f'Curva de capacidad - {self.name} - {time_interval.value} {time_interval.unit.value}')
-        ax.grid(True)
-        ax.legend()
+        fig.add_trace(go.Scatter(
+            x=original_times_in_specified_unit,
+            y=defined_capacity_values,
+            mode='lines',
+            line=dict(color=color or 'green', shape='hv', width=1.3),
+            fill='tonexty',
+            fillcolor=rgba_color,
+            name='Capacidad acumulada'  # Nombre del trazo para la leyenda
+        ))
+
+        # Configuración de la gráfica
+        fig.update_layout(
+            title=f'Curva de capacidad - {self.name} - {time_interval.value} {time_interval.unit.value}',
+            xaxis_title=x_label,
+            yaxis_title='Capacidad',
+            legend_title='Curvas',  # Título de la leyenda
+            showlegend=True,  # Forzar que la leyenda siempre se muestre
+            template='plotly_white',
+            width=1500,
+            height=900
+        )
 
         if return_fig:
-            return fig, ax
+            return fig
+
         # Mostrar la gráfica
-        plt.show()
+        fig.show()
+
+
+    def show_capacity_areas(self, time_interval: TimeDuration) -> None:
+        """Muestra las áreas de capacidad acumulada y capacidad desplazada sin conflictos de sombreado."""
+
+        # Convertir el intervalo de tiempo a milisegundos
+        time_interval_ms = time_interval.to_milliseconds()
+
+        # Obtener el tiempo de recuperación máximo de la cuota en milisegundos
+        recovery_interval_ms = self.max_quota_recovery_interval.to_milliseconds()
+
+        # Obtener el periodo del rate y convertirlo a milisegundos
+        rate_wait_period_ms = self.rate_wait_period.to_milliseconds()
+
+        # Calcular el desplazamiento real
+        shifted_recovery_interval_ms = recovery_interval_ms - rate_wait_period_ms
+
+        # Definir los tiempos en milisegundos
+        step_ms = self.limits[0].duration.to_milliseconds()
+        defined_t_values = range(0, int(time_interval_ms) + 1, int(step_ms))
+
+        # Calcular la capacidad en los puntos definidos
+        defined_capacity_values = [
+            self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.limits) - 1) for t in defined_t_values
+        ]
+
+        # Calcular los tiempos desplazados restándoles el tiempo de rate
+        defined_t_values_shifted = [
+            t + shifted_recovery_interval_ms for t in defined_t_values if t + shifted_recovery_interval_ms <= time_interval_ms
+        ]
+
+        # Calcular la capacidad en los puntos desplazados
+        defined_capacity_values_shifted = [
+            self.available_capacity(TimeDuration(int(t - shifted_recovery_interval_ms), TimeUnit.MILLISECOND), len(self.limits) - 1)
+            for t in defined_t_values_shifted
+        ]
+
+        # Ajustar los valores iniciales para rellenar el hueco entre curvas
+        if defined_t_values_shifted and defined_t_values:
+            first_shifted_time = defined_t_values_shifted[0]
+
+            if first_shifted_time > defined_t_values[0]:
+                defined_t_values_shifted.insert(0, defined_t_values[0])
+                defined_capacity_values_shifted.insert(0, 0)  # Sombreado desde capacidad 0
+
+        # Convertir los valores del eje x al formato inicial especificado por el usuario
+        original_times_in_specified_unit = [
+            t / time_interval.unit.to_milliseconds() for t in defined_t_values
+        ]
+        shifted_times_in_specified_unit = [
+            t / time_interval.unit.to_milliseconds() for t in defined_t_values_shifted
+        ]
+        x_label = f"Tiempo ({time_interval.unit.value})"
+
+        # Crear la gráfica
+        fig = go.Figure()
+
+        # Colores RGBA para sombreado
+        rgba_color_orange = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba('orange')[:3]]))},0.2)"
+        rgba_color_green = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba('green')[:3]]))},0.3)"
+
+        # Dibujar la capacidad desplazada (naranja) primero
+        fig.add_trace(go.Scatter(
+            x=shifted_times_in_specified_unit,
+            y=defined_capacity_values_shifted,
+            mode='lines',
+            line=dict(color='orange', shape='hv', width=1.3),
+            fill='tonexty',
+            fillcolor=rgba_color_orange,
+            name='Capacidad desplazada'
+        ))
+
+        # Dibujar la capacidad acumulada (verde) después
+        fig.add_trace(go.Scatter(
+            x=original_times_in_specified_unit,
+            y=defined_capacity_values,
+            mode='lines',
+            line=dict(color='green', shape='hv', width=1.3),
+            fill='tonexty',
+            fillcolor=rgba_color_green,
+            name='Capacidad acumulada'
+        ))
+
+        # Configuración de la gráfica
+        fig.update_layout(
+            title=f'Áreas de capacidad - {self.name} - {time_interval.value} {time_interval.unit.value}',
+            xaxis_title=x_label,
+            yaxis_title='Capacidad',
+            legend_title='Curvas',
+            template='plotly_white',
+            width=1500,
+            height=900
+        )
+
+        # Mostrar la gráfica
+        fig.show()
+
+
+
 
     
     def min_time(self, capacity_goal: int, return_unit: Optional[TimeUnit] = None, i_initial: Optional[int] = None, display = None) -> TimeDuration:
@@ -439,74 +540,6 @@ class Plan:
 
         return t_ast
     
-    def show_capacity_areas(self, time_interval: TimeDuration) -> None:
-        """Muestra las áreas de capacidad acumulada y la capacidad desplazada al recovery_interval corregido."""
-
-        # Convertir el intervalo de tiempo a milisegundos
-        time_interval_ms = time_interval.to_milliseconds()
-
-        # Obtener el tiempo de recuperación máximo de la cuota en milisegundos
-        recovery_interval_ms = self.max_quota_recovery_interval.to_milliseconds()
-
-        # Obtener el periodo del rate y convertirlo a milisegundos
-        rate_wait_period_ms = self.rate_wait_period.to_milliseconds()
-
-        # Calcular el desplazamiento real
-        shifted_recovery_interval_ms = recovery_interval_ms - rate_wait_period_ms
-
-        # Definir los tiempos en milisegundos
-        step_ms = self.limits[0].duration.to_milliseconds()
-        defined_t_values = range(0, int(time_interval_ms) + 1, int(step_ms))
-
-        # Calcular la capacidad en los puntos definidos
-        defined_capacity_values = [
-            self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.limits) - 1) for t in defined_t_values
-        ]
-
-        # Calcular los tiempos desplazados restándoles el tiempo de rate
-        defined_t_values_shifted = [
-            t + shifted_recovery_interval_ms for t in defined_t_values if t + shifted_recovery_interval_ms <= time_interval_ms
-        ]
-
-        # Calcular la capacidad en los puntos desplazados
-        defined_capacity_values_shifted = [
-            self.available_capacity(TimeDuration(int(t - shifted_recovery_interval_ms), TimeUnit.MILLISECOND), len(self.limits) - 1)
-            for t in defined_t_values_shifted
-        ]
-
-        # Convertir los valores del eje x al formato inicial especificado por el usuario
-        original_times_in_specified_unit = [
-            t / time_interval.unit.to_milliseconds() for t in defined_t_values
-        ]
-        shifted_times_in_specified_unit = [
-            t / time_interval.unit.to_milliseconds() for t in defined_t_values_shifted
-        ]
-        x_label = f"Tiempo ({time_interval.unit.value})"
-
-        # Crear la gráfica
-        fig, ax = plt.subplots(figsize=(10, 6))
-
-        line_width = 2
-
-        # Dibujar la capacidad acumulada (azul)
-        ax.step(original_times_in_specified_unit, defined_capacity_values, where='post', color="green", linewidth=line_width, label="Accumulated capacity")
-        ax.fill_between(original_times_in_specified_unit, 0, defined_capacity_values, step='post', color="green", alpha=0.3)
-
-        # Dibujar la capacidad desplazada (naranja)
-        ax.step(shifted_times_in_specified_unit, defined_capacity_values_shifted, where='post', color="orange", linewidth=line_width, label="Shifted capacity")
-        ax.fill_between(shifted_times_in_specified_unit, 0, defined_capacity_values_shifted, step='post', color="orange", alpha=0.3)
-
-        # Añadir leyenda y ajustes finales
-        ax.set_xlabel(x_label)
-        ax.set_ylabel('Capacidad')
-        ax.set_ylim(0)
-        ax.set_title(f'Capacity areas - {self.name} - {time_interval.value} {time_interval.unit.value}')
-        ax.legend()
-        ax.grid(True)
-
-        # Mostrar la gráfica
-        plt.show()
-
     def generate_ideal_capacity_curve(self, subscription_time: TimeDuration = None) -> List[Tuple[int, int]]:
         
         quota = self.max_quota_burning_time + self.max_quota_recovery_interval if not subscription_time else subscription_time
@@ -514,29 +547,3 @@ class Plan:
         values = self.show_available_capacity_curve(quota, debug=True)
         
         return [(v[0]/1000, v[1]) for v in values]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

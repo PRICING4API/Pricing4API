@@ -1,10 +1,9 @@
-
-
 from typing import List
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+import plotly.graph_objects as go
 from Pricing4API.ancillary.time_unit import TimeDuration
 from Pricing4API.main.plan import Plan
 from Pricing4API.utils import format_time_with_unit
@@ -117,12 +116,7 @@ class Pricing:
         if len(self.__plans) > len(predefined_colors):
             raise ValueError("No hay suficientes colores disponibles para todos los planes.")
 
-        # Crear una figura y ejes combinados
-        fig, ax = plt.subplots(figsize=(12, 8))
-        ax.set_title(f'Curvas de capacidad combinadas - {self.__name}')
-        ax.set_xlabel(f"Tiempo ({time_interval.unit.value})")
-        ax.set_ylabel("Capacidad")
-        ax.grid(True)
+        fig = go.Figure()
 
         # Generar gráficas individuales y combinarlas
         for plan, color in zip(self.__plans, predefined_colors):
@@ -135,32 +129,31 @@ class Pricing:
             # Convertir los tiempos al formato original especificado
             original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
 
+            rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in mcolors.to_rgba(color)[:3]]))},0.3)"
+
             # Añadir la línea escalonada al gráfico combinado
-            ax.step(
-                original_times,
-                capacities,
-                where='post',
-                color=color,
-                label=f"{plan.name} ({color})"
-            )
+            fig.add_trace(go.Scatter(
+                x=original_times,
+                y=capacities,
+                mode='lines',
+                line=dict(color=color, shape='hv', width=1.3),
+                fill='tonexty',
+                fillcolor=rgba_color,
+                name=f"{plan.name} ({color})"
+            ))
 
-            # Añadir el área bajo la curva (sombreado)
-            ax.fill_between(
-                original_times,
-                0,
-                capacities,
-                step="post",
-                color=color,
-                alpha=0.3
-            )
+        fig.update_layout(
+            title=f'Curvas de capacidad combinadas - {self.__name}',
+            xaxis_title=f"Tiempo ({time_interval.unit.value})",
+            yaxis_title="Capacidad",
+            legend_title="Planes",
+            template="plotly_white",
+            width=1500,
+            height=900
+        )
 
-        # Añadir la leyenda final
-        ax.legend(loc="upper left")
-
-        # Mostrar la gráfica combinada
-        plt.show()
+        fig.show()
 
 
 
-            
-   
+

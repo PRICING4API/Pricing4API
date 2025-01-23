@@ -36,7 +36,6 @@ def format_time_with_unit(time_duration: TimeDuration) -> str:
     Returns:
         str: La duración formateada como un string legible.
     """
-    # Convertir la duración a segundos
     duration_seconds = time_duration.value * time_duration.unit.to_seconds()
 
     days = int(duration_seconds // (24 * 60 * 60))
@@ -91,15 +90,11 @@ def select_best_time_unit(duration_ms: float) -> TimeDuration:
         # Más de un año, usar años
         return TimeDuration(duration_ms / 31104000000, TimeUnit.YEAR)
     
-# Función global para reorganizar el eje del tiempo
 def rearrange_time_axis_function(label, original_times_ms, calls, ax, fig, plan_name):
-    # Cambiar la unidad de tiempo basada en el label del radio button seleccionado
     new_time_unit = TimeUnit(label)
 
-    # Convertir los tiempos desde milisegundos a la nueva unidad seleccionada
     times_in_new_unit = [time / new_time_unit.to_milliseconds() for time in original_times_ms]
 
-    # Limpiar y redibujar la gráfica
     ax.clear()
     ax.step(times_in_new_unit, calls, where='post', color='blue', label='Llamadas acumuladas')
     ax.set_xlabel(f'Tiempo ({new_time_unit.value})')

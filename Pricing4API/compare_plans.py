@@ -9,13 +9,12 @@ from matplotlib.colors import to_rgba
 
 def compare_plans(plans, time_interval):
     """
-    Compara las curvas de capacidad de una lista de planes de forma interactiva utilizando Plotly.
+    Compara las curvas de capacidad de una lista de planes.
 
     Parameters:
         plans (list): Lista de planes a comparar.
         time_interval (TimeDuration): Intervalo de tiempo para generar las curvas.
     """
-    # Definir una lista de colores únicos (excluyendo azul, rojo y naranja)
     predefined_colors = [
         "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
     ]
@@ -23,43 +22,38 @@ def compare_plans(plans, time_interval):
     if len(plans) > len(predefined_colors):
         raise ValueError("No hay suficientes colores disponibles para todos los planes.")
 
-    # Crear la figura interactiva
     fig = go.Figure()
 
-    # Generar las curvas de cada plan con colores únicos
     for plan, color in zip(plans, predefined_colors):
         debug_values = plan.show_available_capacity_curve(
             time_interval, debug=True
-        )  # Obtener los datos en modo debug
+        )
         times_ms, capacities = zip(*debug_values)
 
-        # Convertir los tiempos al formato especificado por el usuario
         original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
 
-        # Convertir el color base a rgba con menor opacidad
         rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
 
-        # Añadir la curva al gráfico interactivo con sombreado
         fig.add_trace(go.Scatter(
             x=original_times,
             y=capacities,
-            mode='lines',  # Solo líneas
-            line=dict(color=color, shape='hv', width=1.3),  # Grosor reducido y escalonado
-            fill='tonexty',  # Sombreado bajo la curva
-            fillcolor=rgba_color,  # Color del sombreado con transparencia
+            mode='lines',
+            line=dict(color=color, shape='hv', width=1.3),
+            fill='tonexty',
+            fillcolor=rgba_color,
             name=f"{plan.name} ({color})"
         ))
 
-    # Configurar los ejes y el diseño
     fig.update_layout(
         title="Comparación de curvas de capacidad",
         xaxis_title=f"Tiempo ({time_interval.unit.value})",
         yaxis_title="Capacidad",
         legend_title="Planes",
-        template="plotly_white"
+        template="plotly_white",
+        width=1500,
+        height=900
     )
 
-    # Mostrar la gráfica interactiva en el notebook
     fig.show()
 
     
