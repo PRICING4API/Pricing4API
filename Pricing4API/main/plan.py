@@ -334,8 +334,8 @@ class Plan:
             legend_title='Curvas',  # Título de la leyenda
             showlegend=True,  # Forzar que la leyenda siempre se muestre
             template='plotly_white',
-            width=1500,
-            height=900
+            width=1000,
+            height=600
         )
 
         if return_fig:
@@ -433,8 +433,8 @@ class Plan:
             yaxis_title='Capacidad',
             legend_title='Curvas',
             template='plotly_white',
-            width=1500,
-            height=900
+            width=1000,
+            height=600
         )
 
         # Mostrar la gráfica

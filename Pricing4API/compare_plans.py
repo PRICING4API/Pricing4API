@@ -50,8 +50,8 @@ def compare_plans(plans, time_interval):
         yaxis_title="Capacidad",
         legend_title="Planes",
         template="plotly_white",
-        width=1500,
-        height=900
+        width=1000,
+        height=600
     )
 
     fig.show()

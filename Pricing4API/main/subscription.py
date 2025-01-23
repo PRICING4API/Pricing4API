@@ -263,8 +263,8 @@ class Subscription:
             yaxis_title='Capacidad',
             legend_title='Curvas',
             template='plotly_white',
-            width=1500,
-            height=900
+            width=1000,
+            height=600
         )
 
         fig.show()
@@ -320,8 +320,8 @@ class Subscription:
             yaxis_title='Capacidad Acumulada',
             legend_title='Curvas',
             template='plotly_white',
-            width=1500,
-            height=900
+            width=1000,
+            height=600
         )
 
         fig.show()
