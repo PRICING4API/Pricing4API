@@ -1,3 +1,5 @@
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 import math
 from typing import List, Optional, Tuple
 
@@ -291,17 +293,24 @@ class Plan:
         
         return c
     
+    def compute_available_capacity_threads(self, t):
+        
+        return self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.limits) - 1)
+    
     def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
         t_milliseconds = int(time_interval.to_milliseconds())
-
         step = int(self.rate_frequency.to_milliseconds())
+        defined_t_values_ms = list(range(0, t_milliseconds + 1, step))
+        max_burning_time_ms = self.max_quota_burning_time.to_milliseconds()
+        quota_frequency_ms = self.quotes_frequencies[-1].to_milliseconds()
 
-        defined_t_values_ms = range(0, t_milliseconds + 1, step)
-
-        defined_capacity_values = [
-            self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.__limits) - 1)
-            for t in defined_t_values_ms
+        defined_t_values_ms = [
+            t for t in defined_t_values_ms
+            if not (max_burning_time_ms + step <= t % quota_frequency_ms <= quota_frequency_ms - step) or t == t_milliseconds
         ]
+
+        with ThreadPoolExecutor() as executor:
+            defined_capacity_values = list(executor.map(self.compute_available_capacity_threads, defined_t_values_ms))
 
         if debug:
             return list(zip(defined_t_values_ms, defined_capacity_values))
@@ -547,3 +556,8 @@ class Plan:
         values = self.show_available_capacity_curve(quota, debug=True)
         
         return [(v[0]/1000, v[1]) for v in values]
+    
+
+    
+    
+    
