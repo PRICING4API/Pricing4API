@@ -371,7 +371,14 @@ class Plan:
 
         # Definir los tiempos en milisegundos
         step_ms = self.limits[0].duration.to_milliseconds()
-        defined_t_values = range(0, int(time_interval_ms) + 1, int(step_ms))
+        defined_t_values = list(range(0, int(time_interval_ms) + 1, int(step_ms)))
+        max_burning_time_ms = self.max_quota_burning_time.to_milliseconds()
+        quota_frequency_ms = self.quotes_frequencies[-1].to_milliseconds()
+
+        defined_t_values = [
+            t for t in defined_t_values
+            if not (max_burning_time_ms + step_ms <= t % quota_frequency_ms <= quota_frequency_ms - step_ms) or t == time_interval_ms
+        ]
 
         # Calcular la capacidad en los puntos definidos
         defined_capacity_values = [
