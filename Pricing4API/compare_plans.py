@@ -17,7 +17,7 @@ def compare_plans(plans, time_interval, return_fig=False):
     """
     # Sort the plans so that the fastest (i.e., the one with the lowest unitary rate in ms) comes first.
     # This ensures that the Plotly visualization is ordered correctly.
-    sorted_plans = sorted(plans, key=lambda plan: plan.unitary_rate.duration.to_milliseconds())
+    sorted_plans = sorted(plans, key=lambda plan: plan.unitary_rate.duration.to_milliseconds(), reverse=True)
     
     predefined_colors = [
         "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
