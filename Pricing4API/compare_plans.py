@@ -9,25 +9,27 @@ from matplotlib.colors import to_rgba
 
 def compare_plans(plans, time_interval, return_fig=False):
     """
-    Compara las curvas de capacidad de una lista de planes.
+    Compares the capacity curves of a list of plans.
 
     Parameters:
-        plans (list): Lista de planes a comparar.
-        time_interval (TimeDuration): Intervalo de tiempo para generar las curvas.
+        plans (list): List of plans to compare.
+        time_interval (TimeDuration): Time interval to generate the curves.
     """
+    # Sort the plans so that the fastest (i.e., the one with the lowest unitary rate in ms) comes first.
+    # This ensures that the Plotly visualization is ordered correctly.
+    sorted_plans = sorted(plans, key=lambda plan: plan.unitary_rate.duration.to_milliseconds())
+    
     predefined_colors = [
         "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
     ]
 
-    if len(plans) > len(predefined_colors):
-        raise ValueError("No hay suficientes colores disponibles para todos los planes.")
+    if len(sorted_plans) > len(predefined_colors):
+        raise ValueError("Not enough colors available for all the plans.")
 
     fig = go.Figure()
 
-    for plan, color in zip(plans, predefined_colors):
-        debug_values = plan.show_available_capacity_curve(
-            time_interval, debug=True
-        )
+    for plan, color in zip(sorted_plans, predefined_colors):
+        debug_values = plan.show_available_capacity_curve(time_interval, debug=True)
         times_ms, capacities = zip(*debug_values)
 
         original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
@@ -58,6 +60,7 @@ def compare_plans(plans, time_interval, return_fig=False):
         return fig
 
     fig.show()
+
 
     
     

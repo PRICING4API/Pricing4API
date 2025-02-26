@@ -62,6 +62,10 @@ class Plan:
     def unitary_rate(self):
         return self.__unitary_rate if self.__unitary_rate is not None else False
     
+    @unitary_rate.setter
+    def unitary_rate(self, value):
+        self.__unitary_rate = value
+    
     @property
     def name(self):
         return self.__name
