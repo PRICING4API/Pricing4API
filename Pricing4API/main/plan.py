@@ -64,7 +64,14 @@ class Plan:
     
     @unitary_rate.setter
     def unitary_rate(self, value):
-        self.__unitary_rate = value
+        if value is not None:
+            self.__unitary_rate = value
+            if self.__limits:
+                self.__limits[0] = value
+                self.__times[0] = value.duration
+                
+        else:
+            return
     
     @property
     def name(self):
@@ -82,9 +89,12 @@ class Plan:
     def rate_value(self):
         return self.limits[0].value
     
+    
     @property
     def rate_frequency(self):
         return self.limits[0].duration
+    
+    
     
     @property
     def quotes_values(self):
