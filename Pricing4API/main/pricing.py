@@ -103,7 +103,7 @@ class Pricing:
         
         print(df)
 
-    def show_combined_capacity_curves(self, time_interval: TimeDuration) -> None:
+    def show_combined_capacity_curves(self, time_interval: TimeDuration, return_fig=False) -> None:
         """
         Genera una gráfica combinada de las curvas de capacidad de todos los planes,
         asignando colores únicos a cada uno y mostrando la leyenda correspondiente.
@@ -143,14 +143,17 @@ class Pricing:
             ))
 
         fig.update_layout(
-            title=f'Curvas de capacidad combinadas - {self.__name}',
-            xaxis_title=f"Tiempo ({time_interval.unit.value})",
-            yaxis_title="Capacidad",
-            legend_title="Planes",
+            title=f'Capacity Curves - {self.__name}',
+            xaxis_title=f"Time ({time_interval.unit.value})",
+            yaxis_title="Capacity",
+            legend_title="Plans",
             template="plotly_white",
             width=1000,
             height=600
         )
+        
+        if return_fig:
+            return fig
 
         fig.show()
 
