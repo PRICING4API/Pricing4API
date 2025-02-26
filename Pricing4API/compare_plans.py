@@ -7,7 +7,7 @@ from Pricing4API.main.plan import Plan
 from matplotlib.colors import to_rgba
 
 
-def compare_plans(plans, time_interval):
+def compare_plans(plans, time_interval, return_fig=False):
     """
     Compara las curvas de capacidad de una lista de planes.
 
@@ -53,6 +53,9 @@ def compare_plans(plans, time_interval):
         width=1000,
         height=600
     )
+    
+    if return_fig:
+        return fig
 
     fig.show()
 
