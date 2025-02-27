@@ -332,13 +332,13 @@ class Plan:
         original_times_in_specified_unit = [
             t / time_interval.unit.to_milliseconds() for t in defined_t_values_ms
         ]
-        x_label = f"Tiempo ({time_interval.unit.value})"
+        x_label = f"Time ({time_interval.unit.value})"
 
         fig = go.Figure()
 
         rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'green')[:3]]))},0.3)"
 
-        # Graficar la señal de tipo escalón con la unidad de tiempo original
+        # Plot the step-like signal with the original time unit
         fig.add_trace(go.Scatter(
             x=original_times_in_specified_unit,
             y=defined_capacity_values,
@@ -346,16 +346,16 @@ class Plan:
             line=dict(color=color or 'green', shape='hv', width=1.3),
             fill='tonexty',
             fillcolor=rgba_color,
-            name='Capacidad acumulada'  # Nombre del trazo para la leyenda
+            name='Accumulated Capacity'  # Trace name for the legend
         ))
 
-        # Configuración de la gráfica
+        # Graph configuration
         fig.update_layout(
-            title=f'Curva de capacidad - {self.name} - {time_interval.value} {time_interval.unit.value}',
+            title=f'Capacity Curve - {self.name} - {time_interval.value} {time_interval.unit.value}',
             xaxis_title=x_label,
-            yaxis_title='Capacidad',
-            legend_title='Curvas',  # Título de la leyenda
-            showlegend=True,  # Forzar que la leyenda siempre se muestre
+            yaxis_title='Capacity',
+            legend_title='Curves',  # Legend title
+            showlegend=True,  # Force the legend to always show
             template='plotly_white',
             width=1000,
             height=600

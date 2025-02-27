@@ -46,10 +46,10 @@ def compare_plans(plans, time_interval, return_fig=False):
         ))
 
     fig.update_layout(
-        title="Comparación de curvas de capacidad",
-        xaxis_title=f"Tiempo ({time_interval.unit.value})",
-        yaxis_title="Capacidad",
-        legend_title="Planes",
+        title="Comparison of Capacity Curves",
+        xaxis_title=f"Time ({time_interval.unit.value})",
+        yaxis_title="Capacity",
+        legend_title="Plans",
         template="plotly_white",
         width=1000,
         height=600
