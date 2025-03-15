@@ -37,6 +37,7 @@ def format_time_with_unit(time_duration: TimeDuration) -> str:
         str: La duración formateada como un string legible.
     """
     duration_seconds = time_duration.value * time_duration.unit.to_seconds()
+    milliseconds = int((duration_seconds % 1) * 1000)
 
     days = int(duration_seconds // (24 * 60 * 60))
     hours = int((duration_seconds % (24 * 60 * 60)) // (60 * 60))
@@ -52,6 +53,8 @@ def format_time_with_unit(time_duration: TimeDuration) -> str:
         time_string += f"{minutes}m"
     if seconds > 0:
         time_string += f"{seconds}s"
+    if milliseconds > 0:
+        time_string += f"{milliseconds}ms"
 
     return time_string.rstrip(", ")
 
