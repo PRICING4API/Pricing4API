@@ -35,9 +35,22 @@ class Plan:
         if unitary_rate is not None:
             self.__limits.append(unitary_rate)
         
+
         if quotes:
             for quote in quotes:
                 self.__limits.append(quote)
+                
+        
+        if unitary_rate is None:
+            first_limit_quantity = self.__limits[0].value
+            first_limit_period = self.__limits[0].duration.to_milliseconds()
+            
+            rate_wait_period = first_limit_period / first_limit_quantity
+            
+            uniform_unitary_rate = Limit(1, TimeDuration(rate_wait_period, TimeUnit.MILLISECOND))
+            self.__unitary_rate = uniform_unitary_rate
+            self.__limits.insert(0, uniform_unitary_rate)
+            
             
         ## ordena los límites de menor duracion a mayor
         

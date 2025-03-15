@@ -24,7 +24,7 @@ class Limit:
 
 
     def __str__(self):
-        return f"{self.value} calls per {self.duration.unit.name}"
+        return f"{self.value} calls per {self.duration.value} {self.duration.unit.name}"
     
     
 if __name__ == "__main__":
