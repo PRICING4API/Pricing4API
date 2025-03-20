@@ -327,51 +327,63 @@ class Plan:
     def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
         t_milliseconds = int(time_interval.to_milliseconds())
         step = int(self.rate_frequency.to_milliseconds())
-        defined_t_values_ms = list(range(0, t_milliseconds + 1, step))
-        max_burning_time_ms = self.max_quota_burning_time.to_milliseconds()
-        quota_frequency_ms = self.quotes_frequencies[-1].to_milliseconds()
 
-        defined_t_values_ms = [
-            t for t in defined_t_values_ms
-            if not (max_burning_time_ms + step <= t % quota_frequency_ms <= quota_frequency_ms - step) or t == t_milliseconds
-        ]
+        # Obtenemos la cuota máxima para saturar
+        max_quota_value = self.limits[-1].value
 
-        if not defined_t_values_ms:
-            defined_t_values_ms = [0, t_milliseconds]
-
+        # 1) Generamos los puntos "a mano" evitando la meseta infinita
+        results = []
+        saturated = False
         with ThreadPoolExecutor() as executor:
-            defined_capacity_values = list(executor.map(self.compute_available_capacity_threads, defined_t_values_ms))
+            for t in range(0, t_milliseconds + 1, step):
+                capacity = self.compute_available_capacity_threads(t)
+                # Saturamos si supera la cuota
+                if capacity >= max_quota_value:
+                    capacity = max_quota_value
+                    results.append((t, capacity))
+                    saturated = True
+                    break
+                results.append((t, capacity))
 
+        # 2) Si saturó antes del final, añadimos un último punto horizontal
+        if saturated:
+            # Añade un punto al final del intervalo para la meseta
+            if results[-1][0] < t_milliseconds:
+                results.append((t_milliseconds, max_quota_value))
+        else:
+            # Nunca saturó, añadimos el punto final si no está
+            if results[-1][0] != t_milliseconds:
+                final_capacity = self.compute_available_capacity_threads(t_milliseconds)
+                results.append((t_milliseconds, final_capacity))
+
+        # 3) Si piden modo debug, devolvemos los puntos crudos
         if debug:
-            return list(zip(defined_t_values_ms, defined_capacity_values))
+            return results
 
-        original_times_in_specified_unit = [
-            t / time_interval.unit.to_milliseconds() for t in defined_t_values_ms
-        ]
-        x_label = f"Time ({time_interval.unit.value})"
+        # 4) Convertimos los tiempos al eje original
+        times_ms, capacities = zip(*results)
+        original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
 
+        # 5) Plotly
         fig = go.Figure()
-
         rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'green')[:3]]))},0.3)"
 
-        # Plot the step-like signal with the original time unit
         fig.add_trace(go.Scatter(
-            x=original_times_in_specified_unit,
-            y=defined_capacity_values,
+            x=original_times,
+            y=capacities,
             mode='lines',
             line=dict(color=color or 'green', shape='hv', width=1.3),
             fill='tonexty',
             fillcolor=rgba_color,
-            name='Accumulated Capacity'  # Trace name for the legend
+            name='Accumulated Capacity'
         ))
 
-        # Graph configuration
         fig.update_layout(
             title=f'Capacity Curve - {self.name} - {time_interval.value} {time_interval.unit.value}',
-            xaxis_title=x_label,
+            xaxis_title=f"Time ({time_interval.unit.value})",
             yaxis_title='Capacity',
-            legend_title='Curves',  # Legend title
-            showlegend=True,  # Force the legend to always show
+            legend_title='Curves',
+            showlegend=True,
             template='plotly_white',
             width=1000,
             height=600
@@ -380,7 +392,6 @@ class Plan:
         if return_fig:
             return fig
 
-        # Mostrar la gráfica
         fig.show()
 
 
