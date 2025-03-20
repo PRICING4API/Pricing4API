@@ -336,6 +336,9 @@ class Plan:
             if not (max_burning_time_ms + step <= t % quota_frequency_ms <= quota_frequency_ms - step) or t == t_milliseconds
         ]
 
+        if not defined_t_values_ms:
+            defined_t_values_ms = [0, t_milliseconds]
+
         with ThreadPoolExecutor() as executor:
             defined_capacity_values = list(executor.map(self.compute_available_capacity_threads, defined_t_values_ms))
 
