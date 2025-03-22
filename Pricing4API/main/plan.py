@@ -39,8 +39,8 @@ class Plan:
         if quotes:
             for quote in quotes:
                 self.__limits.append(quote)
-                
-        
+            
+        """
         if unitary_rate is None:
             first_limit_quantity = self.__limits[0].value
             first_limit_period = self.__limits[0].duration.to_milliseconds()
@@ -50,6 +50,8 @@ class Plan:
             uniform_unitary_rate = Limit(1, TimeDuration(rate_wait_period, TimeUnit.MILLISECOND))
             self.__unitary_rate = uniform_unitary_rate
             self.__limits.insert(0, uniform_unitary_rate)
+        """
+        
             
             
         ## ordena los límites de menor duracion a mayor
@@ -324,6 +326,7 @@ class Plan:
         
         return self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.limits) - 1)
     
+    """
     def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
         t_milliseconds = int(time_interval.to_milliseconds())
         step = int(self.rate_frequency.to_milliseconds())
@@ -392,6 +395,66 @@ class Plan:
         if return_fig:
             return fig
 
+        fig.show()
+        """
+        
+    def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
+        t_milliseconds = int(time_interval.to_milliseconds())
+        step = int(self.rate_frequency.to_milliseconds())
+        defined_t_values_ms = list(range(0, t_milliseconds + 1, step))
+        max_burning_time_ms = self.max_quota_burning_time.to_milliseconds()
+        quota_frequency_ms = self.quotes_frequencies[-1].to_milliseconds()
+
+        defined_t_values_ms = [
+            t for t in defined_t_values_ms
+            if not (max_burning_time_ms + step <= t % quota_frequency_ms <= quota_frequency_ms - step) or t == t_milliseconds
+        ]
+
+        if not defined_t_values_ms:
+            defined_t_values_ms = [0, t_milliseconds]
+
+        with ThreadPoolExecutor() as executor:
+            defined_capacity_values = list(executor.map(self.compute_available_capacity_threads, defined_t_values_ms))
+
+        if debug:
+            return list(zip(defined_t_values_ms, defined_capacity_values))
+
+        original_times_in_specified_unit = [
+            t / time_interval.unit.to_milliseconds() for t in defined_t_values_ms
+        ]
+        x_label = f"Time ({time_interval.unit.value})"
+
+        fig = go.Figure()
+
+        rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'green')[:3]]))},0.3)"
+
+        # Plot the step-like signal with the original time unit
+        fig.add_trace(go.Scatter(
+            x=original_times_in_specified_unit,
+            y=defined_capacity_values,
+            mode='lines',
+            line=dict(color=color or 'green', shape='hv', width=1.3),
+            fill='tonexty',
+            fillcolor=rgba_color,
+            name='Accumulated Capacity'  # Trace name for the legend
+        ))
+
+        # Graph configuration
+        fig.update_layout(
+            title=f'Capacity Curve - {self.name} - {time_interval.value} {time_interval.unit.value}',
+            xaxis_title=x_label,
+            yaxis_title='Capacity',
+            legend_title='Curves',  # Legend title
+            showlegend=True,  # Force the legend to always show
+            template='plotly_white',
+            width=1000,
+            height=600
+        )
+
+        if return_fig:
+            return fig
+
+        # Mostrar la gráfica
         fig.show()
 
 
