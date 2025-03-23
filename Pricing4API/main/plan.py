@@ -109,8 +109,6 @@ class Plan:
     def rate_frequency(self):
         return self.limits[0].duration
     
-    
-    
     @property
     def quotes_values(self):
         return [quote.value for quote in self.__quotes]
@@ -126,6 +124,23 @@ class Plan:
     @property
     def limits(self):
         return self.__limits
+    
+    @limits.setter
+    def infer_uniform_rate(self, value: List[Limit]):
+        self.__limits = value
+        if self.__unitary_rate is None and self.__limits:
+            first_limit_quantity = self.__limits[0].value
+            first_limit_period = self.__limits[0].duration.to_milliseconds()
+            
+            rate_wait_period = first_limit_period / first_limit_quantity
+            
+            uniform_unitary_rate = Limit(1, TimeDuration(rate_wait_period, TimeUnit.MILLISECOND))
+            self.__unitary_rate = uniform_unitary_rate
+            self.__limits.insert(0, uniform_unitary_rate)
+    def revert_uniform_unitary_rate(self):
+        if self.__unitary_rate and self.__limits and self.__limits[0] == self.__unitary_rate:
+            self.__limits.pop(0)
+            self.__unitary_rate = None
     
     @property
     def max_number_of_subscriptions(self):
@@ -325,79 +340,7 @@ class Plan:
     def compute_available_capacity_threads(self, t):
         
         return self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.limits) - 1)
-    
-    """
-    def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
-        t_milliseconds = int(time_interval.to_milliseconds())
-        step = int(self.rate_frequency.to_milliseconds())
-
-        # Obtenemos la cuota máxima para saturar
-        max_quota_value = self.limits[-1].value
-
-        # 1) Generamos los puntos "a mano" evitando la meseta infinita
-        results = []
-        saturated = False
-        with ThreadPoolExecutor() as executor:
-            for t in range(0, t_milliseconds + 1, step):
-                capacity = self.compute_available_capacity_threads(t)
-                # Saturamos si supera la cuota
-                if capacity >= max_quota_value:
-                    capacity = max_quota_value
-                    results.append((t, capacity))
-                    saturated = True
-                    break
-                results.append((t, capacity))
-
-        # 2) Si saturó antes del final, añadimos un último punto horizontal
-        if saturated:
-            # Añade un punto al final del intervalo para la meseta
-            if results[-1][0] < t_milliseconds:
-                results.append((t_milliseconds, max_quota_value))
-        else:
-            # Nunca saturó, añadimos el punto final si no está
-            if results[-1][0] != t_milliseconds:
-                final_capacity = self.compute_available_capacity_threads(t_milliseconds)
-                results.append((t_milliseconds, final_capacity))
-
-        # 3) Si piden modo debug, devolvemos los puntos crudos
-        if debug:
-            return results
-
-        # 4) Convertimos los tiempos al eje original
-        times_ms, capacities = zip(*results)
-        original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
-
-        # 5) Plotly
-        fig = go.Figure()
-        rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'green')[:3]]))},0.3)"
-
-        fig.add_trace(go.Scatter(
-            x=original_times,
-            y=capacities,
-            mode='lines',
-            line=dict(color=color or 'green', shape='hv', width=1.3),
-            fill='tonexty',
-            fillcolor=rgba_color,
-            name='Accumulated Capacity'
-        ))
-
-        fig.update_layout(
-            title=f'Capacity Curve - {self.name} - {time_interval.value} {time_interval.unit.value}',
-            xaxis_title=f"Time ({time_interval.unit.value})",
-            yaxis_title='Capacity',
-            legend_title='Curves',
-            showlegend=True,
-            template='plotly_white',
-            width=1000,
-            height=600
-        )
-
-        if return_fig:
-            return fig
-
-        fig.show()
-        """
-        
+           
     def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
         t_milliseconds = int(time_interval.to_milliseconds())
         step = int(self.rate_frequency.to_milliseconds())
@@ -455,6 +398,71 @@ class Plan:
             return fig
 
         # Mostrar la gráfica
+        fig.show()
+        
+    def show_uniform_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
+        # Infer the uniform unitary rate
+        self.infer_uniform_rate(self.limits)
+
+        # Show the available capacity curve
+        result = self.show_available_capacity_curve(time_interval, debug, color, return_fig)
+
+        # Revert the uniform unitary rate
+        self.revert_uniform_unitary_rate()
+
+        return result
+    
+    
+    def show_instantaneous_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
+        t_milliseconds = int(time_interval.to_milliseconds())
+        step = int(self.rate_frequency.to_milliseconds())
+        quota_frequency_ms = self.quotes_frequencies[-1].to_milliseconds()
+
+        defined_t_values_ms = list(range(0, t_milliseconds + 1, step))
+        defined_capacity_values = []
+
+        for t in defined_t_values_ms:
+            period_index = t // quota_frequency_ms
+            period_time = t % quota_frequency_ms
+            capacity = self.available_capacity(TimeDuration(period_time, TimeUnit.MILLISECOND), len(self.limits) - 1)
+            defined_capacity_values.append(capacity)
+
+        if debug:
+            return list(zip(defined_t_values_ms, defined_capacity_values))
+
+        original_times_in_specified_unit = [
+            t / time_interval.unit.to_milliseconds() for t in defined_t_values_ms
+        ]
+        x_label = f"Time ({time_interval.unit.value})"
+
+        fig = go.Figure()
+
+        rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'blue')[:3]]))},0.3)"
+
+        fig.add_trace(go.Scatter(
+            x=original_times_in_specified_unit,
+            y=defined_capacity_values,
+            mode='lines',
+            line=dict(color=color or 'blue', shape='hv', width=1.3),
+            fill='tonexty',
+            fillcolor=rgba_color,
+            name='Instantaneous Capacity'
+        ))
+
+        fig.update_layout(
+            title=f'Instantaneous Capacity Curve - {self.name} - {time_interval.value} {time_interval.unit.value}',
+            xaxis_title=x_label,
+            yaxis_title='Capacity',
+            legend_title='Curves',
+            showlegend=True,
+            template='plotly_white',
+            width=1000,
+            height=600
+        )
+
+        if return_fig:
+            return fig
+
         fig.show()
 
 
@@ -559,6 +567,9 @@ class Plan:
 
         # Mostrar la gráfica
         fig.show()
+        
+        
+    
 
 
 
