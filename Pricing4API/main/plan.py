@@ -35,24 +35,9 @@ class Plan:
         if unitary_rate is not None:
             self.__limits.append(unitary_rate)
         
-
         if quotes:
             for quote in quotes:
                 self.__limits.append(quote)
-            
-        """
-        if unitary_rate is None:
-            first_limit_quantity = self.__limits[0].value
-            first_limit_period = self.__limits[0].duration.to_milliseconds()
-            
-            rate_wait_period = first_limit_period / first_limit_quantity
-            
-            uniform_unitary_rate = Limit(1, TimeDuration(rate_wait_period, TimeUnit.MILLISECOND))
-            self.__unitary_rate = uniform_unitary_rate
-            self.__limits.insert(0, uniform_unitary_rate)
-        """
-        
-            
             
         ## ordena los límites de menor duracion a mayor
         
@@ -109,6 +94,8 @@ class Plan:
     def rate_frequency(self):
         return self.limits[0].duration
     
+    
+    
     @property
     def quotes_values(self):
         return [quote.value for quote in self.__quotes]
@@ -124,23 +111,6 @@ class Plan:
     @property
     def limits(self):
         return self.__limits
-    
-    @limits.setter
-    def infer_uniform_rate(self, value: List[Limit]):
-        self.__limits = value
-        if self.__unitary_rate is None and self.__limits:
-            first_limit_quantity = self.__limits[0].value
-            first_limit_period = self.__limits[0].duration.to_milliseconds()
-            
-            rate_wait_period = first_limit_period / first_limit_quantity
-            
-            uniform_unitary_rate = Limit(1, TimeDuration(rate_wait_period, TimeUnit.MILLISECOND))
-            self.__unitary_rate = uniform_unitary_rate
-            self.__limits.insert(0, uniform_unitary_rate)
-    def revert_uniform_unitary_rate(self):
-        if self.__unitary_rate and self.__limits and self.__limits[0] == self.__unitary_rate:
-            self.__limits.pop(0)
-            self.__unitary_rate = None
     
     @property
     def max_number_of_subscriptions(self):
@@ -464,112 +434,6 @@ class Plan:
             return fig
 
         fig.show()
-
-
-    def show_capacity_areas(self, time_interval: TimeDuration) -> None:
-        """Muestra las áreas de capacidad acumulada y capacidad desplazada sin conflictos de sombreado."""
-
-        # Convertir el intervalo de tiempo a milisegundos
-        time_interval_ms = time_interval.to_milliseconds()
-
-        # Obtener el tiempo de recuperación máximo de la cuota en milisegundos
-        recovery_interval_ms = self.max_quota_recovery_interval.to_milliseconds()
-
-        # Obtener el periodo del rate y convertirlo a milisegundos
-        rate_wait_period_ms = self.rate_wait_period.to_milliseconds()
-
-        # Calcular el desplazamiento real
-        shifted_recovery_interval_ms = recovery_interval_ms - rate_wait_period_ms
-
-        # Definir los tiempos en milisegundos
-        step_ms = self.limits[0].duration.to_milliseconds()
-        defined_t_values = list(range(0, int(time_interval_ms) + 1, int(step_ms)))
-        max_burning_time_ms = self.max_quota_burning_time.to_milliseconds()
-        quota_frequency_ms = self.quotes_frequencies[-1].to_milliseconds()
-
-        defined_t_values = [
-            t for t in defined_t_values
-            if not (max_burning_time_ms + step_ms <= t % quota_frequency_ms <= quota_frequency_ms - step_ms) or t == time_interval_ms
-        ]
-
-        # Calcular la capacidad en los puntos definidos
-        defined_capacity_values = [
-            self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.limits) - 1) for t in defined_t_values
-        ]
-
-        # Calcular los tiempos desplazados restándoles el tiempo de rate
-        defined_t_values_shifted = [
-            t + shifted_recovery_interval_ms for t in defined_t_values if t + shifted_recovery_interval_ms <= time_interval_ms
-        ]
-
-        # Calcular la capacidad en los puntos desplazados
-        defined_capacity_values_shifted = [
-            self.available_capacity(TimeDuration(int(t - shifted_recovery_interval_ms), TimeUnit.MILLISECOND), len(self.limits) - 1)
-            for t in defined_t_values_shifted
-        ]
-
-        # Ajustar los valores iniciales para rellenar el hueco entre curvas
-        if defined_t_values_shifted and defined_t_values:
-            first_shifted_time = defined_t_values_shifted[0]
-
-            if first_shifted_time > defined_t_values[0]:
-                defined_t_values_shifted.insert(0, defined_t_values[0])
-                defined_capacity_values_shifted.insert(0, 0)  # Sombreado desde capacidad 0
-
-        # Convertir los valores del eje x al formato inicial especificado por el usuario
-        original_times_in_specified_unit = [
-            t / time_interval.unit.to_milliseconds() for t in defined_t_values
-        ]
-        shifted_times_in_specified_unit = [
-            t / time_interval.unit.to_milliseconds() for t in defined_t_values_shifted
-        ]
-        x_label = f"Tiempo ({time_interval.unit.value})"
-
-        # Crear la gráfica
-        fig = go.Figure()
-
-        # Colores RGBA para sombreado
-        rgba_color_orange = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba('orange')[:3]]))},0.2)"
-        rgba_color_green = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba('green')[:3]]))},0.3)"
-
-        # Dibujar la capacidad desplazada (naranja) primero
-        fig.add_trace(go.Scatter(
-            x=shifted_times_in_specified_unit,
-            y=defined_capacity_values_shifted,
-            mode='lines',
-            line=dict(color='orange', shape='hv', width=1.3),
-            fill='tonexty',
-            fillcolor=rgba_color_orange,
-            name='Capacidad desplazada'
-        ))
-
-        # Dibujar la capacidad acumulada (verde) después
-        fig.add_trace(go.Scatter(
-            x=original_times_in_specified_unit,
-            y=defined_capacity_values,
-            mode='lines',
-            line=dict(color='green', shape='hv', width=1.3),
-            fill='tonexty',
-            fillcolor=rgba_color_green,
-            name='Capacidad acumulada'
-        ))
-
-        # Configuración de la gráfica
-        fig.update_layout(
-            title=f'Áreas de capacidad - {self.name} - {time_interval.value} {time_interval.unit.value}',
-            xaxis_title=x_label,
-            yaxis_title='Capacidad',
-            legend_title='Curvas',
-            template='plotly_white',
-            width=1000,
-            height=600
-        )
-
-        # Mostrar la gráfica
-        fig.show()
-        
-        
-    
 
 
 
