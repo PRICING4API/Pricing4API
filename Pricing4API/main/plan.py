@@ -434,6 +434,23 @@ class Plan:
             return fig
 
         fig.show()
+        
+        
+
+    def show_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
+        t_milliseconds = int(time_interval.to_milliseconds())
+        max_quota_duration_ms = self.quotes_frequencies[-1].to_milliseconds()
+
+        if t_milliseconds > max_quota_duration_ms:
+            choice = input("The simulation time exceeds the longest quota duration. Enter 1 for accumulated capacity curve or 2 for instantaneous capacity curve: ")
+            if choice == '1':
+                return self.show_available_capacity_curve(time_interval, debug, color, return_fig)
+            elif choice == '2':
+                return self.show_instantaneous_capacity_curve(time_interval, debug, color, return_fig)
+            else:
+                raise ValueError("Invalid choice. Please enter 1 or 2.")
+        else:
+            return self.show_available_capacity_curve(time_interval, debug, color, return_fig)
 
 
 
