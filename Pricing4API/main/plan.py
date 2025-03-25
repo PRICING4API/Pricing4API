@@ -487,9 +487,9 @@ class Plan:
                     dict(
                         type="buttons",
                         direction="left",
-                        x=0.02,
+                        x=0.30,
                         xanchor="left",
-                        y=1.15,
+                        y=1.10,
                         yanchor="top",
                         buttons=[
                             dict(
