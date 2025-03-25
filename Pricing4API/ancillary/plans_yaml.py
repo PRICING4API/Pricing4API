@@ -60,3 +60,57 @@ def load_plan(yaml_string: str) -> Plan:
     )
 
     return plan
+
+def load_plan_simple(yaml_string: str) -> Plan:
+    """
+    Carga un plan simplificado desde un YAML plano sin rutas ni métodos HTTP.
+    
+    Args:
+        yaml_string (str): Definición en YAML con claves directas: 'unitary_rate' o 'quotas' bajo 'limits'.
+    
+    Returns:
+        Plan: Objeto Plan de Pricing4API.
+    """
+    data = yaml.safe_load(yaml_string)
+
+    api_name = data.get("name", "Unnamed API")
+    limits_section = data.get("limits", {})
+
+    unitary_rate = None
+    quotas = []
+
+    # Procesar unitary_rate si existe
+    if "unitary_rate" in limits_section:
+        period = limits_section["unitary_rate"].get("period", {})
+        period_value = period.get("value")
+        period_unit = period.get("unit")
+
+        if not (period_value and period_unit):
+            raise ValueError("Faltan valores en 'unitary_rate'.")
+
+        duration = TimeDuration(int(period_value), TimeUnit[period_unit.upper()])
+        unitary_rate = Limit(1, duration)
+
+    # Procesar quotas si existen
+    if "quotas" in limits_section:
+        for limit in limits_section["quotas"]:
+            max_requests = limit.get("max")
+            period = limit.get("period", {})
+            period_value = period.get("value")
+            period_unit = period.get("unit")
+
+            if not (max_requests and period_value and period_unit):
+                raise ValueError("Faltan valores en una cuota.")
+
+            duration = TimeDuration(int(period_value), TimeUnit[period_unit.upper()])
+            quotas.append(Limit(max_requests, duration))
+
+    plan = Plan(
+        name=api_name,
+        billing=(0.0, TimeDuration(1, TimeUnit.MONTH)),  # Mockeado
+        unitary_rate=unitary_rate,
+        quotes=quotas
+    )
+
+    return plan
+
