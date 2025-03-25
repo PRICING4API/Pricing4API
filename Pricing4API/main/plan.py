@@ -281,7 +281,7 @@ class Plan:
     
     
     def available_capacity(self, time_simulation: TimeDuration, limits_length):
-        if time_simulation.value != TimeUnit.MILLISECOND:
+        if time_simulation.unit != TimeUnit.MILLISECOND:
             t_milliseconds = time_simulation.to_milliseconds()
         else:
             t_milliseconds = time_simulation.value
