@@ -440,100 +440,87 @@ class Plan:
         
         
 
-    def show_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
+    def show_capacity_curve(self, time_interval, debug: bool = False, color=None, return_fig=False):
         t_milliseconds = int(time_interval.to_milliseconds())
         max_quota_duration_ms = self.quotes_frequencies[-1].to_milliseconds()
 
+        # CASO 1: Excede la duración de la cuota
         if t_milliseconds > max_quota_duration_ms:
+            # Mensaje en consola (no en la figura)
+            print("El intervalo de tiempo excede el ciclo de cuota completo.")
+
+            # Obtenemos las figuras de cada curva
+            fig_accumulated = self.show_available_capacity_curve(time_interval, debug, color, return_fig=True)
+            fig_instantaneous = self.show_instantaneous_capacity_curve(time_interval, debug, color, return_fig=True)
+
+            # Creamos una figura "contenedora"
             fig = go.Figure()
 
-            fig.add_trace(go.Scatter(
-                x=[0], y=[0],
-                mode='markers',
-                marker=dict(size=20, color='red'),
-                name='Choose Curve Type'
-            ))
+            # Agregamos las trazas de "Accumulated"
+            for trace in fig_accumulated.data:
+                fig.add_trace(trace)
 
+            # Agregamos las trazas de "Instantaneous"
+            for trace in fig_instantaneous.data:
+                fig.add_trace(trace)
+
+            # Contamos cuántas trazas hay en cada figura
+            n_acc = len(fig_accumulated.data)
+            n_inst = len(fig_instantaneous.data)
+
+            # Definimos la visibilidad inicial:
+            #   - "Accumulated": visible por defecto
+            #   - "Instantaneous": oculto
+            for i in range(n_acc):
+                fig.data[i].visible = True  # las n_accumulated
+            for i in range(n_inst):
+                fig.data[n_acc + i].visible = False  # las n_instantaneous
+
+            # Creamos dos patrones de visibilidad:
+            accum_visible = [True] * n_acc + [False] * n_inst
+            inst_visible  = [False] * n_acc + [True]  * n_inst
+
+            # Añadimos los botones
             fig.update_layout(
-                title='Choose Curve Type',
-                xaxis=dict(visible=False),
-                yaxis=dict(visible=False),
-                showlegend=False,
-                annotations=[
+                title="Accumulated Capacity",  # Título inicial
+                updatemenus=[
                     dict(
-                        x=0.5, y=0.5,
-                        xref='paper', yref='paper',
-                        text='The time interval exceeds a complete quota cycle. Click to choose: Accumulated Capacity or Instantaneous Capacity',
-                        showarrow=False,
-                        font=dict(size=20)
-                    )
-                ],
-                shapes=[
-                    dict(
-                        type='rect',
-                        x0=0.25, y0=0.25, x1=0.75, y1=0.75,
-                        xref='paper', yref='paper',
-                        line=dict(color='RoyalBlue')
+                        type="buttons",
+                        direction="left",
+                        x=0.02,
+                        xanchor="left",
+                        y=1.15,
+                        yanchor="top",
+                        buttons=[
+                            dict(
+                                label="Accumulated",
+                                method="update",
+                                args=[
+                                    {"visible": accum_visible},
+                                    {"title": "Accumulated Capacity"}
+                                ]
+                            ),
+                            dict(
+                                label="Instantaneous",
+                                method="update",
+                                args=[
+                                    {"visible": inst_visible},
+                                    {"title": "Instantaneous Capacity"}
+                                ]
+                            )
+                        ]
                     )
                 ]
             )
 
-            def handle_click(trace, points, state):
-                if points.point_inds:
-                    fig.data = []
-                    fig.layout = go.Layout()
-                    fig.layout.update(title='Capacity Curve')
-                    fig.layout.update(showlegend=True)
-
-                    fig.add_trace(go.Scatter(
-                        x=[0], y=[0],
-                        mode='markers',
-                        marker=dict(size=20, color='green'),
-                        name='Accumulated Capacity'
-                    ))
-
-                    fig.add_trace(go.Scatter(
-                        x=[0], y=[0],
-                        mode='markers',
-                        marker=dict(size=20, color='blue'),
-                        name='Instantaneous Capacity'
-                    ))
-
-                    fig.update_layout(
-                        annotations=[
-                            dict(
-                                x=0.5, y=0.5,
-                                xref='paper', yref='paper',
-                                text='Click on the curve type to display',
-                                showarrow=False,
-                                font=dict(size=20)
-                            )
-                        ]
-                    )
-
-                    def handle_curve_click(trace, points, state):
-                        if points.point_inds:
-                            if trace.name == 'Accumulated Capacity':
-                                fig.data = []
-                                fig.layout = go.Layout()
-                                fig = self.show_available_capacity_curve(time_interval, debug, color, return_fig=True)
-                            elif trace.name == 'Instantaneous Capacity':
-                                fig.data = []
-                                fig.layout = go.Layout()
-                                fig = self.show_instantaneous_capacity_curve(time_interval, debug, color, return_fig=True)
-
-                    fig.data[0].on_click(handle_curve_click)
-                    fig.data[1].on_click(handle_curve_click)
-
-            fig.data[0].on_click(handle_click)
-
             if return_fig:
                 return fig
+            else:
+                fig.show()
 
-            fig.show()
+        # CASO 2: No excede -> se muestra directamente la curva "available"
         else:
             return self.show_available_capacity_curve(time_interval, debug, color, return_fig)
-
 
 
 
@@ -641,6 +628,9 @@ class Plan:
         values = self.show_available_capacity_curve(quota, debug=True)
         
         return [(v[0]/1000, v[1]) for v in values]
+    
+    
+
     
 
     

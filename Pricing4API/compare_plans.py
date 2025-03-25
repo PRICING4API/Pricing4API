@@ -121,4 +121,4 @@ if __name__ == "__main__":
     Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
 
     
-    compare_instantaneous_capacity_curves([Github, Zenhub], TimeDuration(2, TimeUnit.HOUR))
+    Github.show_capacity_curve(TimeDuration(2, TimeUnit.HOUR))
