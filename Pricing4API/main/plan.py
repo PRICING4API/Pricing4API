@@ -315,6 +315,11 @@ class Plan:
         t_milliseconds = int(time_interval.to_milliseconds())
         step = int(self.rate_frequency.to_milliseconds())
         defined_t_values_ms = list(range(0, t_milliseconds + 1, step))
+
+        # ⚠️ Añadido: forzar dos puntos si solo hay uno y t > 0
+        if len(defined_t_values_ms) == 1 and t_milliseconds > 0:
+            defined_t_values_ms.append(t_milliseconds)
+
         max_burning_time_ms = self.max_quota_burning_time.to_milliseconds()
         quota_frequency_ms = self.quotes_frequencies[-1].to_milliseconds()
 
@@ -341,7 +346,6 @@ class Plan:
 
         rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'green')[:3]]))},0.3)"
 
-        # Plot the step-like signal with the original time unit
         fig.add_trace(go.Scatter(
             x=original_times_in_specified_unit,
             y=defined_capacity_values,
@@ -349,16 +353,15 @@ class Plan:
             line=dict(color=color or 'green', shape='hv', width=1.3),
             fill='tonexty',
             fillcolor=rgba_color,
-            name='Accumulated Capacity'  # Trace name for the legend
+            name='Accumulated Capacity'
         ))
 
-        # Graph configuration
         fig.update_layout(
             title=f'Capacity Curve - {self.name} - {time_interval.value} {time_interval.unit.value}',
             xaxis_title=x_label,
             yaxis_title='Capacity',
-            legend_title='Curves',  # Legend title
-            showlegend=True,  # Force the legend to always show
+            legend_title='Curves',
+            showlegend=True,
             template='plotly_white',
             width=1000,
             height=600
@@ -367,8 +370,8 @@ class Plan:
         if return_fig:
             return fig
 
-        # Mostrar la gráfica
         fig.show()
+
         
     def show_uniform_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
         # Infer the uniform unitary rate
