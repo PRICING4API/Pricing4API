@@ -445,13 +445,92 @@ class Plan:
         max_quota_duration_ms = self.quotes_frequencies[-1].to_milliseconds()
 
         if t_milliseconds > max_quota_duration_ms:
-            choice = input("The simulation time exceeds the longest quota duration. Enter 1 for accumulated capacity curve or 2 for instantaneous capacity curve: ")
-            if choice == '1':
-                return self.show_available_capacity_curve(time_interval, debug, color, return_fig)
-            elif choice == '2':
-                return self.show_instantaneous_capacity_curve(time_interval, debug, color, return_fig)
-            else:
-                raise ValueError("Invalid choice. Please enter 1 or 2.")
+            fig = go.Figure()
+
+            fig.add_trace(go.Scatter(
+                x=[0], y=[0],
+                mode='markers',
+                marker=dict(size=20, color='red'),
+                name='Choose Curve Type'
+            ))
+
+            fig.update_layout(
+                title='Choose Curve Type',
+                xaxis=dict(visible=False),
+                yaxis=dict(visible=False),
+                showlegend=False,
+                annotations=[
+                    dict(
+                        x=0.5, y=0.5,
+                        xref='paper', yref='paper',
+                        text='The time interval exceeds a complete quota cycle. Click to choose: Accumulated Capacity or Instantaneous Capacity',
+                        showarrow=False,
+                        font=dict(size=20)
+                    )
+                ],
+                shapes=[
+                    dict(
+                        type='rect',
+                        x0=0.25, y0=0.25, x1=0.75, y1=0.75,
+                        xref='paper', yref='paper',
+                        line=dict(color='RoyalBlue')
+                    )
+                ]
+            )
+
+            def handle_click(trace, points, state):
+                if points.point_inds:
+                    fig.data = []
+                    fig.layout = go.Layout()
+                    fig.layout.update(title='Capacity Curve')
+                    fig.layout.update(showlegend=True)
+
+                    fig.add_trace(go.Scatter(
+                        x=[0], y=[0],
+                        mode='markers',
+                        marker=dict(size=20, color='green'),
+                        name='Accumulated Capacity'
+                    ))
+
+                    fig.add_trace(go.Scatter(
+                        x=[0], y=[0],
+                        mode='markers',
+                        marker=dict(size=20, color='blue'),
+                        name='Instantaneous Capacity'
+                    ))
+
+                    fig.update_layout(
+                        annotations=[
+                            dict(
+                                x=0.5, y=0.5,
+                                xref='paper', yref='paper',
+                                text='Click on the curve type to display',
+                                showarrow=False,
+                                font=dict(size=20)
+                            )
+                        ]
+                    )
+
+                    def handle_curve_click(trace, points, state):
+                        if points.point_inds:
+                            if trace.name == 'Accumulated Capacity':
+                                fig.data = []
+                                fig.layout = go.Layout()
+                                fig = self.show_available_capacity_curve(time_interval, debug, color, return_fig=True)
+                            elif trace.name == 'Instantaneous Capacity':
+                                fig.data = []
+                                fig.layout = go.Layout()
+                                fig = self.show_instantaneous_capacity_curve(time_interval, debug, color, return_fig=True)
+
+                    fig.data[0].on_click(handle_curve_click)
+                    fig.data[1].on_click(handle_curve_click)
+
+            fig.data[0].on_click(handle_click)
+
+            if return_fig:
+                return fig
+
+            fig.show()
         else:
             return self.show_available_capacity_curve(time_interval, debug, color, return_fig)
 
