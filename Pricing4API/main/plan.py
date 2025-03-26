@@ -12,7 +12,7 @@ import plotly.graph_objects as go
 
 from Pricing4API.ancillary.limit import Limit
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
-from Pricing4API.utils import rearrange_time_axis_function, select_best_time_unit, format_time, format_time_with_unit
+from Pricing4API.utils import rearrange_time_axis_function, select_best_time_unit, format_time, format_time_with_unit, parse_time_string_to_duration
 
 
 class Plan:
@@ -307,6 +307,21 @@ class Plan:
         
         return c
     
+    def capacity(self, time_simulation):
+        """
+        Calculates the capacity for a given time simulation.
+
+        Args:
+            time_simulation (Union[str, TimeDuration]): The time simulation, either as a string or TimeDuration.
+
+        Returns:
+            float: The calculated capacity.
+        """
+        if isinstance(time_simulation, str):
+            time_simulation = parse_time_string_to_duration(time_simulation)
+
+        return self.available_capacity(time_simulation, len(self.limits) - 1)
+    
     def compute_available_capacity_threads(self, t):
         
         return self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.limits) - 1)
@@ -441,6 +456,10 @@ class Plan:
         
 
     def show_capacity_curve(self, time_interval, debug: bool = False, color=None, return_fig=False):
+        # Parse time_interval if it is a string
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+        
         t_milliseconds = int(time_interval.to_milliseconds())
         max_quota_duration_ms = self.quotes_frequencies[-1].to_milliseconds()
 
@@ -628,11 +647,10 @@ class Plan:
         values = self.show_available_capacity_curve(quota, debug=True)
         
         return [(v[0]/1000, v[1]) for v in values]
-    
-    
 
-    
 
-    
-    
-    
+
+
+
+
+

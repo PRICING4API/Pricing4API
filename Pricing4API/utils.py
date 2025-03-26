@@ -1,5 +1,5 @@
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
-
+import re
 
 def heaviside(x):
     if x < 0:
@@ -107,3 +107,35 @@ def rearrange_time_axis_function(label, original_times_ms, calls, ax, fig, plan_
     ax.grid(True)
     ax.legend()
     fig.canvas.draw_idle()
+
+def parse_time_string_to_duration(time_string: str) -> TimeDuration:
+    """
+    Convierte una cadena de tiempo formateada (e.g., '2d20h17m17s') en una instancia de TimeDuration.
+
+    Args:
+        time_string (str): La cadena de tiempo formateada.
+
+    Returns:
+        TimeDuration: Una instancia de TimeDuration que representa la duración total.
+    """
+    time_units = {
+        'day': TimeUnit.DAY,
+        'h': TimeUnit.HOUR,
+        'min': TimeUnit.MINUTE,
+        's': TimeUnit.SECOND,
+        'ms': TimeUnit.MILLISECOND
+    }
+
+    pattern = r'(\d+)(ms|day|[h]|min|s)'
+    matches = re.findall(pattern, time_string)
+
+    total_duration = TimeDuration(0, TimeUnit.MILLISECOND)
+    for value, unit in matches:
+        duration = TimeDuration(int(value), time_units[unit])
+        total_duration += duration
+
+    return total_duration
+
+
+
+

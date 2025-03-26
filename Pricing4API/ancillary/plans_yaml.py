@@ -2,6 +2,7 @@ import yaml
 from Pricing4API.main.plan import Plan
 from Pricing4API.ancillary.limit import Limit
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
+from Pricing4API.utils import parse_time_string_to_duration
 
 def load_plan(yaml_string: str) -> Plan:
     """
@@ -105,6 +106,56 @@ def load_plan_simple(yaml_string: str) -> Plan:
             duration = TimeDuration(int(period_value), TimeUnit[period_unit.upper()])
             quotas.append(Limit(max_requests, duration))
 
+    plan = Plan(
+        name=api_name,
+        billing=(0.0, TimeDuration(1, TimeUnit.MONTH)),  # Mockeado
+        unitary_rate=unitary_rate,
+        quotes=quotas
+    )
+
+    return plan
+
+def load_plan_from_variables(*kwargs) -> Plan:
+    """
+    Crea un objeto Plan a partir de argumentos variables.
+    
+    Args:
+        *kwargs: Argumentos variables que incluyen claves como 'name', 'unitary_rate_period',
+                 'limit1_period', 'limit1_value', etc.
+    
+    Returns:
+        Plan: Objeto Plan de Pricing4API.
+    
+    Notas:
+        - Los límites se ordenan por granularidad de unidad de tiempo (e.g., horas antes que meses).
+        - El rate unitario se asigna si 'unitary_rate_period' está presente.
+    """
+    api_name = kwargs.get("name", "Unnamed API")
+    unitary_rate = None
+    quotas = []
+
+    # Procesar unitary_rate si existe
+    if "unitary_rate_period" in kwargs:
+        period_string = kwargs["unitary_rate_period"]
+        time_duration = parse_time_string_to_duration(period_string)
+        unitary_rate = Limit(1, time_duration)  # Siempre es 1 para el rate unitario.
+
+    # Procesar límites adicionales (limitN_period y limitN_value)
+    limits = []
+    for key, value in kwargs.items():
+        if key.startswith("limit") and "_period" in key:
+            period_string = value
+            time_duration = parse_time_string_to_duration(period_string)
+            max_requests_key = key.replace("_period", "_value")
+            max_requests = kwargs.get(max_requests_key)
+            if max_requests is not None:
+                limits.append(Limit(int(max_requests), time_duration))  # Crear límite con valor y duración
+
+    # Ordenar límites por granularidad de unidad de tiempo
+    limits.sort(key=lambda limit: limit.time_duration.unit.value)
+    quotas.extend(limits)
+
+    # Crear objeto Plan
     plan = Plan(
         name=api_name,
         billing=(0.0, TimeDuration(1, TimeUnit.MONTH)),  # Mockeado

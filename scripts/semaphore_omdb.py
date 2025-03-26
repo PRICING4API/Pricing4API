@@ -5,31 +5,24 @@ import httpx
 from dotenv import load_dotenv
 import requests
 
-# Función para obtener el access token
-def return_access_token():
-    """Obtiene un token de acceso usando las credenciales de Amadeus."""
-    load_dotenv()
+# Cargar las variables de entorno
+load_dotenv()
 
-    AMADEUS_CLIENT_ID = os.getenv('AMADEUS_CLIENT_ID')
-    AMADEUS_CLIENT_SECRET = os.getenv('AMADEUS_CLIENT_SECRET')
-
-    AUTH_ENDPOINT = "https://test.api.amadeus.com/v1/security/oauth2/token"
-    headers = {"Content-Type": "application/x-www-form-urlencoded"}
-    data = {
-        "grant_type": "client_credentials",
-        "client_id": AMADEUS_CLIENT_ID,
-        "client_secret": AMADEUS_CLIENT_SECRET
-    }
-
-    response = requests.post(AUTH_ENDPOINT, headers=headers, data=data)
-    response.raise_for_status()  # Asegura que la solicitud no falló
-    return response.json()['access_token']
-
+# Variables globales para contar errores
+errores_429 = 0
+errores_200 = 0
+api_key = os.getenv('OMDB_API_KEY')
 # Función para realizar una llamada a la API
-async def llamada_api(n, client, url, params, access_token, start_time):
+async def llamada_api(n, client, url, params, start_time):
     """Realiza una llamada real a la API usando un cliente compartido."""
+    global errores_429, errores_200
+
+    
+
+
     headers = {
-        'Authorization': f'Bearer {access_token}'
+        'Accept': '*/*',
+
     }
 
     try:
@@ -42,10 +35,11 @@ async def llamada_api(n, client, url, params, access_token, start_time):
         print(f"[{n}] Llamada completada en {call_time:.2f} segundos con estado {response.status_code}")
 
         if response.status_code == 200:
-            print(f"[{n}] Respuesta: ")
+            print(f"[{n}] Respuesta aceptada")
+            errores_200 += 1
         elif response.status_code == 429:
             print(f"[{n}] Error 429: Rate limit exceeded")
-            print(response.text)
+            errores_429 += 1
         else:
             print(f"[{n}] Error en la llamada: {response.status_code} - {response.text}")
     except httpx.RequestError as exc:
@@ -62,7 +56,7 @@ async def liberador_permisos(semaforo, intervalo_s, permisos_por_intervalo):
             semaforo.release()
 
 # Controlador principal
-async def controlador(intervalo_s, total_llamadas, permisos_por_intervalo, url, params, access_token, start_time):
+async def controlador(intervalo_s, total_llamadas, permisos_por_intervalo, url, params, start_time):
     """Controla las llamadas asegurando que el rate limit se respete."""
     semaforo = asyncio.Semaphore(0)
     asyncio.create_task(liberador_permisos(semaforo, intervalo_s, permisos_por_intervalo))
@@ -71,21 +65,25 @@ async def controlador(intervalo_s, total_llamadas, permisos_por_intervalo, url, 
         tareas = []
         for i in range(total_llamadas):
             await semaforo.acquire()
-            tareas.append(asyncio.create_task(llamada_api(i, client, url, params, access_token, start_time)))
+            tareas.append(asyncio.create_task(llamada_api(i, client, url, params, start_time)))
 
         await asyncio.gather(*tareas)
 
 # Configuración
 INTERVALO_S = 0.5  # Intervalo de tiempo entre lotes de llamadas
-PERMISOS_POR_INTERVALO = 1  # Llamadas permitidas por intervalo
-TOTAL_LLAMADAS = 500  # Número total de llamadas para simular
-URL = "https://test.api.amadeus.com/v2/shopping/flight-offers"  # Endpoint real
-PARAMS = {'originLocationCode': 'MAD', 'destinationLocationCode': 'SVQ', 'departureDate': '2025-02-22', 'returnDate': '2025-02-23', 'adults': 1, 'max': 1}
+PERMISOS_POR_INTERVALO = 100  # Llamadas permitidas por intervalo
+TOTAL_LLAMADAS = 300  # Número total de llamadas para simular
+URL = "http://www.omdbapi.com"  # Endpoint real
+PARAMS = {
+    "apikey": api_key,
+    "s": "avengers"
+
+}
 
 # Ejecución
-
-access_token = return_access_token()
 start_time = time.time()
-asyncio.run(controlador(INTERVALO_S, TOTAL_LLAMADAS, PERMISOS_POR_INTERVALO, URL, PARAMS, access_token, start_time))
+asyncio.run(controlador(INTERVALO_S, TOTAL_LLAMADAS, PERMISOS_POR_INTERVALO, URL, PARAMS, start_time))
 end_time = time.time()
 print(f"Tiempo total: {end_time - start_time:.2f} segundos")
+print(f"Total de errores 200: {errores_200}")
+print(f"Total de errores 429: {errores_429}")
