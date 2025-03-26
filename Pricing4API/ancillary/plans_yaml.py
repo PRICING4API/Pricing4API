@@ -115,13 +115,13 @@ def load_plan_simple(yaml_string: str) -> Plan:
 
     return plan
 
-def load_plan_from_variables(*kwargs) -> Plan:
+def load_plan_from_variables(**kwargs) -> Plan:
     """
     Crea un objeto Plan a partir de argumentos variables.
     
     Args:
-        *kwargs: Argumentos variables que incluyen claves como 'name', 'unitary_rate_period',
-                 'limit1_period', 'limit1_value', etc.
+        **kwargs: Argumentos variables que incluyen claves como 'name', 'unitary_rate_period',
+                  'limit1_period', 'limit1_value', etc.
     
     Returns:
         Plan: Objeto Plan de Pricing4API.
@@ -151,17 +151,18 @@ def load_plan_from_variables(*kwargs) -> Plan:
             if max_requests is not None:
                 limits.append(Limit(int(max_requests), time_duration))  # Crear límite con valor y duración
 
-    # Ordenar límites por granularidad de unidad de tiempo
-    limits.sort(key=lambda limit: limit.time_duration.unit.value)
+    # Ordenar límites por granularidad de unidad de tiempo (de menor a mayor)
+    limits.sort(key=lambda limit: limit.duration.to_seconds())
     quotas.extend(limits)
 
-    # Crear objeto Plan
+    # Crear objeto Plan (se usa un billing mockeado)
     plan = Plan(
         name=api_name,
-        billing=(0.0, TimeDuration(1, TimeUnit.MONTH)),  # Mockeado
+        billing=(0.0, TimeDuration(1, TimeUnit.MONTH)),
         unitary_rate=unitary_rate,
         quotes=quotas
     )
 
     return plan
+
 
