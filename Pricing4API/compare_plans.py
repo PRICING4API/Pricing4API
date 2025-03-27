@@ -7,6 +7,8 @@ from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
 from Pricing4API.main.plan import Plan
 from matplotlib.colors import to_rgba
 
+from Pricing4API.utils import parse_time_string_to_duration
+
 
 def compare_plans(plans, time_interval, return_fig=False):
     """
@@ -16,6 +18,9 @@ def compare_plans(plans, time_interval, return_fig=False):
         plans (list): Lista de planes a comparar.
         time_interval (TimeDuration): Intervalo de tiempo para generar las curvas.
     """
+    
+    if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
 
     predefined_colors = [
         "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
@@ -121,6 +126,4 @@ if __name__ == "__main__":
     Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, unitary_rate=None,quotes=[Limit(900, TimeDuration(1, TimeUnit.MINUTE)),Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
     Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
 
-    Github.show_capacity_curve("1h2min")
-    
-    plan = create_plan_interactive()
+    Github.show_quota_uniform_capacity_curve("1h", 1)

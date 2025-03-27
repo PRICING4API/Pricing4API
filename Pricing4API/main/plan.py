@@ -1,7 +1,7 @@
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 import math
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Union
 
 from matplotlib import pyplot as plt
 from matplotlib.colors import to_rgba
@@ -111,6 +111,25 @@ class Plan:
     @property
     def limits(self):
         return self.__limits
+
+    @limits.setter
+    def limits(self, new_limits: List[Limit]):
+        """
+        Setter for limits. Updates the internal limits and related properties.
+        """
+        self.__limits = sorted(new_limits, key=lambda x: x.duration.to_seconds())
+        self.__times = [limit.duration for limit in self.__limits]
+
+    @property
+    def quotes(self):
+        return self.__quotes
+
+    @quotes.setter
+    def quotes(self, new_quotes: List[Limit]):
+        """
+        Setter for quotes. Updates the internal quotes and related properties.
+        """
+        self.__quotes = new_quotes
     
     @property
     def max_number_of_subscriptions(self):
@@ -388,17 +407,22 @@ class Plan:
         fig.show()
 
         
-    def show_uniform_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
+    def show_uniform_capacity_curve(self, time_interval: Union[TimeDuration, str], debug: bool = False, color=None, return_fig=False) -> None:
+        # Parse time_interval if it is a string
+
         # Infer the uniform unitary rate
         self.infer_uniform_rate(self.limits)
 
         # Show the available capacity curve
-        result = self.show_available_capacity_curve(time_interval, debug, color, return_fig)
+        result = self.show_capacity_curve(time_interval, debug, color, return_fig)
 
         # Revert the uniform unitary rate
         self.revert_uniform_unitary_rate()
 
         return result
+    
+    
+    
     
     
     def show_instantaneous_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
@@ -412,7 +436,9 @@ class Plan:
         for t in defined_t_values_ms:
             period_index = t // quota_frequency_ms
             period_time = t % quota_frequency_ms
-            capacity = self.available_capacity(TimeDuration(period_time, TimeUnit.MILLISECOND), len(self.limits) - 1)
+
+            # Ajuste: Asegurarse de que se calcula correctamente la capacidad para el tiempo actual
+            capacity = self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.limits) - 1)
             defined_capacity_values.append(capacity)
 
         if debug:
@@ -465,8 +491,8 @@ class Plan:
 
         # CASO 1: Excede la duración de la cuota
         if t_milliseconds > max_quota_duration_ms:
-            # Mensaje en consola (no en la figura)
-            print("El intervalo de tiempo excede el ciclo de cuota completo.")
+            # ⚠️ Restaurado: Mostrar mensaje en consola
+            print("Has superado la cuota. Puedes cambiar entre las curvas acumulada e instantánea.")
 
             # Obtenemos las figuras de cada curva
             fig_accumulated = self.show_available_capacity_curve(time_interval, debug, color, return_fig=True)
@@ -654,6 +680,65 @@ class Plan:
         values = self.show_available_capacity_curve(quota, debug=True)
         
         return [(v[0]/1000, v[1]) for v in values]
+    
+    def show_quota_uniform_capacity_curve(self, time_interval: Union[TimeDuration, str], limit_index: int, debug: bool = False, color=None, return_fig=False) -> None:
+        """
+        Uniformizes the consumption based on a specific quota limit and displays the capacity curve.
+
+        Args:
+            time_interval (Union[TimeDuration, str]): The time interval for the curve.
+            limit_index (int): The index of the limit to uniformize.
+            debug (bool): If True, returns debug information.
+            color: The color of the curve.
+            return_fig (bool): If True, returns the figure instead of displaying it.
+        """
+        # Check if the limit index is valid
+        if limit_index >= len(self.limits) or limit_index < 0:
+            raise ValueError(f"Invalid limit index. Available range: 0 to {len(self.limits) - 1}")
+
+        # Check if the plan has a unitary rate
+        if self.unitary_rate:
+            raise ValueError("Cannot uniformize a plan with an already unitary rate.")
+
+        # Get the selected limit
+        selected_limit = self.limits[limit_index]
+
+        # Determine the directly inferior time unit
+        duration_unit = selected_limit.duration.unit
+        if duration_unit == TimeUnit.MILLISECOND:
+            raise ValueError("Cannot uniformize a limit with millisecond duration.")
+        inferior_unit = duration_unit.inferior_unit()
+
+        # Infer the uniform rate for the selected limit
+        inferred_rate_value = math.floor(selected_limit.value / duration_unit.to(inferior_unit))
+        inferred_rate_duration = TimeDuration(1, inferior_unit)  # Uniformize to 1 unit of the inferior time
+        inferred_limit = Limit(inferred_rate_value, inferred_rate_duration)
+
+        # Temporarily modify the limits and quotes using the setters
+        original_limits = self.limits.copy()
+        original_quotes = self.quotes.copy()
+        self.limits = [inferred_limit] + self.limits[1:] if limit_index == 0 else [inferred_limit] + self.limits[:limit_index] + self.limits[limit_index + 1:]
+        self.quotes = self.limits[1:]  # Update quotes to reflect the new limits
+
+        # Recalculate rate frequency
+        #self.__rate_frequency = self.limits[0].duration
+
+        # Show the capacity curve
+        result = self.show_capacity_curve(time_interval, debug, color, return_fig)
+
+        # Restore the original limits, quotes, and rate frequency
+        self.limits = original_limits
+        self.quotes = original_quotes
+        #self.__rate_frequency = self.limits[0].duration
+
+        return result
+    
+if __name__ == "__main__":
+
+    Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, unitary_rate=None,quotes=[Limit(900, TimeDuration(1, TimeUnit.MINUTE)),Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
+    Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
+
+    Github.show_quota_uniform_capacity_curve("1h1min", 1)
 
 
 

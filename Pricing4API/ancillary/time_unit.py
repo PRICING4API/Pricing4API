@@ -1,4 +1,5 @@
 from enum import Enum
+from math import floor
 
 class TimeUnit(Enum):
     MILLISECOND = "ms"
@@ -71,6 +72,41 @@ class TimeUnit(Enum):
         else:
             raise ValueError("Invalid time unit")
         
+    def inferior_unit(self) -> "TimeUnit":
+        """
+        Devuelve la unidad de tiempo inmediatamente inferior a la actual.
+        """
+        hierarchy = [
+            TimeUnit.MILLISECOND,
+            TimeUnit.SECOND,
+            TimeUnit.MINUTE,
+            TimeUnit.HOUR,
+            TimeUnit.DAY,
+            TimeUnit.WEEK,
+            TimeUnit.MONTH,
+            TimeUnit.YEAR,
+        ]
+        current_index = hierarchy.index(self)
+        if current_index == 0:
+            raise ValueError("No inferior unit exists for MILLISECOND.")
+        return hierarchy[current_index - 1]
+
+    def to(self, target_unit: "TimeUnit", value: float = 1) -> float:
+        """
+        Convierte un valor de la unidad actual a la unidad de tiempo objetivo.
+
+        Args:
+            target_unit (TimeUnit): La unidad de tiempo objetivo.
+            value (float): El valor a convertir.
+
+        Returns:
+            float: El valor convertido a la unidad objetivo.
+        """
+        # Convertir el valor a segundos primero
+        value_in_seconds = self.to_seconds(value)
+        # Convertir de segundos a la unidad objetivo
+        return target_unit.seconds_to_time_unit(value_in_seconds)
+
 
 class TimeDuration:
     def __init__(self, value: int, unit: TimeUnit):
