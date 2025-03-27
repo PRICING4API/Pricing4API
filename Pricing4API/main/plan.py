@@ -529,7 +529,14 @@ class Plan:
                             )
                         ]
                     )
-                ]
+                ],
+                xaxis_title=f"Time ({time_interval.unit.value})",
+                yaxis_title="Capacity",
+                legend_title="Curves",
+                showlegend=True,
+                template="plotly_white",
+                width=1000,
+                height=600
             )
 
             if return_fig:

@@ -129,10 +129,12 @@ def parse_time_string_to_duration(time_string: str) -> TimeDuration:
     pattern = r'(\d+)(ms|day|[h]|min|s)'
     matches = re.findall(pattern, time_string)
 
-    total_duration = TimeDuration(0, TimeUnit.MILLISECOND)
+    total_duration_ms = 0
     for value, unit in matches:
         duration = TimeDuration(int(value), time_units[unit])
-        total_duration += duration
+        total_duration_ms += duration.value * duration.unit.to_milliseconds()
+
+    total_duration = select_best_time_unit(total_duration_ms)
 
     return total_duration
 

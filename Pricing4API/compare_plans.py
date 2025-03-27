@@ -117,7 +117,7 @@ def compare_instantaneous_capacity_curves(plans, time_interval, return_fig=False
 
 if __name__ == "__main__":
 
-    Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(720, TimeUnit.MILLISECOND)),[Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
+    Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, unitary_rate=None,quotes=[Limit(900, TimeDuration(1, TimeUnit.MINUTE)),Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
     Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
 
-    
+    Github.show_capacity_curve("1h2min")
