@@ -733,6 +733,39 @@ class Plan:
 
         return result
     
+    
+    def interactive_curve_by_quota(self, time_interval_str: str):
+        """
+        Método interactivo que muestra por consola las cuotas disponibles (los límites)
+        y pide al usuario que ingrese el índice del límite a uniformizar. Luego, muestra
+        la curva uniformizada para ese límite.
+
+        Parámetros:
+        - time_interval_str: Cadena que representa el intervalo de tiempo (ej. "1h" o "1h1min").
+        """
+
+        try:
+            ti = parse_time_string_to_duration(time_interval_str)
+        except Exception as e:
+            print("Error al parsear el intervalo de tiempo:", e)
+            return
+
+        print("\n--- Cuotas disponibles ---")
+        for idx, limit in enumerate(self.limits):
+            print(f"Índice {idx}: {limit.value} cada {limit.duration}")
+        index_str = input("Ingrese el índice del límite a uniformizar: ").strip()
+        try:
+            idx = int(index_str)
+        except Exception as e:
+            print("Índice inválido:", e)
+            return
+
+        try:
+            fig = self.show_quota_uniform_capacity_curve(ti, idx, return_fig=True)
+            fig.show()
+        except Exception as e:
+            print("Error al uniformizar por cuota:", e)
+    
 if __name__ == "__main__":
 
     Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, unitary_rate=None,quotes=[Limit(900, TimeDuration(1, TimeUnit.MINUTE)),Limit(5000, TimeDuration(1, TimeUnit.HOUR))])

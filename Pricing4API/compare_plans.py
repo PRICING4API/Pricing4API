@@ -119,6 +119,9 @@ def compare_instantaneous_capacity_curves(plans, time_interval, return_fig=False
         return fig
 
     fig.show()
+    
+
+
 
 
 if __name__ == "__main__":
