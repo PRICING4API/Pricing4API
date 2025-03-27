@@ -406,25 +406,59 @@ class Plan:
 
         fig.show()
 
+    def unitary_uniformed_capacity_curve(self, time_interval: Union[TimeDuration, str], debug: bool = False, color=None, return_fig=False) -> None:
+        """
+        Infers the unitary rate by calculating the interval between consecutive requests based on the
+        largest quota. For example, if the largest limit is 5000 calls per hour (3600000 ms),
+        the inferred unitary rate is 3600000/5000 ≈ 720 ms per call.
         
-    def show_uniform_capacity_curve(self, time_interval: Union[TimeDuration, str], debug: bool = False, color=None, return_fig=False) -> None:
-        # Parse time_interval if it is a string
+        This method creates a new Plan instance with the inferred unitary rate and existing limits,
+        and shows the capacity curve for the new plan.
+        
+        Args:
+            time_interval (Union[TimeDuration, str]): The time interval for the capacity curve.
+            debug (bool): If True, returns debug information.
+            color: The color of the curve.
+            return_fig (bool): If True, returns the figure instead of displaying it.
+        """
+        # Convert time_interval to TimeDuration if provided as string.
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+        
+        # Ensure there is at least one limit.
+        if not self.limits:
+            raise ValueError("No limits available to infer the unitary rate.")
+        
+        # Find the limit with the highest value (largest quota).
+        largest_limit = max(self.limits, key=lambda l: l.value)
+        period_ms = largest_limit.duration.to_milliseconds()
+        if largest_limit.value == 0:
+            raise ValueError("The largest limit's value is 0, cannot infer unitary rate.")
+        
+        # Calculate the time interval per request (in ms) for the largest limit.
+        inferred_interval_ms = period_ms / largest_limit.value
+        inferred_rate_duration = TimeDuration(int(inferred_interval_ms), TimeUnit.MILLISECOND)
+        
+        # Create the inferred limit: 1 request per inferred_rate_duration.
+        inferred_limit = Limit(1, inferred_rate_duration)
+        
+        # Create a new Plan instance with the inferred unitary rate and existing limits.
+        new_plan = Plan(
+            name=f"{self.name} (Unitary Uniformed)",
+            billing=(self.price, self.billing_unit),
+            overage_cost=self.overage_cost,
+            unitary_rate=inferred_limit,
+            quotes=[self.limits[-1]],
+            max_number_of_subscriptions=self.max_number_of_subscriptions
+        )
+        
+        # Show the capacity curve for the new plan.
+        return new_plan.show_capacity_curve(time_interval, debug, color, return_fig)
+    
+    
+    
 
-        # Infer the uniform unitary rate
-        self.infer_uniform_rate(self.limits)
 
-        # Show the available capacity curve
-        result = self.show_capacity_curve(time_interval, debug, color, return_fig)
-
-        # Revert the uniform unitary rate
-        self.revert_uniform_unitary_rate()
-
-        return result
-    
-    
-    
-    
-    
     def show_instantaneous_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
         t_milliseconds = int(time_interval.to_milliseconds())
         step = int(self.rate_frequency.to_milliseconds())
@@ -717,32 +751,30 @@ class Plan:
         # Temporarily modify the limits and quotes using the setters
         original_limits = self.limits.copy()
         original_quotes = self.quotes.copy()
-        self.limits = [inferred_limit] + self.limits[1:] if limit_index == 0 else [inferred_limit] + self.limits[:limit_index] + self.limits[limit_index + 1:]
-        self.quotes = self.limits[1:]  # Update quotes to reflect the new limits
-
-        # Recalculate rate frequency
-        #self.__rate_frequency = self.limits[0].duration
+        self.limits = self.limits[:limit_index] + [inferred_limit] + self.limits[limit_index + 1:]
+        self.quotes = self.quotes[:limit_index] + self.quotes[limit_index + 1:]
 
         # Show the capacity curve
         result = self.show_capacity_curve(time_interval, debug, color, return_fig)
 
-        # Restore the original limits, quotes, and rate frequency
+        # Restore the original limits and quotes
         self.limits = original_limits
         self.quotes = original_quotes
-        #self.__rate_frequency = self.limits[0].duration
 
         return result
     
     
-    def uniform_curve_by_quota(self, time_interval_str: str):
+    def interactive_curve_by_quota(self, time_interval_str: str):
         """
         Método interactivo que muestra por consola las cuotas disponibles (los límites)
         y pide al usuario que ingrese el índice del límite a uniformizar. Luego, muestra
         la curva uniformizada para ese límite.
 
-        Parámetros:
-        - time_interval_str: Cadena que representa el intervalo de tiempo (ej. "1h" o "1h1min").
+        Args:
+            time_interval_str (str): Cadena que representa el intervalo de tiempo para la curva
+                                    (ej. "1h" o "1h1min").
         """
+        from Pricing4API.utils import parse_time_string_to_duration
 
         try:
             ti = parse_time_string_to_duration(time_interval_str)
@@ -753,6 +785,7 @@ class Plan:
         print("\n--- Cuotas disponibles ---")
         for idx, limit in enumerate(self.limits):
             print(f"Índice {idx}: {limit.value} cada {limit.duration}")
+            
         index_str = input("Ingrese el índice del límite a uniformizar: ").strip()
         try:
             idx = int(index_str)
@@ -761,17 +794,19 @@ class Plan:
             return
 
         try:
-            fig = self.show_quota_uniform_capacity_curve(ti, idx, return_fig=True)
-            fig.show()
+            result = self.show_quota_uniform_capacity_curve(ti, idx, return_fig=True)
+            result.show()
         except Exception as e:
-            print("Error al uniformizar por cuota:", e)
+            print("Error al mostrar la curva uniformizada por cuota:", e)
+
     
 if __name__ == "__main__":
 
     Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, unitary_rate=None,quotes=[Limit(900, TimeDuration(1, TimeUnit.MINUTE)),Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
     Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
+    Aux = Plan("Aux", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(720, TimeUnit.MILLISECOND)),[Limit(900, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
+    Github.unitary_uniformed_capacity_curve("1h")
 
-    Github.show_quota_uniform_capacity_curve("1h1min", 1)
 
 
 
