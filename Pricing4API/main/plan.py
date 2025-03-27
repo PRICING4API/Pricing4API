@@ -734,7 +734,7 @@ class Plan:
         return result
     
     
-    def interactive_curve_by_quota(self, time_interval_str: str):
+    def uniform_curve_by_quota(self, time_interval_str: str):
         """
         Método interactivo que muestra por consola las cuotas disponibles (los límites)
         y pide al usuario que ingrese el índice del límite a uniformizar. Luego, muestra
