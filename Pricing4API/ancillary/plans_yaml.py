@@ -165,4 +165,83 @@ def load_plan_from_variables(**kwargs) -> Plan:
 
     return plan
 
+def create_plan_interactive():
+    print("=== Creación Interactiva de un Plan (con parse_time_string_to_duration) ===")
+
+    # 1. Nombre del plan
+    plan_name = input("Nombre del plan: ").strip()
+    if not plan_name:
+        plan_name = "UnnamedPlan"
+
+    # 2. ¿Hay un unitary_rate?
+    has_unitary = input("¿Deseas incluir un unitary_rate (1 request por X tiempo)? (y/n): ").lower().strip() == 'y'
+    unitary_rate = None
+    if has_unitary:
+        time_str = input("c de tiempo para el unitary_rate (ej: '1s', '1min', '2day'): ").strip()
+        try:
+            unitary_duration = parse_time_string_to_duration(time_str)
+            # Unitary rate: 1 request por 'unitary_duration'
+            unitary_rate = Limit(1, unitary_duration)
+        except Exception as e:
+            print(f"Error parseando la cadena de tiempo para unitary_rate: {e}")
+            print("Se omitirá el unitary_rate.")
+            unitary_rate = None
+
+    # 3. Definir límites (quotes)
+    #    Cada límite = "cantidad" + "cadena de tiempo"
+    limits = []
+    print("\n=== Definir límites (quotes) ===")
+    while True:
+        qty_str = input("Cantidad máxima de este límite (int) o escribe 'q' para terminar: ").lower().strip()
+        if qty_str == 'q':
+            break
+
+        # Intentamos parsear la cantidad
+        try:
+            limit_qty = int(qty_str)
+        except ValueError:
+            print("Por favor, ingresa un número entero o 'q' para terminar.")
+            continue
+
+        time_str = input("Intervalo de tiempo (ej: '1min', '30s', '1day'): ").strip()
+        try:
+            limit_duration = parse_time_string_to_duration(time_str)
+        except Exception as e:
+            print(f"Error parseando la cadena de tiempo para este límite: {e}")
+            print("Se omite este límite.")
+            continue
+
+        new_limit = Limit(limit_qty, limit_duration)
+        limits.append(new_limit)
+        print(f" -> Se añadió límite: {limit_qty} cada {limit_duration}")
+
+        add_more = input("¿Agregar otro límite? (y/n): ").lower().strip()
+        if add_more != 'y':
+            break
+
+    # 4. Billing "mockeado": 0.0 y 1 mes
+    billing = (0.0, TimeDuration(1, TimeUnit.MONTH))
+
+    # 5. Crear la instancia de Plan
+    plan = Plan(
+        name=plan_name,
+        billing=billing,
+        unitary_rate=unitary_rate,
+        quotes=limits
+    )
+
+    # 6. Mostrar un resumen
+    print(f"\n=== Plan '{plan_name}' creado con éxito ===")
+    print(f"  - Nombre: {plan.name}")
+    print(f"  - Billing: {plan.billing_unit}")
+    if plan.unitary_rate:
+        print(f"  - Unitary Rate: 1 request cada {plan.unitary_rate.duration}")
+    else:
+        print("  - Unitary Rate: Ninguno")
+    print("  - Límites:")
+    for idx, lim in enumerate(plan.limits, 1):
+        print(f"    {idx}. {lim.value} cada {lim.duration}")
+
+    return plan
+
 

@@ -2,6 +2,7 @@ from typing import List
 import plotly.graph_objects as go
 
 from Pricing4API.ancillary.limit import Limit
+from Pricing4API.ancillary.plans_yaml import create_plan_interactive
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
 from Pricing4API.main.plan import Plan
 from matplotlib.colors import to_rgba
@@ -121,3 +122,5 @@ if __name__ == "__main__":
     Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
 
     Github.show_capacity_curve("1h2min")
+    
+    plan = create_plan_interactive()
