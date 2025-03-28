@@ -794,6 +794,127 @@ class Plan:
             result.show()
         except Exception as e:
             print("Error al mostrar la curva uniformizada por cuota:", e)
+            
+            
+    def show_all_capacity_modes(self, time_interval_str: str) -> None:
+        """
+        Método maestro que combina las curvas:
+        - Capacidad acumulada (original).
+        - Capacidad instantánea.
+        - Capacidad con rate uniformizado.
+        - Capacidad con cuota uniformizada.
+        
+        Si se excede la duración de la cuota máxima, permite alternar entre acumulada e instantánea.
+        Este método no requiere input() directo, sino que muestra automáticamente todas las variantes posibles.
+
+        Args:
+            time_interval_str (str): Cadena de intervalo de tiempo (ej. '1h').
+        """
+        from Pricing4API.utils import parse_time_string_to_duration
+
+        time_interval = parse_time_string_to_duration(time_interval_str)
+        t_ms = time_interval.to_milliseconds()
+        quota_ms = self.quotes_frequencies[-1].to_milliseconds()
+
+        fig = go.Figure()
+        color_map = {
+            "Accumulated": "green",
+            "Instantaneous": "blue",
+            "Unitary Uniformed": "purple",
+            "Quota Uniformed": "orange"
+        }
+        traces = []
+        visibilities = []
+
+        # Curva acumulada
+        acc_data = self.show_available_capacity_curve(time_interval, debug=True)
+        times, caps = zip(*acc_data)
+        times_unit = [t / time_interval.unit.to_milliseconds() for t in times]
+        traces.append(go.Scatter(x=times_unit, y=caps, mode='lines', name='Accumulated', line=dict(shape='hv', color=color_map["Accumulated"])))
+        visibilities.append([True, False, False, False])
+
+        # Curva instantánea
+        if t_ms > quota_ms:
+            inst_data = self.show_instantaneous_capacity_curve(time_interval, debug=True)
+            t_inst, c_inst = zip(*inst_data)
+            t_inst_unit = [t / time_interval.unit.to_milliseconds() for t in t_inst]
+            traces.append(go.Scatter(x=t_inst_unit, y=c_inst, mode='lines', name='Instantaneous', line=dict(shape='hv', color=color_map["Instantaneous"])))
+            visibilities[0][1] = True  # activable si está presente
+
+        # Curva unitary uniformizada
+        try:
+            uuf_plan = self.unitary_uniformed_capacity_curve(time_interval, debug=True, return_fig=True)
+            for trace in uuf_plan.data:
+                trace.name = "Unitary Uniformed"
+                trace.line.color = color_map["Unitary Uniformed"]
+                traces.append(trace)
+                visibilities[0][2] = True
+        except:
+            pass
+
+        # Curva por cuota uniformizada (se muestra solo para el último límite)
+        try:
+            q_fig = self.show_quota_uniform_capacity_curve(time_interval, limit_index=len(self.limits)-1, debug=True, return_fig=True)
+            for trace in q_fig.data:
+                trace.name = "Quota Uniformed"
+                trace.line.color = color_map["Quota Uniformed"]
+                traces.append(trace)
+                visibilities[0][3] = True
+        except:
+            pass
+
+        for trace in traces:
+            fig.add_trace(trace)
+
+        # Botones para alternar visibilidad
+        fig.update_layout(
+            updatemenus=[
+                dict(
+                    type="buttons",
+                    direction="right",
+                    x=0.1,
+                    xanchor="left",
+                    y=1.1,
+                    yanchor="top",
+                    buttons=[
+                        dict(
+                            label="Accumulated",
+                            method="update",
+                            args=[{"visible": [True, False, False, False]},
+                                {"title": f"Accumulated Capacity - {self.name}"}]
+                        ),
+                        dict(
+                            label="Instantaneous",
+                            method="update",
+                            args=[{"visible": [False, True, False, False]},
+                                {"title": f"Instantaneous Capacity - {self.name}"}]
+                        ),
+                        dict(
+                            label="Unitary Uniformed",
+                            method="update",
+                            args=[{"visible": [False, False, True, False]},
+                                {"title": f"Unitary Uniformed Capacity - {self.name}"}]
+                        ),
+                        dict(
+                            label="Quota Uniformed",
+                            method="update",
+                            args=[{"visible": [False, False, False, True]},
+                                {"title": f"Quota Uniformed Capacity - {self.name}"}]
+                        ),
+                    ]
+                )
+            ],
+            title=f"Accumulated Capacity - {self.name}",
+            xaxis_title=f"Time ({time_interval.unit.value})",
+            yaxis_title="Capacity",
+            showlegend=True,
+            template="plotly_white",
+            width=1000,
+            height=600
+        )
+
+        fig.show()
+
 
     
 if __name__ == "__main__":
@@ -801,8 +922,7 @@ if __name__ == "__main__":
     Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, unitary_rate=None,quotes=[Limit(900, TimeDuration(1, TimeUnit.MINUTE)),Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
     Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
     Aux = Plan("Aux", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(720, TimeUnit.MILLISECOND)),[Limit(900, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
-    Github.unitary_uniformed_capacity_curve("1h")
-
+    Github.show_all_capacity_modes("1h")
 
 
 
