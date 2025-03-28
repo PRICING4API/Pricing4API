@@ -457,62 +457,58 @@ class Plan:
     
     
     
-
-
     def show_instantaneous_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
-        t_milliseconds = int(time_interval.to_milliseconds())
-        step = int(self.rate_frequency.to_milliseconds())
-        quota_frequency_ms = self.quotes_frequencies[-1].to_milliseconds()
+            t_milliseconds = int(time_interval.to_milliseconds())
+            step = int(self.rate_frequency.to_milliseconds())
+            quota_frequency_ms = self.quotes_frequencies[-1].to_milliseconds()
 
-        defined_t_values_ms = list(range(0, t_milliseconds + 1, step))
-        defined_capacity_values = []
+            defined_t_values_ms = list(range(0, t_milliseconds + 1, step))
+            defined_capacity_values = []
 
-        for t in defined_t_values_ms:
-            period_index = t // quota_frequency_ms
-            period_time = t % quota_frequency_ms
+            for t in defined_t_values_ms:
+                period_index = t // quota_frequency_ms
+                period_time = t % quota_frequency_ms
+                capacity = self.available_capacity(TimeDuration(period_time, TimeUnit.MILLISECOND), len(self.limits) - 1)
+                defined_capacity_values.append(capacity)
 
-            # Ajuste: Asegurarse de que se calcula correctamente la capacidad para el tiempo actual
-            capacity = self.available_capacity(TimeDuration(t, TimeUnit.MILLISECOND), len(self.limits) - 1)
-            defined_capacity_values.append(capacity)
+            if debug:
+                return list(zip(defined_t_values_ms, defined_capacity_values))
 
-        if debug:
-            return list(zip(defined_t_values_ms, defined_capacity_values))
+            original_times_in_specified_unit = [
+                t / time_interval.unit.to_milliseconds() for t in defined_t_values_ms
+            ]
+            x_label = f"Time ({time_interval.unit.value})"
 
-        original_times_in_specified_unit = [
-            t / time_interval.unit.to_milliseconds() for t in defined_t_values_ms
-        ]
-        x_label = f"Time ({time_interval.unit.value})"
+            fig = go.Figure()
 
-        fig = go.Figure()
+            rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'blue')[:3]]))},0.3)"
 
-        rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'blue')[:3]]))},0.3)"
+            fig.add_trace(go.Scatter(
+                x=original_times_in_specified_unit,
+                y=defined_capacity_values,
+                mode='lines',
+                line=dict(color=color or 'blue', shape='hv', width=1.3),
+                fill='tonexty',
+                fillcolor=rgba_color,
+                name='Instantaneous Capacity'
+            ))
 
-        fig.add_trace(go.Scatter(
-            x=original_times_in_specified_unit,
-            y=defined_capacity_values,
-            mode='lines',
-            line=dict(color=color or 'blue', shape='hv', width=1.3),
-            fill='tonexty',
-            fillcolor=rgba_color,
-            name='Instantaneous Capacity'
-        ))
+            fig.update_layout(
+                title=f'Instantaneous Capacity Curve - {self.name} - {time_interval.value} {time_interval.unit.value}',
+                xaxis_title=x_label,
+                yaxis_title='Capacity',
+                legend_title='Curves',
+                showlegend=True,
+                template='plotly_white',
+                width=1000,
+                height=600
+            )
 
-        fig.update_layout(
-            title=f'Instantaneous Capacity Curve - {self.name} - {time_interval.value} {time_interval.unit.value}',
-            xaxis_title=x_label,
-            yaxis_title='Capacity',
-            legend_title='Curves',
-            showlegend=True,
-            template='plotly_white',
-            width=1000,
-            height=600
-        )
+            if return_fig:
+                return fig
 
-        if return_fig:
-            return fig
-
-        fig.show()
-        
+            fig.show()
+            
         
 
     def show_capacity_curve(self, time_interval, debug: bool = False, color=None, return_fig=False):

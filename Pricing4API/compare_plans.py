@@ -119,7 +119,131 @@ def compare_instantaneous_capacity_curves(plans, time_interval, return_fig=False
         return fig
 
     fig.show()
-    
+
+
+def compare_plans_curves(plans, time_interval, return_fig=False):
+    """
+    Compara las curvas de capacidad de una lista de planes, permitiendo cambiar entre curvas acumuladas e instantáneas.
+
+    Parameters:
+        plans (list): Lista de planes a comparar.
+        time_interval (TimeDuration): Intervalo de tiempo para generar las curvas.
+        return_fig (bool): Si es True, devuelve la figura en lugar de mostrarla.
+    """
+    if isinstance(time_interval, str):
+        time_interval = parse_time_string_to_duration(time_interval)
+
+    predefined_colors = [
+        "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
+    ]
+
+    if len(plans) > len(predefined_colors):
+        raise ValueError("No hay suficientes colores disponibles para todos los planes.")
+
+    fig_accumulated = go.Figure()
+    fig_instantaneous = go.Figure()
+
+    for plan, color in zip(plans, predefined_colors):
+        # Accumulated curve
+        debug_values_accumulated = plan.show_available_capacity_curve(
+            time_interval, debug=True
+        )
+        times_ms_acc, capacities_acc = zip(*debug_values_accumulated)
+        original_times_acc = [t / time_interval.unit.to_milliseconds() for t in times_ms_acc]
+
+        rgba_color_acc = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+        fig_accumulated.add_trace(go.Scatter(
+            x=original_times_acc,
+            y=capacities_acc,
+            mode='lines',
+            line=dict(color=color, shape='hv', width=1.3),
+            fill='tonexty',
+            fillcolor=rgba_color_acc,
+            name=f"{plan.name} (Accumulated)"
+        ))
+
+        # Instantaneous curve
+        debug_values_instantaneous = plan.show_instantaneous_capacity_curve(
+            time_interval, debug=True
+        )
+        times_ms_inst, capacities_inst = zip(*debug_values_instantaneous)
+        original_times_inst = [t / time_interval.unit.to_milliseconds() for t in times_ms_inst]
+
+        rgba_color_inst = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+        fig_instantaneous.add_trace(go.Scatter(
+            x=original_times_inst,
+            y=capacities_inst,
+            mode='lines',
+            line=dict(color=color, shape='hv', width=1.3),
+            fill='tonexty',
+            fillcolor=rgba_color_inst,
+            name=f"{plan.name} (Instantaneous)"
+        ))
+
+    # Combine both figures into a single interactive figure
+    fig = go.Figure()
+    for trace in fig_accumulated.data:
+        fig.add_trace(trace)
+    for trace in fig_instantaneous.data:
+        fig.add_trace(trace)
+
+    # Set visibility: accumulated visible by default, instantaneous hidden
+    n_acc = len(fig_accumulated.data)
+    n_inst = len(fig_instantaneous.data)
+    for i in range(n_acc):
+        fig.data[i].visible = True
+    for i in range(n_inst):
+        fig.data[n_acc + i].visible = False
+
+    # Define visibility patterns
+    accum_visible = [True] * n_acc + [False] * n_inst
+    inst_visible = [False] * n_acc + [True] * n_inst
+
+    # Add buttons for switching between curve types
+    fig.update_layout(
+        title="Comparison of Capacity Curves (Accumulated)",
+        updatemenus=[
+            dict(
+                type="buttons",
+                direction="left",
+                x=0.30,
+                xanchor="left",
+                y=1.10,
+                yanchor="top",
+                buttons=[
+                    dict(
+                        label="Accumulated",
+                        method="update",
+                        args=[
+                            {"visible": accum_visible},
+                            {"title": "Comparison of Capacity Curves (Accumulated)"}
+                        ]
+                    ),
+                    dict(
+                        label="Instantaneous",
+                        method="update",
+                        args=[
+                            {"visible": inst_visible},
+                            {"title": "Comparison of Capacity Curves (Instantaneous)"}
+                        ]
+                    )
+                ]
+            )
+        ],
+        xaxis_title=f"Time ({time_interval.unit.value})",
+        yaxis_title="Capacity",
+        legend_title="Plans",
+        template="plotly_white",
+        width=1000,
+        height=600
+    )
+
+    if return_fig:
+        return fig
+
+    fig.show()
+
+
 def interactive_uniformize_by_quota_inputs(plan, time_interval_str):
     """
     Muestra por consola las cuotas disponibles (los límites) y pide al usuario
@@ -260,11 +384,9 @@ def interactive_menu(plan):
         print("Opción no reconocida.")
 
 
-
-
 if __name__ == "__main__":
 
-    Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, unitary_rate=None,quotes=[Limit(900, TimeDuration(1, TimeUnit.MINUTE)),Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
+    Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, unitary_rate=None,quotes=[Limit(900, TimeDuration(1, TimeUnit.MINUTE))])
     Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
 
-    interactive_menu(Github)
+    compare_plans_curves([Github, Zenhub], "2h")
