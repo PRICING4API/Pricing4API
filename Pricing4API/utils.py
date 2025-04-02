@@ -119,14 +119,17 @@ def parse_time_string_to_duration(time_string: str) -> TimeDuration:
         TimeDuration: Una instancia de TimeDuration que representa la duración total.
     """
     time_units = {
-        'day': TimeUnit.DAY,
-        'h': TimeUnit.HOUR,
-        'min': TimeUnit.MINUTE,
+        'ms': TimeUnit.MILLISECOND,
         's': TimeUnit.SECOND,
-        'ms': TimeUnit.MILLISECOND
+        'min': TimeUnit.MINUTE,
+        'h': TimeUnit.HOUR,
+        'day': TimeUnit.DAY,
+        'week': TimeUnit.WEEK,
+        'month': TimeUnit.MONTH,
+        'year': TimeUnit.YEAR
     }
 
-    pattern = r'(\d+)(ms|day|[h]|min|s)'
+    pattern = r'(\d+)(ms|s|min|h|day|week|month|year)'
     matches = re.findall(pattern, time_string)
 
     total_duration_ms = 0
