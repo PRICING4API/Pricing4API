@@ -46,11 +46,11 @@ def format_time_with_unit(time_duration: TimeDuration) -> str:
 
     time_string = ""
     if days > 0:
-        time_string += f"{days}d"
+        time_string += f"{days}day"
     if hours > 0:
         time_string += f"{hours}h"
     if minutes > 0:
-        time_string += f"{minutes}m"
+        time_string += f"{minutes}min"
     if seconds > 0:
         time_string += f"{seconds}s"
     if milliseconds > 0:

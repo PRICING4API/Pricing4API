@@ -247,7 +247,7 @@ class Rate:
         if self.consumption_period.unit == TimeUnit.MILLISECOND:
             result_duration = TimeDuration(T, TimeUnit.MILLISECOND)
         else:
-            result_duration = TimeDuration(int(T), TimeUnit.SECOND)
+            result_duration = TimeDuration(int(T), self.consumption_period.unit)
 
         if T == 0:
             return "0s"
@@ -394,7 +394,7 @@ class Quota:
         if self.consumption_period.unit == TimeUnit.MILLISECOND:
             result_duration = TimeDuration(T, TimeUnit.MILLISECOND)
         else:
-            result_duration = TimeDuration(int(T), TimeUnit.SECOND)
+            result_duration = TimeDuration(int(T), self.consumption_period.unit)
 
         if T == 0:
             return "0s"
@@ -720,7 +720,7 @@ class BoundedRate:
         if self.limits[0].consumption_period.unit == TimeUnit.MILLISECOND:
             result_duration = TimeDuration(T, TimeUnit.MILLISECOND)
         else:
-            result_duration = TimeDuration(int(T), TimeUnit.SECOND)
+            result_duration = TimeDuration(int(T), self.limits[0].consumption_period.unit)
 
         if T==0:
             return "0s"
@@ -757,9 +757,9 @@ class BoundedRate:
 
 
 if __name__ == "__main__":
-    rate = Rate(consumption_unit=10, consumption_period=TimeDuration(1, TimeUnit.SECOND))
+    rate = Rate(consumption_unit=10, consumption_period="1s")
     print(rate.min_time(11))
-    quota = Quota(consumption_unit=40000, consumption_period=TimeDuration(1, TimeUnit.MONTH))
+    quota = Quota(consumption_unit=100, consumption_period="1min")
     br = BoundedRate(rate, quota)
 
     print(br.quota_exhaustion_threshold())
