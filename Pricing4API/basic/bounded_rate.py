@@ -57,7 +57,7 @@ class Rate:
 
         max_period_ms = self.consumption_period.to_milliseconds()
 
-        unitary_rate = self.create_unitary()
+        unitary_rate = self.create_equivalent_rate()
 
         unitary_rate_period_ms = unitary_rate.consumption_period.to_milliseconds()
 
@@ -73,7 +73,7 @@ class Rate:
 
         max_period_ms = self.consumption_period.to_milliseconds()
 
-        unitary_rate = self.create_unitary()
+        unitary_rate = self.create_equivalent_rate()
 
         unitary_rate_period_ms = unitary_rate.consumption_period.to_milliseconds()
 
@@ -101,7 +101,7 @@ class Rate:
             raise ValueError(f"fa must be greater than 0 and less than or equal to {self.max_fa}")
 
         if fa < self.max_fa:
-            new_rate = self.create_unitary(fa)
+            new_rate = self.create_equivalent_rate(fa)
             return new_rate.capacity_at(t)
 
         if isinstance(t, str):
@@ -139,7 +139,7 @@ class Rate:
             raise ValueError(f"fa must be greater than 0 and less than or equal to {self.max_fa}")
 
         if fa < self.max_fa:
-            new_rate = self.create_unitary(fa)
+            new_rate = self.create_equivalent_rate(fa)
             return new_rate.show_capacity(time_interval, color=color, return_fig=return_fig, debug=debug)
 
         if isinstance(time_interval, str):
