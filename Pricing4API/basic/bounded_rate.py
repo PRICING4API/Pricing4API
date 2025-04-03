@@ -32,7 +32,7 @@ class Rate:
         
         
 
-    def create_unitary(self, fa= 1):
+    def create_equivalent_rate(self, fa= 1):
         """
         Creates a unitary Rate from this Rate.
 
