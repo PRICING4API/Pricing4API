@@ -921,8 +921,8 @@ if __name__ == "__main__":
 
     Github = Plan("Github", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, unitary_rate=None,quotes=[Limit(900, TimeDuration(1, TimeUnit.MINUTE)),Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
     Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
-    Aux = Plan("Aux", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(720, TimeUnit.MILLISECOND)),[Limit(900, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
-    Github.show_all_capacity_modes("1h")
+    Aux = Plan("Aux", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, quotes=[Limit(10, TimeDuration(1, TimeUnit.SECOND)), Limit(100, TimeDuration(1, TimeUnit.MINUTE))])
+    print(Aux.t_ast)
 
 
 

@@ -62,8 +62,12 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
 
 if __name__ == "__main__":
     # Create a Rate object
-    rate1 = Rate(consumption_unit=10, consumption_period="1h")
-    print("Rate 1 Capacity at 1h:", rate1.capacity_at("1h"))
+    rate1 = Rate(consumption_unit=900, consumption_period="1min")
+    quota = Quota(consumption_unit=5000, consumption_period="1h")
+    effective_capacity = EffectiveCapacity(rate=rate1, quota=quota)
+    print("Effective Capacity at 1h:", effective_capacity.effective_capacity(TimeDuration(1, TimeUnit.HOUR)))
+    effective_capacity.show_capacity("2h")
+"""     print("Rate 1 Capacity at 1h:", rate1.capacity_at("1h"))
     print("Rate 1 Capacity during 1h:", rate1.capacity_during("1h"))
 
 
@@ -77,12 +81,9 @@ if __name__ == "__main__":
     compare_rates_capacity([rate2,rate1], "1h")
 
     # Create a Quota object
-    quota = Quota(consumption_unit=20, consumption_period="2h")
+
     print("Quota Capacity at 2h:", quota.capacity_at("2h"))
     print("Quota Capacity during 2h:", quota.capacity_during("2h"))
-    quota.show_capacity("1h")
+    quota.show_capacity("1h") """
 
     # Create an EffectiveCapacity object with one rate and one quota
-    effective_capacity = EffectiveCapacity(rate=rate1, quota=quota)
-    print("Effective Capacity at 1h:", effective_capacity.effective_capacity(TimeDuration(1, TimeUnit.HOUR)))
-    effective_capacity.show_available_capacity_curve(TimeDuration(2, TimeUnit.HOUR))
