@@ -11,12 +11,25 @@ from Pricing4API.utils import parse_time_string_to_duration, format_time_with_un
 
 class Rate:
     
-    def __init__(self, consumption_unit: int, consumption_period: Union[str, TimeDuration]):
+    def __init__(self, consumption_unit: int, consumption_period: Union[str, TimeDuration], fa:int = None):
     
         if isinstance(consumption_period, str):
             consumption_period = parse_time_string_to_duration(consumption_period)
         self.consumption_unit = consumption_unit
         self.consumption_period = consumption_period
+        self.fa = self.max_fa #FIX
+
+        #FIX
+        if fa:
+            if fa <= 0 or fa > self.max_fa:
+                raise ValueError(f"fa must be greater than 0 and less than or equal to {self.max_fa}")
+            new_rate = self.create_equivalent_rate(fa)
+            self.consumption_unit = new_rate.consumption_unit
+            self.consumption_period = new_rate.consumption_period
+            self.fa = new_rate.max_fa
+
+    def __repr__(self):
+        return f"Rate({self.consumption_unit}, {self.consumption_period}, {self.fa})"
 
     @property
     def is_unitary(self):
@@ -31,7 +44,7 @@ class Rate:
         return self.consumption_period
         
         
-
+    #FIX
     def create_equivalent_rate(self, fa= 1):
         """
         Creates a unitary Rate from this Rate.
@@ -49,6 +62,7 @@ class Rate:
 
         return Rate(fa, TimeDuration(period, TimeUnit.MILLISECOND))
 
+    #FIX
     @property
     def max_fa(self):
 
@@ -65,6 +79,7 @@ class Rate:
 
         return max_fa
 
+    #FIX
     @property
     def max_fa_and_uniform_fa(self):
 
@@ -93,13 +108,15 @@ class Rate:
         Returns:
             float: The calculated capacity.
         """
+        #FIX
         if fa is None:
             fa = self.max_fa
 
-        # Checker for fa
+        # Checker for fa 
         if fa <= 0 or fa > self.max_fa:
             raise ValueError(f"fa must be greater than 0 and less than or equal to {self.max_fa}")
 
+        #FIX
         if fa < self.max_fa:
             new_rate = self.create_equivalent_rate(fa)
             return new_rate.capacity_at(t)
@@ -131,6 +148,7 @@ class Rate:
         Returns:
             Optional[go.Figure]: The plotly figure if return_fig is True.
         """
+        #FIX
         if fa is None:
             fa = self.max_fa
 
@@ -138,6 +156,7 @@ class Rate:
         if fa <= 0 or fa > self.max_fa:
             raise ValueError(f"fa must be greater than 0 and less than or equal to {self.max_fa}")
 
+        #FIX
         if fa < self.max_fa:
             new_rate = self.create_equivalent_rate(fa)
             return new_rate.show_capacity(time_interval, color=color, return_fig=return_fig, debug=debug)
@@ -757,11 +776,9 @@ class BoundedRate:
 
 
 if __name__ == "__main__":
-    rate = Rate(consumption_unit=10, consumption_period="1s")
-    print(rate.min_time(11))
-    quota = Quota(consumption_unit=100, consumption_period="1min")
+    rate = Rate(10,"1s",)
+    quota = Quota(100,"1min")
     br = BoundedRate(rate, quota)
-
     print(br.quota_exhaustion_threshold())
 
 

@@ -1,6 +1,6 @@
 from typing import List, Union
 import plotly.graph_objects as go
-from Pricing4API.basic.effective_capacity import Rate, Quota, EffectiveCapacity
+from Pricing4API.basic.bounded_rate import Rate, Quota, BoundedRate
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
 from matplotlib.colors import to_rgba
 from Pricing4API.utils import parse_time_string_to_duration
@@ -58,32 +58,3 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
         return fig
 
     fig.show()
-
-
-if __name__ == "__main__":
-    # Create a Rate object
-    rate1 = Rate(consumption_unit=900, consumption_period="1min")
-    quota = Quota(consumption_unit=5000, consumption_period="1h")
-    effective_capacity = EffectiveCapacity(rate=rate1, quota=quota)
-    print("Effective Capacity at 1h:", effective_capacity.effective_capacity(TimeDuration(1, TimeUnit.HOUR)))
-    effective_capacity.show_capacity("2h")
-"""     print("Rate 1 Capacity at 1h:", rate1.capacity_at("1h"))
-    print("Rate 1 Capacity during 1h:", rate1.capacity_during("1h"))
-
-
-    # Create another Rate object
-    rate2 = Rate(consumption_unit=5, consumption_period="30min")
-    print("Rate 2 Capacity at 30min:", rate2.capacity_at("30min"))
-    print("Rate 2 Capacity during 30min:", rate2.capacity_during("30min"))
-    rate2.show_capacity("10min")
-
-    # Compare the two rates
-    compare_rates_capacity([rate2,rate1], "1h")
-
-    # Create a Quota object
-
-    print("Quota Capacity at 2h:", quota.capacity_at("2h"))
-    print("Quota Capacity during 2h:", quota.capacity_during("2h"))
-    quota.show_capacity("1h") """
-
-    # Create an EffectiveCapacity object with one rate and one quota
