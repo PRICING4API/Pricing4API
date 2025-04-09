@@ -18,7 +18,7 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
         time_interval = parse_time_string_to_duration(time_interval)
 
     # Sort rates by speed (slowest first)
-    rates.sort(key=lambda rate: rate.consumption_period.to_milliseconds() / rate.consumption_unit)
+    rates.sort(key=lambda rate: rate.consumption_period.to_milliseconds() / rate.consumption_unit, reverse=False)
 
     predefined_colors = [
         "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
@@ -148,7 +148,7 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
         time_interval = parse_time_string_to_duration(time_interval)
 
     # Sort bounded rates by speed (slowest first)
-    bounded_rates.sort(key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit)
+    bounded_rates.sort(key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit, reverse=False)
 
     predefined_colors = [
         "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
@@ -267,6 +267,6 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
         return fig
 
     fig.show()
-    
-    
-            
+
+
+
