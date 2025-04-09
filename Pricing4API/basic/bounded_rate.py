@@ -823,15 +823,7 @@ class BoundedRate:
 
 if __name__ == "__main__":
     rate = Rate(10,"1s",)
-    quota = Quota(900,"1h")
-    br = BoundedRate(rate, quota)
-    print(br.rate)
-    br_50 = br.reduce_rate(50)
-    print(br_50.rate)
-    br_0 = br.reduce_rate(0)
-    print(br_0.rate)
-    br_100 = br.reduce_rate(100)
-    print(br_100.rate)
+    br = BoundedRate(rate)
 
 
 

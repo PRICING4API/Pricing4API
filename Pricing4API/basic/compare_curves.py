@@ -179,7 +179,6 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
             rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
 
             rate_info = f"Rate: {bounded_rate.rate.consumption_unit}/{bounded_rate.rate.consumption_period}"
-            quota_info = f"Quota: {bounded_rate.quota.consumption_unit}/{bounded_rate.quota.consumption_period}" if bounded_rate.quota else "No Quota"
             
             fig.add_trace(go.Scatter(
                 x=original_times_acc,
@@ -188,7 +187,7 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
                 line=dict(color=color, shape='hv', width=1.3),
                 fill='tonexty',
                 fillcolor=rgba_color,
-                name=f"Accumulated {rate_info}, {quota_info}",
+                name=f"Accumulated {rate_info}",
                 visible=True  # Set accumulated as visible by default
             ))
 
@@ -199,7 +198,7 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
                 line=dict(color=color, shape='hv', width=1.3),
                 fill='tonexty',
                 fillcolor=rgba_color,
-                name=f"Instantaneous {rate_info}, {quota_info}",
+                name=f"Instantaneous {rate_info}",
                 visible=False  # Set instantaneous as not visible by default
             ))
 
@@ -253,7 +252,6 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
             rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
 
             rate_info = f"Rate: {bounded_rate.rate.consumption_unit}/{bounded_rate.rate.consumption_period}"
-            quota_info = f"Quota: {bounded_rate.quota.consumption_unit}/{bounded_rate.quota.consumption_period}" if bounded_rate.quota else "No Quota"
             
             fig.add_trace(go.Scatter(
                 x=original_times,
@@ -262,7 +260,7 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
                 line=dict(color=color, shape='hv', width=1.3),
                 fill='tonexty',
                 fillcolor=rgba_color,
-                name=f"{rate_info}, {quota_info}"
+                name=f"{rate_info}"
             ))
 
     if return_fig:
@@ -271,27 +269,4 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
     fig.show()
     
     
-if __name__ == "__main__":
-    rate1 = Rate(10, "1s")
-quota1 = Quota(900, "1h")
-br = BoundedRate(rate1, quota1)
-
-print(br.rate)
-
-br_50 = br.reduce_rate(50)
-print(br_50.rate)
-
-br_100 = br.reduce_rate(100)
-print(br_100.rate)
-
-br_75 = br.reduce_rate(75)
-print(br_75.rate)
-
-br_25 = br.reduce_rate(25)
-print(br_25.rate)
-
-br_0 = br.reduce_rate(0)
-print(br_0.rate)
-
-compare_bounded_rates_capacity([br_0, br_50, br], "2h")
             
