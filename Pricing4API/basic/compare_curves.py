@@ -7,7 +7,7 @@ from Pricing4API.utils import parse_time_string_to_duration
 
 def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDuration], return_fig=False):
     """
-    Compares the capacity curves of a list of rates.
+    Compares the capacity curves of a list of rates, starting with the slowest.
 
     Args:
         rates (List[Rate]): List of rates to compare.
@@ -16,6 +16,9 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
     """
     if isinstance(time_interval, str):
         time_interval = parse_time_string_to_duration(time_interval)
+
+    # Sort rates by speed (slowest first)
+    rates.sort(key=lambda rate: rate.consumption_period.to_milliseconds() / rate.consumption_unit)
 
     predefined_colors = [
         "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
@@ -41,7 +44,7 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
             line=dict(color=color, shape='hv', width=1.3),
             fill='tonexty',
             fillcolor=rgba_color,
-            name=f"Rate ({color})"
+            name=f"Rate ({rate.consumption_unit}/{rate.consumption_period})"
         ))
 
     fig.update_layout(
@@ -62,7 +65,7 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
 
 def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interval: Union[str, TimeDuration], return_fig=False):
     """
-    Compares the capacity curves of a list of bounded rates.
+    Compares the capacity curves of a list of bounded rates, starting with the slowest.
 
     Args:
         bounded_rates (List[BoundedRate]): List of bounded rates to compare.
@@ -71,6 +74,9 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
     """
     if isinstance(time_interval, str):
         time_interval = parse_time_string_to_duration(time_interval)
+
+    # Sort bounded rates by speed (slowest first)
+    bounded_rates.sort(key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit)
 
     predefined_colors = [
         "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
@@ -89,6 +95,9 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
 
         rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
 
+        rate_info = f"Rate: {bounded_rate.rate.consumption_unit}/{bounded_rate.rate.consumption_period}"
+        quota_info = f"Quota: {bounded_rate.quota.consumption_unit}/{bounded_rate.quota.consumption_period}" if bounded_rate.quota else "No Quota"
+        
         fig.add_trace(go.Scatter(
             x=original_times,
             y=capacities,
@@ -96,7 +105,7 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
             line=dict(color=color, shape='hv', width=1.3),
             fill='tonexty',
             fillcolor=rgba_color,
-            name=f"Bounded Rate ({color}) with {bounded_rate.rate} rate"
+            name=f"{rate_info}, {quota_info}"
         ))
 
     fig.update_layout(
