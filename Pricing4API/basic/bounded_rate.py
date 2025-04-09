@@ -483,15 +483,18 @@ class BoundedRate:
         
         max_uniformed_rate_time_period = TimeDuration(self.limits[1].consumption_period.to_milliseconds() / self.limits[1].consumption_unit, TimeUnit.MILLISECOND)
         max_uniformed_rate = Rate(1, max_uniformed_rate_time_period)
+        
+
         uniformed_rate_time_period = TimeDuration(self.rate.consumption_period.to_milliseconds() / self.rate.consumption_unit, TimeUnit.MILLISECOND)
         uniformed_rate = Rate(1, uniformed_rate_time_period)
         
         p0 = 0
         p1 = 100
-        t0 = uniformed_rate_time_period.to_milliseconds()
-        t1 = max_uniformed_rate_time_period.to_milliseconds()
+        t0 = max_uniformed_rate_time_period.to_milliseconds()
+        t1 = uniformed_rate_time_period.to_milliseconds()
         
-        t = t0 - (t0 - t1) * (reduction_percentage / p1)
+        
+        t = t0 - ((t0 - t1) * (reduction_percentage / p1))
 
         new_rate_wait_period = TimeDuration(t, TimeUnit.MILLISECOND)
         best_unit_new_RWP = select_best_time_unit(new_rate_wait_period.to_milliseconds())
