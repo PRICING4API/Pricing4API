@@ -14,3 +14,4 @@ six==1.16.0
 tzdata==2023.4
 PyYAML==6.0.2
 plotly
+streamlit

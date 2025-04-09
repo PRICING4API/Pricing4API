@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 from matplotlib.colors import to_rgba
 
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
-from Pricing4API.utils import parse_time_string_to_duration, format_time_with_unit
+from Pricing4API.utils import parse_time_string_to_duration, format_time_with_unit, select_best_time_unit
 
 
 class Rate:
@@ -29,7 +29,7 @@ class Rate:
             self.fa = new_rate.max_fa
 
     def __repr__(self):
-        return f"Rate({self.consumption_unit}, {self.consumption_period}, {self.fa})"
+        return f"Rate({self.consumption_unit}, {self.consumption_period})"
 
     @property
     def is_unitary(self):
@@ -266,7 +266,7 @@ class Rate:
         if self.consumption_period.unit == TimeUnit.MILLISECOND:
             result_duration = TimeDuration(T, TimeUnit.MILLISECOND)
         else:
-            result_duration = TimeDuration(int(T), self.consumption_period.unit)
+            result_duration = TimeDuration(T, self.consumption_period.unit)
 
         if T == 0:
             return "0s"
@@ -457,6 +457,49 @@ class BoundedRate:
                 self.limits.extend(quota)
             else:
                 self.limits.append(quota)
+                
+    def set_rate(self, new_rate: Rate):
+        """
+        Sets a new rate for the BoundedRate object.
+
+        Args:
+            new_rate (Rate): The new rate to be set.
+        """
+        self.rate = new_rate
+        self.limits[0] = new_rate
+        
+    def reduce_rate(self, reduction_percentage: float):
+        """
+        Reduces the rate by a specified percentage.
+
+        Args:
+            reduction_percentage (float): The percentage by which the rate should be reduced.
+        """
+        if reduction_percentage < 0 or reduction_percentage > 100:
+            raise ValueError("Reduction percentage must be between 0 and 100.")
+        
+        if reduction_percentage == 100:
+            return self 
+        
+        max_uniformed_rate_time_period = TimeDuration(self.limits[1].consumption_period.to_milliseconds() / self.limits[1].consumption_unit, TimeUnit.MILLISECOND)
+        max_uniformed_rate = Rate(1, max_uniformed_rate_time_period)
+        uniformed_rate_time_period = TimeDuration(self.rate.consumption_period.to_milliseconds() / self.rate.consumption_unit, TimeUnit.MILLISECOND)
+        uniformed_rate = Rate(1, uniformed_rate_time_period)
+        
+        p0 = 0
+        p1 = 100
+        t0 = uniformed_rate_time_period.to_milliseconds()
+        t1 = max_uniformed_rate_time_period.to_milliseconds()
+        
+        t = t0 - (t0 - t1) * (reduction_percentage / p1)
+
+        new_rate_wait_period = TimeDuration(t, TimeUnit.MILLISECOND)
+        best_unit_new_RWP = select_best_time_unit(new_rate_wait_period.to_milliseconds())
+        
+        new_rate = Rate(1, best_unit_new_RWP)
+
+        return BoundedRate(new_rate, self.quota)
+        
 
     def capacity_at(self, time_simulation: TimeDuration):
         """
@@ -739,7 +782,7 @@ class BoundedRate:
         if self.limits[0].consumption_period.unit == TimeUnit.MILLISECOND:
             result_duration = TimeDuration(T, TimeUnit.MILLISECOND)
         else:
-            result_duration = TimeDuration(int(T), self.limits[0].consumption_period.unit)
+            result_duration = TimeDuration(T, self.limits[0].consumption_period.unit)
 
         if T==0:
             return "0s"
@@ -777,9 +820,15 @@ class BoundedRate:
 
 if __name__ == "__main__":
     rate = Rate(10,"1s",)
-    quota = Quota(100,"1min")
+    quota = Quota(900,"1h")
     br = BoundedRate(rate, quota)
-    print(br.quota_exhaustion_threshold())
+    print(br.rate)
+    br_50 = br.reduce_rate(50)
+    print(br_50.rate)
+    br_0 = br.reduce_rate(0)
+    print(br_0.rate)
+    br_100 = br.reduce_rate(100)
+    print(br_100.rate)
 
 
 

@@ -110,7 +110,7 @@ def rearrange_time_axis_function(label, original_times_ms, calls, ax, fig, plan_
 
 def parse_time_string_to_duration(time_string: str) -> TimeDuration:
     """
-    Convierte una cadena de tiempo formateada (e.g., '2d20h17m17s') en una instancia de TimeDuration.
+    Convierte una cadena de tiempo formateada (e.g., '2.5s') en una instancia de TimeDuration.
 
     Args:
         time_string (str): La cadena de tiempo formateada.
@@ -129,17 +129,20 @@ def parse_time_string_to_duration(time_string: str) -> TimeDuration:
         'year': TimeUnit.YEAR
     }
 
-    pattern = r'(\d+)(ms|s|min|h|day|week|month|year)'
+    pattern = r'(\d+(\.\d+)?)(ms|s|min|h|day|week|month|year)'
     matches = re.findall(pattern, time_string)
 
     total_duration_ms = 0
-    for value, unit in matches:
-        duration = TimeDuration(int(value), time_units[unit])
+    for value, _, unit in matches:
+        duration = TimeDuration(float(value), time_units[unit])
         total_duration_ms += duration.value * duration.unit.to_milliseconds()
 
     total_duration = select_best_time_unit(total_duration_ms)
 
     return total_duration
+
+if __name__ == "__main__":
+    print(parse_time_string_to_duration("1day2.5min"))
 
 
 
