@@ -51,6 +51,9 @@ class Demand():
         self.rate = rate
         self.quota = None if quota is None else (quota if isinstance(quota, list) else [quota])
         self.bounded_rate = BoundedRate(self.rate) if self.quota is None else BoundedRate(self.rate, self.quota)
+        
+    def __str__(self):
+        return f"Demand(rate={self.rate}, quota={self.quota})"
 
     def show_capacity(self, time_interval: Union[str, TimeDuration]):
         """
@@ -63,15 +66,44 @@ class Demand():
             time_interval = parse_time_string_to_duration(time_interval)
 
         return self.bounded_rate.show_capacity(time_interval)
+    
+    def multiply_by(self, n:int):
+        """
+        Multiplies the demand by a given factor, as if it were multiple users.
+        
+        Args:
+            n (int): The factor to multiply the demand by.
+            
+        Returns:
+            Demand: A new Demand instance with the multiplied rate and quota. (Bounded Rate)
+        """
+        
+        if n <= 0:
+            raise ValueError("The number of users must be a positive integer.")
+        
+        if self.quota is None:
+            return Demand(Rate(self.rate.consumption_unit * n, self.rate.consumption_period), None)
+        
+        else:
+            new_rate = Rate(self.rate.consumption_unit * n, self.rate.consumption_period)
+            new_quota = [Quota(q.consumption_unit * n, q.consumption_period) for q in self.quota]
+            
+            return Demand(new_rate, new_quota)
 
 # Example usage
 if __name__ == "__main__":
     # Create a Rate instance
     rate = Rate(1, "5s")
-    quota = [Quota(100, "1h"), Quota(200, "2h")]
+    quota = Quota(200, "2h")
 
     # Create a Demand instance
     demand = Demand(rate=rate, quota=quota)
+    
+    new_demand = demand.multiply_by(3)
+    print(new_demand)  # Output: Demand(rate=Rate(value=3, time_unit='5s'), quota=[Quota(value=600, time_unit='2h')])
+    
+    
+    
 
     # Create a BoundedRate instance for testing
     plan_limits = BoundedRate(Rate(10, "1s"), Quota(900, "1h"))
@@ -80,6 +112,6 @@ if __name__ == "__main__":
     plan = Plan("Test Plan", plan_limits, cost=100, overage_cost=10, max_number_of_subscriptions=1, billing_period="1 month")
 
     # Test the consume method
-    plan.consume(demand, "2h")
+    #plan.consume(demand, "2h")
             
         

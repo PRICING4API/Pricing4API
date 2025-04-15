@@ -291,6 +291,12 @@ class Quota:
         self.consumption_unit = consumption_unit
         self.consumption_period = consumption_period
         
+    def __str__(self):
+        return f"Quota({self.consumption_unit}, {self.consumption_period})"
+    
+    def __repr__(self):
+        return f"Quota({self.consumption_unit}, {self.consumption_period})"
+        
     def capacity_at(self, t: Union[str, TimeDuration]):
         if isinstance(t, str):
             t = parse_time_string_to_duration(t)
