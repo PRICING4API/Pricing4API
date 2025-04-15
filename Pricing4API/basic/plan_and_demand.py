@@ -40,7 +40,7 @@ class Plan():
         )
 
 class Demand():
-    def __init__(self, rate: Rate, quota: Union[Quota, List[Quota], None] = None):
+    def __init__(self, rate: Rate, quota: Union[Quota, List[Quota], None] = None, N = None):
         """
         Initializes a Demand instance, acting as a constructor for BoundedRate.
 
@@ -48,10 +48,20 @@ class Demand():
             rate (Rate): The rate object for the demand.
             quota (Union[Quota, List[Quota], None], optional): The quota(s) for the demand. Defaults to None.
         """
-        self.rate = rate
-        self.quota = None if quota is None else (quota if isinstance(quota, list) else [quota])
-        self.bounded_rate = BoundedRate(self.rate) if self.quota is None else BoundedRate(self.rate, self.quota)
+        if N is not None:
+            self.rate = Rate(rate.consumption_unit * N, rate.consumption_period)
+            self.quota = None if quota is None else (quota if isinstance(quota, list) else [quota])
+            # Multiply the quota or quotas by N, keeping the same time period
+            if self.quota is not None:
+                self.quota = [
+                    Quota(q.consumption_unit * N, q.consumption_period) for q in self.quota
+                ]
+        else:
+            self.rate = rate
+            self.quota = None if quota is None else (quota if isinstance(quota, list) else [quota])
         
+        self.bounded_rate = BoundedRate(self.rate) if self.quota is None else BoundedRate(self.rate, self.quota)
+            
     def __str__(self):
         return f"Demand(rate={self.rate}, quota={self.quota})"
 
@@ -67,7 +77,7 @@ class Demand():
 
         return self.bounded_rate.show_capacity(time_interval)
     
-    def multiply_by(self, n:int):
+    def multiply_by(self, n: int):
         """
         Multiplies the demand by a given factor, as if it were multiple users.
         
@@ -81,14 +91,7 @@ class Demand():
         if n <= 0:
             raise ValueError("The number of users must be a positive integer.")
         
-        if self.quota is None:
-            return Demand(Rate(self.rate.consumption_unit * n, self.rate.consumption_period), None)
-        
-        else:
-            new_rate = Rate(self.rate.consumption_unit * n, self.rate.consumption_period)
-            new_quota = [Quota(q.consumption_unit * n, q.consumption_period) for q in self.quota]
-            
-            return Demand(new_rate, new_quota)
+        return Demand(rate=self.rate, quota=self.quota, N=n)
 
 # Example usage
 if __name__ == "__main__":
@@ -98,9 +101,10 @@ if __name__ == "__main__":
 
     # Create a Demand instance
     demand = Demand(rate=rate, quota=quota)
-    
+    aggregate_demand = Demand(rate=rate, quota=quota, N=3)
     new_demand = demand.multiply_by(3)
     print(new_demand)  # Output: Demand(rate=Rate(value=3, time_unit='5s'), quota=[Quota(value=600, time_unit='2h')])
+    print(aggregate_demand)
     
     
     
