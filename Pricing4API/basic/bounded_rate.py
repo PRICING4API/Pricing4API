@@ -281,6 +281,79 @@ class Rate:
         
         return duration_desired
 
+    def convert_to_largest(self, other: 'Rate') -> 'Rate':
+        """
+        Converts this rate to match the largest time unit between this rate and another rate.
+
+        Args:
+            other (Rate): The rate to compare against.
+
+        Returns:
+            Rate: A new rate with the largest time unit.
+        """
+        # Convert both periods to milliseconds for comparison
+        self_ms = self.consumption_period.to_milliseconds()
+        other_ms = other.consumption_period.to_milliseconds()
+
+        if self_ms > other_ms:
+            # Self has the larger period
+            scaling_factor = self_ms / other_ms
+            adjusted_unit = other.consumption_unit * scaling_factor
+            return Rate(adjusted_unit, self.consumption_period)
+        else:
+            # Other has the larger period
+            scaling_factor = other_ms / self_ms
+            adjusted_unit = self.consumption_unit * scaling_factor
+            return Rate(adjusted_unit, other.consumption_period)
+
+    def convert_to_smallest(self, other: 'Rate') -> 'Rate':
+        """
+        Converts this rate to match the smallest time unit between this rate and another rate.
+
+        Args:
+            other (Rate): The rate to compare against.
+
+        Returns:
+            Rate: A new rate with the smallest time unit.
+        """
+        # Convert both periods to milliseconds for comparison
+        self_ms = self.consumption_period.to_milliseconds()
+        other_ms = other.consumption_period.to_milliseconds()
+
+        if self_ms < other_ms:
+            # Self has the smaller period
+            scaling_factor = other_ms / self_ms
+            adjusted_unit = self.consumption_unit * scaling_factor
+            return Rate(adjusted_unit, other.consumption_period)
+        else:
+            # Other has the smaller period
+            scaling_factor = self_ms / other_ms
+            adjusted_unit = other.consumption_unit * scaling_factor
+            return Rate(adjusted_unit, self.consumption_period)
+
+    def convert_to_my_time_unit(self, other: 'Rate') -> 'Rate':
+        """
+        Converts the other rate to match this rate's time unit.
+
+        Args:
+            other (Rate): The rate to convert.
+
+        Returns:
+            Rate: A new rate with the same time unit as this rate.
+        """
+        # Convert both periods to milliseconds
+        self_ms = self.consumption_period.to_milliseconds()
+        other_ms = other.consumption_period.to_milliseconds()
+
+        # Calculate the scaling factor (ceil to ensure no underestimation)
+        scaling_factor = np.ceil(other_ms / self_ms)
+
+        # Adjust the consumption unit of the other rate
+        adjusted_unit = other.consumption_unit * scaling_factor
+
+        # Return a new rate with the adjusted unit and this rate's time period
+        return Rate(adjusted_unit, self.consumption_period)
+
 
 class Quota:
     
@@ -433,6 +506,31 @@ class Quota:
             return format_time_with_unit(duration_desired)
         
         return duration_desired
+
+    def convert_to_largest(self, other: 'Quota') -> 'Quota':
+        """
+        Converts this quota to match the largest time unit between this quota and another quota.
+
+        Args:
+            other (Quota): The quota to compare against.
+
+        Returns:
+            Quota: A new quota with the largest time unit.
+        """
+        # Convert both periods to milliseconds for comparison
+        self_ms = self.consumption_period.to_milliseconds()
+        other_ms = other.consumption_period.to_milliseconds()
+
+        if self_ms > other_ms:
+            # Self has the larger period
+            scaling_factor = self_ms / other_ms
+            adjusted_unit = other.consumption_unit * scaling_factor
+            return Quota(adjusted_unit, self.consumption_period)
+        else:
+            # Other has the larger period
+            scaling_factor = other_ms / self_ms
+            adjusted_unit = self.consumption_unit * scaling_factor
+            return Quota(adjusted_unit, other.consumption_period)
 
 
 class BoundedRate:
@@ -830,6 +928,15 @@ class BoundedRate:
 if __name__ == "__main__":
     rate = Rate(10,"1s",)
     br = BoundedRate(rate)
+    
+    quota1 = Quota(1800, "1h")
+    quota2 = Quota(1000, "1day")
+    rate1= Rate(1,"2s")
+    rate2=Rate(1,"1s")
+    new_quota = quota1.convert_to_largest(quota2)
+    new_rate = rate1.convert_to_largest(rate2)
+    print(new_rate)
+    print(new_quota)
 
 
 
