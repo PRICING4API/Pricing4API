@@ -98,20 +98,13 @@ class Plan():
                     last = c
                 return last
 
-            # === 3) Tabla de backlog ===
-            print(f"{'t (s)':>7} | {'Plan':>6} | {'Demanda':>7} | {'Backlog':>7}")
-            print("-" * 36)
             max_backlog = 0
             for t in times:
                 cp   = value_at(t, plan_pts)
                 cd   = value_at(t, demand_pts)
                 back = cd - cp
                 max_backlog = max(max_backlog, back)
-                line = f"{t/1000:7.2f} | {cp:6.0f} | {cd:7.0f} | {back:7.0f}"
-                if back > 0:
-                    line += f"   ← exceso {back:.0f}"
-                print(line)
-            print()
+
 
             if max_backlog <= 0:
                 print("✔ La demanda jamás supera la capacidad. ¡Encaja sin encolar nada!\n")
