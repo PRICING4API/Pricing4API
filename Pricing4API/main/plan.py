@@ -923,6 +923,13 @@ if __name__ == "__main__":
     Zenhub = Plan("Zenhub", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(600, TimeUnit.MILLISECOND)),[Limit(100, TimeDuration(1, TimeUnit.MINUTE)), Limit(5000, TimeDuration(1, TimeUnit.HOUR))])
     Aux = Plan("Aux", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, quotes=[Limit(10, TimeDuration(1, TimeUnit.SECOND)), Limit(100, TimeDuration(1, TimeUnit.MINUTE))])
     print(Aux.t_ast)
+    
+    dblp = Plan("dblp", (0.0, TimeDuration(1, TimeUnit.MONTH)), 0.0, Limit(1, TimeDuration(2, TimeUnit.SECOND)),[Limit(1800, TimeDuration(1, TimeUnit.HOUR))])
+    print(dblp.min_time(19))
+    print(dblp.available_capacity(TimeDuration(18, TimeUnit.SECOND), len(dblp.limits) - 1))
+    
+    
+    
 
 
 

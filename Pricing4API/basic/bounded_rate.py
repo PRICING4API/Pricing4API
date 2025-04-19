@@ -230,15 +230,20 @@ class Rate:
         if isinstance(start_instant, str):
             start_instant = parse_time_string_to_duration(start_instant)
 
-        # Calculate the time just before the final instant
-        end_instant_milliseconds = end_instant.to_milliseconds() - 0.1
+        # Convert time durations to milliseconds
+        end_instant_milliseconds = end_instant.to_milliseconds()
+        start_instant_milliseconds = start_instant.to_milliseconds()
 
-        # Ensure the time is not negative
-        if end_instant_milliseconds < 0:
+        # Ensure the time interval is valid
+        if end_instant_milliseconds <= start_instant_milliseconds:
             raise ValueError("end_instant must be greater than start_instant")
 
-        # Calculate capacity at the time just before the final instant
-        return self.capacity_at(TimeDuration(end_instant_milliseconds, TimeUnit.MILLISECOND))
+        # Calculate capacity at the start and end instants
+        capacity_at_end = self.capacity_at(TimeDuration(end_instant_milliseconds, TimeUnit.MILLISECOND))
+        capacity_at_start = self.capacity_at(TimeDuration(start_instant_milliseconds, TimeUnit.MILLISECOND))
+
+        # Return the difference in capacity
+        return capacity_at_end - capacity_at_start
 
     def min_time(self, capacity_goal: int, return_unit: Optional[TimeUnit] = None, display=True) -> Union[str, TimeDuration]:
         """
@@ -254,32 +259,22 @@ class Rate:
         """
         if capacity_goal < 0:
             raise ValueError("The 'capacity goal' should be greater or equal to 0.")
-
-        T = 0
-        c_r, p_r_ms = self.consumption_unit, self.consumption_period.to_milliseconds()
-
-        if capacity_goal > 0:
-            T += np.floor((capacity_goal - 1) * p_r_ms / c_r)
-
-            T = np.floor(T/p_r_ms) if self.consumption_period.unit != TimeUnit.MILLISECOND else T
-
-        if self.consumption_period.unit == TimeUnit.MILLISECOND:
-            result_duration = TimeDuration(T, TimeUnit.MILLISECOND)
-        else:
-            result_duration = TimeDuration(T, self.consumption_period.unit)
-
+        
+        # cálculo igual que antes
+        T = np.floor((capacity_goal - 1) * self.consumption_period.to_milliseconds() / self.consumption_unit) if capacity_goal > 0 else 0
+        
+        # construimos siempre en milisegundos
+        result_duration = TimeDuration(int(T), TimeUnit.MILLISECOND)
+        
         if T == 0:
             return "0s"
-
+        
         if return_unit is None:
             return_unit = self.consumption_period.unit
-
-        duration_desired = result_duration.to_desired_time_unit(return_unit)
-
-        if display:
-            return format_time_with_unit(duration_desired)
         
-        return duration_desired
+        duration_desired = result_duration.to_desired_time_unit(return_unit)
+        
+        return format_time_with_unit(duration_desired) if display else duration_desired
 
     def convert_to_largest(self, other: 'Rate') -> 'Rate':
         """
@@ -456,15 +451,20 @@ class Quota:
         if isinstance(start_instant, str):
             start_instant = parse_time_string_to_duration(start_instant)
 
-        # Calculate the time just before the final instant
-        end_instant_milliseconds = end_instant.to_milliseconds() - 0.1
+        # Convert time durations to milliseconds
+        end_instant_milliseconds = end_instant.to_milliseconds()
+        start_instant_milliseconds = start_instant.to_milliseconds()
 
-        # Ensure the time is not negative
-        if end_instant_milliseconds < 0:
+        # Ensure the time interval is valid
+        if end_instant_milliseconds <= start_instant_milliseconds:
             raise ValueError("end_instant must be greater than start_instant")
 
-        # Calculate capacity at the time just before the final instant
-        return self.capacity_at(TimeDuration(end_instant_milliseconds, TimeUnit.MILLISECOND))
+        # Calculate capacity at the start and end instants
+        capacity_at_end = self.capacity_at(TimeDuration(end_instant_milliseconds, TimeUnit.MILLISECOND))
+        capacity_at_start = self.capacity_at(TimeDuration(start_instant_milliseconds, TimeUnit.MILLISECOND))
+
+    # Return the difference in capacity
+        return capacity_at_end - capacity_at_start
 
     def min_time(self, capacity_goal: int, return_unit: Optional[TimeUnit] = None, display=True) -> Union[str, TimeDuration]:
         """
@@ -480,30 +480,14 @@ class Quota:
         """
         if capacity_goal < 0:
             raise ValueError("The 'capacity goal' should be greater or equal to 0.")
-
-        T = 0
-        c_r, p_r_ms = self.consumption_unit, self.consumption_period.to_milliseconds()
-
-        if capacity_goal > 0:
-            T += np.floor((capacity_goal - 1) * p_r_ms / c_r)
-
-            T = np.floor(T/p_r_ms) if self.consumption_period.unit != TimeUnit.MILLISECOND else T
-
-        if self.consumption_period.unit == TimeUnit.MILLISECOND:
-            result_duration = TimeDuration(T, TimeUnit.MILLISECOND)
-        else:
-            result_duration = TimeDuration(int(T), self.consumption_period.unit)
-
+        T = np.floor((capacity_goal - 1) * self.consumption_period.to_milliseconds() / self.consumption_unit) if capacity_goal > 0 else 0
+        result_duration = TimeDuration(int(T), TimeUnit.MILLISECOND)
         if T == 0:
             return "0s"
-
         if return_unit is None:
             return_unit = self.consumption_period.unit
-
         duration_desired = result_duration.to_desired_time_unit(return_unit)
-
-        if display:
-            return format_time_with_unit(duration_desired)
+        return format_time_with_unit(duration_desired) if display else duration_desired
         
         return duration_desired
 
@@ -649,6 +633,37 @@ class BoundedRate:
             t_milliseconds = time_simulation.value
 
         return _calculate_capacity(t_milliseconds, len(self.limits) - 1)
+    
+    def capacity_during(self, end_instant: Union[str, TimeDuration], start_instant: Union[str, TimeDuration] = "0ms") -> float:
+        """
+        Calculates the capacity during a specified time interval.
+
+        Args:
+            end_instant (Union[str, TimeDuration]): The final time instant.
+            start_instant (Union[str, TimeDuration], optional): The initial time instant. Defaults to "0ms".
+
+        Returns:
+            float: The calculated capacity during the specified interval.
+        """
+        if isinstance(end_instant, str):
+            end_instant = parse_time_string_to_duration(end_instant)
+        if isinstance(start_instant, str):
+            start_instant = parse_time_string_to_duration(start_instant)
+
+        # Convert time durations to milliseconds
+        end_instant_milliseconds = end_instant.to_milliseconds()
+        start_instant_milliseconds = start_instant.to_milliseconds()
+
+        # Ensure the time interval is valid
+        if end_instant_milliseconds <= start_instant_milliseconds:
+            raise ValueError("end_instant must be greater than start_instant")
+
+        # Calculate capacity at the start and end instants
+        capacity_at_end = self.capacity_at(TimeDuration(end_instant_milliseconds, TimeUnit.MILLISECOND))
+        capacity_at_start = self.capacity_at(TimeDuration(start_instant_milliseconds, TimeUnit.MILLISECOND))
+
+        # Return the difference in capacity
+        return capacity_at_end - capacity_at_start
 
     def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
         t_milliseconds = int(time_interval.to_milliseconds())
@@ -857,52 +872,44 @@ class BoundedRate:
         Returns:
             Union[str, TimeDuration]: The minimum time to reach the capacity goal.
         """
+        # Validar que capacity_goal sea un entero no negativo
+        if not isinstance(capacity_goal, int):
+            raise TypeError("capacity_goal must be an integer number of requests")
         if capacity_goal < 0:
             raise ValueError("The 'capacity goal' should be greater or equal to 0.")
 
+        # 1) Acumular tiempo para cada cuota (de mayor a menor), consumiendo batches completos
         T = 0
-        i = len(self.limits) - 1
+        for limit in reversed(self.limits[1:]):
+            if capacity_goal <= 0:
+                break
+            nu = np.floor(capacity_goal / limit.consumption_unit)
+            delta = (capacity_goal == nu * limit.consumption_unit)
+            n_i = int(nu - 1 if delta else nu)
+            T += n_i * limit.consumption_period.to_milliseconds()
+            capacity_goal -= n_i * limit.consumption_unit
 
-        while i > 0:
-            capacity_limit = self.limits[i].consumption_unit
-            period_limit_ms = self.limits[i].consumption_period.to_milliseconds()
+        # 2) Batch inicial del rate (por múltiplos enteros de consumption_unit)
+        rate = self.limits[0]
+        c_r = rate.consumption_unit
+        if capacity_goal > c_r:
+            from math import ceil
+            batches = ceil(capacity_goal / c_r)
+            p_r_ms = rate.consumption_period.to_milliseconds()
+            T += (batches - 1) * p_r_ms
 
-            nu = np.floor(capacity_goal / capacity_limit)
-            delta = capacity_goal == nu * capacity_limit
-
-            n_i = nu - 1 if delta else nu
-            T += n_i * period_limit_ms
-
-            if capacity_goal > 0:
-                capacity_goal -= n_i * capacity_limit
-
-            i -= 1
-
-        c_r = self.limits[0].consumption_unit
-        p_r_ms = self.limits[0].consumption_period.to_milliseconds()
-
-        if capacity_goal > 0:
-            T += np.floor((capacity_goal - 1) * p_r_ms / c_r)
-
-            T = np.floor(T/p_r_ms) if self.limits[0].consumption_period.unit != TimeUnit.MILLISECOND else T
-
-        if self.limits[0].consumption_period.unit == TimeUnit.MILLISECOND:
-            result_duration = TimeDuration(T, TimeUnit.MILLISECOND)
-        else:
-            result_duration = TimeDuration(T, self.limits[0].consumption_period.unit)
-
-        if T==0:
+        # 3) Construir la duración en milisegundos
+        result_duration = TimeDuration(int(T), TimeUnit.MILLISECOND)
+        if T == 0:
             return "0s"
 
+        # 4) Convertir a la unidad deseada
         if return_unit is None:
-            return_unit = self.limits[0].consumption_period.unit
-
+            return_unit = rate.consumption_period.unit
         duration_desired = result_duration.to_desired_time_unit(return_unit)
+        return format_time_with_unit(duration_desired) if display else duration_desired
 
-        if display:
-            return format_time_with_unit(duration_desired)
-        
-        return duration_desired
+
 
 
     def quota_exhaustion_threshold(self,display=True) -> List[Union[str, TimeDuration]]:
@@ -926,17 +933,13 @@ class BoundedRate:
 
 
 if __name__ == "__main__":
-    rate = Rate(10,"1s",)
-    br = BoundedRate(rate)
+    br1 = BoundedRate(Rate(100, "1min"), Quota(1800, "1h")) 
     
-    quota1 = Quota(1800, "1h")
-    quota2 = Quota(1000, "1day")
-    rate1= Rate(1,"2s")
-    rate2=Rate(1,"1s")
-    new_quota = quota1.convert_to_largest(quota2)
-    new_rate = rate1.convert_to_largest(rate2)
-    print(new_rate)
-    print(new_quota)
+    num_req= 1
+    min_time_br1= br1.min_time(num_req)
+    num_req_calculated= br1.capacity_at(min_time_br1)
+    print(f"Minimum time to reach {num_req} is {min_time_br1} and the calculated capacity is {num_req_calculated}.")
+    
 
 
 

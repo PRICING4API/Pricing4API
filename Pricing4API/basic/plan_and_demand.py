@@ -216,14 +216,19 @@ if __name__ == "__main__":
 
     # Create a BoundedRate instance for testing
     plan_limits = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
-    demand_fits = Demand(rate=Rate(100, "1min"), quota=Quota(2000, "1day"))
+    plan2_limits = BoundedRate(Rate(1, "1s"), Quota(2000, "1h"))
+    demand_fits = Demand(rate=Rate(10, "3min"), quota=Quota(20, "1h"))
     # Create a Plan instance
     plan = Plan("Test Plan", plan_limits, cost=100, overage_cost=10, max_number_of_subscriptions=1, billing_period="1 month")
 
     # Test the consume method
     #plan.consume(demand, "2h")
     
-    print(plan.has_enough_capacity(demand_fits))  # Should return True
+    #print(plan.has_enough_capacity(demand_fits))  # Should return True
+    
+    #compare_bounded_rates_capacity([plan2_limits,plan_limits], "2h")
+    
+
 
 
 

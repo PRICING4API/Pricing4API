@@ -29,7 +29,8 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
 
     fig = go.Figure()
 
-    for rate, color in zip(rates, predefined_colors):
+    # añadimos índice i para controlar el fill
+    for i, (rate, color) in enumerate(zip(rates, predefined_colors)):
         max_period_ms = rate.consumption_period.to_milliseconds()
         t_milliseconds = int(time_interval.to_milliseconds())
 
@@ -46,24 +47,28 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
             original_times_acc = [t / time_interval.unit.to_milliseconds() for t in times_ms_acc]
             original_times_inst = [t / time_interval.unit.to_milliseconds() for t in times_ms_inst]
 
-            rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+            rgba_color = (
+                f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+            )
 
+            # Accumulated curve: primera capa hasta el eje, las demás sobre la anterior
             fig.add_trace(go.Scatter(
                 x=original_times_acc,
                 y=capacities_acc,
                 mode='lines',
                 line=dict(color=color, shape='hv', width=1.3),
-                fill='tonexty',
+                fill='tozeroy' if i == 0 else 'tonexty',
                 fillcolor=rgba_color,
                 name=f"Accumulated Rate ({rate.consumption_unit}/{rate.consumption_period})"
             ))
 
+            # Instantaneous curve: igual regla de fill
             fig.add_trace(go.Scatter(
                 x=original_times_inst,
                 y=capacities_inst,
                 mode='lines',
                 line=dict(color=color, shape='hv', width=1.3),
-                fill='tonexty',
+                fill='tozeroy' if i != 0 else 'tonexty',
                 fillcolor=rgba_color,
                 name=f"Instantaneous Rate ({rate.consumption_unit}/{rate.consumption_period})"
             ))
@@ -72,7 +77,7 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
             n_inst = len(times_ms_inst)
 
             accum_visible = [True] * n_acc + [False] * n_inst
-            inst_visible = [False] * n_acc + [True] * n_inst
+            inst_visible  = [False] * n_acc + [True] * n_inst
 
             fig.update_layout(
                 title="Accumulated Capacity",
@@ -114,17 +119,18 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
         else:
             debug_values = rate.show_capacity(time_interval, debug=True)
             times_ms, capacities = zip(*debug_values)
-
             original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
 
-            rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+            rgba_color = (
+                f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+            )
 
             fig.add_trace(go.Scatter(
                 x=original_times,
                 y=capacities,
                 mode='lines',
                 line=dict(color=color, shape='hv', width=1.3),
-                fill='tonexty',
+                fill='tozeroy' if i != 0 else 'tonexty',
                 fillcolor=rgba_color,
                 name=f"Rate ({rate.consumption_unit}/{rate.consumption_period})"
             ))
@@ -135,7 +141,9 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
     fig.show()
 
 
-def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interval: Union[str, TimeDuration], return_fig=False):
+def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate],
+                                   time_interval: Union[str, TimeDuration],
+                                   return_fig=False):
     """
     Compares the capacity curves of a list of bounded rates, starting with the slowest.
 
@@ -148,10 +156,14 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
         time_interval = parse_time_string_to_duration(time_interval)
 
     # Sort bounded rates by speed (slowest first)
-    bounded_rates.sort(key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit, reverse=False)
+    bounded_rates.sort(
+        key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit,
+        reverse=False
+    )
 
     predefined_colors = [
-        "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
+        "green", "purple", "brown", "pink", "gray", "olive",
+        "cyan", "magenta", "teal", "lime"
     ]
 
     if len(bounded_rates) > len(predefined_colors):
@@ -159,14 +171,14 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
 
     fig = go.Figure()
 
-    for bounded_rate, color in zip(bounded_rates, predefined_colors):
+    # añadimos índice i para controlar el fill
+    for i, (bounded_rate, color) in enumerate(zip(bounded_rates, predefined_colors)):
         max_quota_duration_ms = bounded_rate.limits[-1].consumption_period.to_milliseconds()
         t_milliseconds = int(time_interval.to_milliseconds())
 
         if t_milliseconds > max_quota_duration_ms:
             print("Exceeded quota duration. Switching between accumulated and instantaneous curves is possible.")
 
-            # Use debug values to plot accumulated and instantaneous curves
             debug_values_accumulated = bounded_rate.show_available_capacity_curve(time_interval, debug=True)
             debug_values_instantaneous = bounded_rate.show_instantaneous_capacity_curve(time_interval, debug=True)
 
@@ -176,19 +188,20 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
             original_times_acc = [t / time_interval.unit.to_milliseconds() for t in times_ms_acc]
             original_times_inst = [t / time_interval.unit.to_milliseconds() for t in times_ms_inst]
 
-            rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+            rgba_color = (
+                f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+            )
+            rate_info = f"{bounded_rate.rate.consumption_unit}/{bounded_rate.rate.consumption_period}"
 
-            rate_info = f"Rate: {bounded_rate.rate.consumption_unit}/{bounded_rate.rate.consumption_period}"
-            
             fig.add_trace(go.Scatter(
                 x=original_times_acc,
                 y=capacities_acc,
                 mode='lines',
                 line=dict(color=color, shape='hv', width=1.3),
-                fill='tonexty',
+                fill='tozeroy' if i != 0 else 'tonexty',
                 fillcolor=rgba_color,
-                name=f"Accumulated {rate_info}",
-                visible=True  # Set accumulated as visible by default
+                name=f"Accumulated Rate: {rate_info}",
+                visible=True
             ))
 
             fig.add_trace(go.Scatter(
@@ -196,15 +209,14 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
                 y=capacities_inst,
                 mode='lines',
                 line=dict(color=color, shape='hv', width=1.3),
-                fill='tonexty',
+                fill='tozeroy' if i != 0 else 'tonexty',
                 fillcolor=rgba_color,
-                name=f"Instantaneous {rate_info}",
-                visible=False  # Set instantaneous as not visible by default
+                name=f"Instantaneous Rate: {rate_info}",
+                visible=False
             ))
 
-            # Ensure only one set of traces is visible at a time
             accum_visible = [True, False]
-            inst_visible = [False, True]
+            inst_visible  = [False, True]
 
             fig.update_layout(
                 title="Accumulated Capacity",
@@ -246,19 +258,19 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
         else:
             debug_values = bounded_rate.show_available_capacity_curve(time_interval, debug=True)
             times_ms, capacities = zip(*debug_values)
-
             original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
 
-            rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+            rgba_color = (
+                f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+            )
+            rate_info = f"{bounded_rate.rate.consumption_unit}/{bounded_rate.rate.consumption_period}"
 
-            rate_info = f"Rate: {bounded_rate.rate.consumption_unit}/{bounded_rate.rate.consumption_period}"
-            
             fig.add_trace(go.Scatter(
                 x=original_times,
                 y=capacities,
                 mode='lines',
                 line=dict(color=color, shape='hv', width=1.3),
-                fill='tonexty',
+                fill='tozeroy' if i != 0 else 'tonexty',
                 fillcolor=rgba_color,
                 name=f"{rate_info}"
             ))
@@ -267,6 +279,25 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate], time_interv
         return fig
 
     fig.show()
+    
+if __name__ == "__main__":
+    br1 = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
+    br2 = BoundedRate(Rate(1, "2s"),
+        Quota(48, "300s"),
+)
 
+    # 2. Generar la figura
+    fig = compare_bounded_rates_capacity(
+        bounded_rates=[br1, br2],
+        time_interval="2h",
+        return_fig=True
+    )
 
+    # 3. Pintar líneas
+    fig.add_vline(x=0.25, line=dict(color="orange", dash="dash"),
+                annotation_text="15 min", annotation_position="bottom right")
+    fig.add_hline(y=900, line=dict(color="green", dash="dot"),
+                annotation_text="900 llamadas", annotation_position="top left")
 
+    # 4. Mostrar
+    fig.show()
