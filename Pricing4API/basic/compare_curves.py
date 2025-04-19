@@ -1,4 +1,5 @@
-from typing import List, Union
+import re
+from typing import List, Optional, Union
 import plotly.graph_objects as go
 from Pricing4API.basic.bounded_rate import Rate, Quota, BoundedRate
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
@@ -280,6 +281,55 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate],
 
     fig.show()
     
+
+def show_line(
+    fig: go.Figure,
+    *,
+    x: Optional[str] = None,           # e.g. "30min", "0.5h", "120s"
+    y: Optional[float] = None,         # valor numérico de capacidad
+    color: str = "red",                # color de la línea
+    dash: str = "dash",                # "solid" | "dash" | "dot" | "dashdot"
+    width: int = 1,                    # ancho de la línea
+    opacity: float = 1.0,              # 0.0–1.0
+    layer: str = "above",              # "above" o "below"
+    annotation_text: Optional[str] = None,     # texto de la anotación
+    annotation_position: Optional[str] = None,  # "top left", "bottom right", …
+    annotation_font: Optional[dict] = None,      # p.ej. {"size":12,"color":"black"}
+    annotation_align: Optional[str] = None       # "left" | "center" | "right"
+) -> None:
+    # 1. extraemos unidad del eje X
+    title = fig.layout.xaxis.title.text or ""
+    m = re.search(r"\((ms|s|min|h|day|week|month|year)\)", title)
+    tgt = TimeUnit(m.group(1)) if m else TimeUnit.SECOND
+
+    # 2. línea vertical
+    if x is not None:
+        td = parse_time_string_to_duration(x)
+        td_conv = td.to_desired_time_unit(tgt)
+        fig.add_vline(
+            x=td_conv.value,
+            line=dict(color=color, dash=dash, width=width),
+            opacity=opacity,
+            layer=layer,
+            annotation_text=annotation_text,
+            annotation_position=annotation_position,
+            annotation_font=annotation_font,
+            annotation_align=annotation_align
+        )
+
+    # 3. línea horizontal
+    if y is not None:
+        fig.add_hline(
+            y=y,
+            line=dict(color=color, dash=dash, width=width),
+            opacity=opacity,
+            layer=layer,
+            annotation_text=annotation_text,
+            annotation_position=annotation_position,
+            annotation_font=annotation_font,
+            annotation_align=annotation_align
+        )
+    
 if __name__ == "__main__":
     br1 = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
     br2 = BoundedRate(Rate(1, "2s"),
@@ -289,15 +339,19 @@ if __name__ == "__main__":
     # 2. Generar la figura
     fig = compare_bounded_rates_capacity(
         bounded_rates=[br1, br2],
-        time_interval="2h",
+        time_interval="500s",
         return_fig=True
     )
 
-    # 3. Pintar líneas
-    fig.add_vline(x=0.25, line=dict(color="orange", dash="dash"),
-                annotation_text="15 min", annotation_position="bottom right")
-    fig.add_hline(y=900, line=dict(color="green", dash="dot"),
-                annotation_text="900 llamadas", annotation_position="top left")
+    show_line(
+        fig,
+        x="90s",
+        color="orange",
+        dash="dot",
+        width=2,
+        annotation_text="90 segundos",
+        annotation_position="top bottom"
+    )
 
-    # 4. Mostrar
+    # 3) La siguiente vez que hagas esto…
     fig.show()
