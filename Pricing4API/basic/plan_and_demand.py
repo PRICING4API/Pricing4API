@@ -91,7 +91,11 @@ class Plan():
                             "demand_rate": f"{d_rate.consumption_unit}/{d_rate.consumption_period}",
                             "v_plan": round(v_plan, 6),
                             "v_demand": round(v_dem, 6),
-                            "reason": "quota_exceeded"
+                            "reason": "quota_exceeded",
+                            "quota_plan": f"{q_p.consumption_unit} per {q_p.consumption_period}",
+                            "quota_demand": f"{q_d.consumption_unit} per {q_d.consumption_period}",
+                            "quota_equiv_demand_in_plan_window": round(scaled, 2),
+                            "quota_allowed_in_plan_window": q_p.consumption_unit
                         }
                 else:
                     scaled = q_p.consumption_unit * (ms_d / ms_p)
@@ -102,7 +106,11 @@ class Plan():
                             "demand_rate": f"{d_rate.consumption_unit}/{d_rate.consumption_period}",
                             "v_plan": round(v_plan, 6),
                             "v_demand": round(v_dem, 6),
-                            "reason": "quota_exceeded"
+                            "reason": "quota_exceeded",
+                            "quota_plan": f"{q_p.consumption_unit} per {q_p.consumption_period}",
+                            "quota_demand": f"{q_d.consumption_unit} per {q_d.consumption_period}",
+                            "quota_equiv_demand_in_plan_window": round(scaled, 2),
+                            "quota_allowed_in_plan_window": q_p.consumption_unit
                         }
 
         # 2) Horizon and sampling
@@ -205,9 +213,16 @@ class Plan():
 
         if not analysis.get("can_cover"):
             print(f"✘ Demand cannot be served.\n→ Reason: {analysis.get('reason', 'unspecified')}")
-            print(f"- Plan rate:   {plan_rate.consumption_unit}/{plan_rate.consumption_period} → {v_plan:.6f} req/ms")
-            print(f"- Demand rate: {d_rate.consumption_unit}/{d_rate.consumption_period} → {v_dem:.6f} req/ms\n")
+            print(f"→ Plan rate:   {analysis.get('plan_rate')}")
+            print(f"→ Demand rate: {analysis.get('demand_rate')}")
+
+            if analysis["reason"] == "quota_exceeded":
+                print(f"→ Plan quota:      {analysis['quota_plan']}")
+                print(f"→ Demand quota:    {analysis['quota_demand']}")
+                print(f"→ In the plan's window, demand requires ~{analysis['quota_equiv_demand_in_plan_window']} requests")
+                print(f"→ But the plan only allows {analysis['quota_allowed_in_plan_window']} requests\n")
             return
+
 
         print(f"✔ Demand CAN be served within the plan limits.\n")
         print(f"→ Plan rate:   {plan_rate.consumption_unit}/{plan_rate.consumption_period} → {v_plan:.6f} req/ms")
