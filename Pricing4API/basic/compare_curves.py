@@ -220,7 +220,6 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate],
             inst_visible  = [False, True]
 
             fig.update_layout(
-                title="Accumulated Capacity",
                 updatemenus=[
                     dict(
                         type="buttons",
@@ -235,7 +234,6 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate],
                                 method="update",
                                 args=[
                                     {"visible": accum_visible},
-                                    {"title": "Accumulated Capacity"}
                                 ]
                             ),
                             dict(
@@ -243,7 +241,6 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate],
                                 method="update",
                                 args=[
                                     {"visible": inst_visible},
-                                    {"title": "Instantaneous Capacity"}
                                 ]
                             )
                         ]
@@ -276,9 +273,22 @@ def compare_bounded_rates_capacity(bounded_rates: List[BoundedRate],
                 name=f"{rate_info}"
             ))
 
+            # Update layout to include axis titles and legend
+            fig.update_layout(
+                title="Capacity Curve",
+                xaxis_title=f"Time ({time_interval.unit.value})",
+                yaxis_title="Capacity",
+                legend_title="Bounded Rates",
+                template="plotly_white",
+                width=1000,
+                height=600
+            )
+
     if return_fig:
         return fig
 
+    fig.update_layout(
+        title="Capacity Curves")
     fig.show()
     
 
@@ -329,29 +339,78 @@ def show_line(
             annotation_font=annotation_font,
             annotation_align=annotation_align
         )
+        
+
+def update_legend_names(fig: go.Figure, legend_names: List[str]) -> None:
+    """
+    Dynamically updates the legend names for the traces in the figure.
+
+    Args:
+        fig (go.Figure): The Plotly figure to update.
+        legend_names (List[str]): A list of legend names to apply to the traces.
+    """
+
+    for i, trace in enumerate(fig.data):
+        if i < 2:  # First two traces (0 and 1)
+            trace.name = legend_names[0]
+        else:  # Next two traces (2 and 3)
+            trace.name = legend_names[1]
+        
+def update_legend(fig: go.Figure, legend_title: str) -> None:
+    """
+    Updates the legend title of the figure.
+
+    Args:
+        fig (go.Figure): The Plotly figure to update.
+        legend_title (str): The new title for the legend.
+    """
+    fig.update_layout(legend_title=dict(text=legend_title))
+
+
+def update_yaxis(fig: go.Figure, yaxis_title: str) -> None:
+    """
+    Updates the y-axis title of the figure.
+
+    Args:
+        fig (go.Figure): The Plotly figure to update.
+        yaxis_title (str): The new title for the y-axis.
+    """
+    fig.update_layout(yaxis_title=yaxis_title)
+
+
+def update_title(fig: go.Figure, title: str) -> None:
+    """
+    Updates the title of the figure.
+
+    Args:
+        fig (go.Figure): The Plotly figure to update.
+        title (str): The new title for the figure.
+    """
+    fig.update_layout(title=title)
     
 if __name__ == "__main__":
     br1 = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
-    br2 = BoundedRate(Rate(1, "2s"),
-        Quota(48, "300s"),
-)
-
-    # 2. Generar la figura
-    fig = compare_bounded_rates_capacity(
-        bounded_rates=[br1, br2],
-        time_interval="500s",
-        return_fig=True
+    br2 = BoundedRate(
+        Rate(1, "2s"),
+        [
+            Quota(18,   "60s"),
+            Quota(48,  "300s"),
+            Quota(1800, "1h")
+        ]
     )
-
-    show_line(
-        fig,
-        x="90s",
-        color="orange",
-        dash="dot",
-        width=2,
-        annotation_text="90 segundos",
-        annotation_position="top bottom"
-    )
-
-    # 3) La siguiente vez que hagas esto…
+    
+    #print(br2.capacity_at("1h"))
+    
+    fig = compare_bounded_rates_capacity([br1, br2], "2h", return_fig=True)
+    
+    show_line(fig, x="1h", y=0.5, color="blue", dash="solid", width=2, opacity=0.5,
+                layer="above", annotation_text="1h", annotation_position="top left",
+                annotation_font={"size": 12, "color": "black"}, annotation_align="left")
+    
+    update_legend_names(fig, ["Nominal Capacity", "Regulated Capacity"])
+    update_legend(fig, "Bounded Rates")
+    update_yaxis(fig, "Requests")
+    update_title(fig, "Nominal and regulated capacity of DBLP")
     fig.show()
+    
+    

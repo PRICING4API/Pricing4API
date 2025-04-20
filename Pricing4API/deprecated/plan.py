@@ -547,10 +547,11 @@ if __name__ == "__main__":
     s_month = 3600 * 24 * 30
 
     # Definir los planes
-    plan_basic = Plan('Basic', (0.0, s_month, 0.001), (10, s_second), [(1500, s_month)])
+    plan_basic = Plan('Basic', (0.0, s_month, 0.001), (1, 2), [(18, 60),(48,300),(1800,s_hour)])
     plan_pro = Plan('Pro', (9.95, s_month, 0.001), (10, s_second), [(40000, s_month)], 10)
     
-    print(plan_basic.min_time(21))
+    print(plan_basic.available_capacity(3600, len(plan_basic.limits)-1))
+    plan_basic.show_available_capacity_curve(7200)
 
 
 

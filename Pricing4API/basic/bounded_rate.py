@@ -933,12 +933,8 @@ class BoundedRate:
 
 
 if __name__ == "__main__":
-    br1 = BoundedRate(Rate(100, "1min"), Quota(1800, "1h")) 
+    pass
     
-    num_req= 1
-    min_time_br1= br1.min_time(num_req)
-    num_req_calculated= br1.capacity_at(min_time_br1)
-    print(f"Minimum time to reach {num_req} is {min_time_br1} and the calculated capacity is {num_req_calculated}.")
     
 
 
