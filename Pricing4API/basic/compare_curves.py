@@ -30,111 +30,38 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
 
     fig = go.Figure()
 
-    # añadimos índice i para controlar el fill
+    # Añadimos índice i para controlar el fill
     for i, (rate, color) in enumerate(zip(rates, predefined_colors)):
-        max_period_ms = rate.consumption_period.to_milliseconds()
-        t_milliseconds = int(time_interval.to_milliseconds())
+        debug_values = rate.show_capacity(time_interval, debug=True)
+        times_ms, capacities = zip(*debug_values)
+        original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
 
-        if t_milliseconds > max_period_ms:
-            print("Exceeded rate period. Switching between accumulated and instantaneous curves is possible.")
+        rgba_color = (
+            f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+        )
 
-            # Use debug values to plot accumulated and instantaneous curves
-            debug_values_accumulated = rate.show_capacity(time_interval, debug=True)
-            debug_values_instantaneous = rate.show_capacity(time_interval, debug=True)
+        # Solo se muestra la curva acumulada
+        fig.add_trace(go.Scatter(
+            x=original_times,
+            y=capacities,
+            mode='lines',
+            line=dict(color=color, shape='hv', width=1.3),
+            fill='tozeroy' if i == 0 else 'tonexty',
+            fillcolor=rgba_color,
+            name=f"Accumulated Rate ({rate.consumption_unit}/{rate.consumption_period})"
+        ))
 
-            times_ms_acc, capacities_acc = zip(*debug_values_accumulated)
-            times_ms_inst, capacities_inst = zip(*debug_values_instantaneous)
-
-            original_times_acc = [t / time_interval.unit.to_milliseconds() for t in times_ms_acc]
-            original_times_inst = [t / time_interval.unit.to_milliseconds() for t in times_ms_inst]
-
-            rgba_color = (
-                f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
-            )
-
-            # Accumulated curve: primera capa hasta el eje, las demás sobre la anterior
-            fig.add_trace(go.Scatter(
-                x=original_times_acc,
-                y=capacities_acc,
-                mode='lines',
-                line=dict(color=color, shape='hv', width=1.3),
-                fill='tozeroy' if i == 0 else 'tonexty',
-                fillcolor=rgba_color,
-                name=f"Accumulated Rate ({rate.consumption_unit}/{rate.consumption_period})"
-            ))
-
-            # Instantaneous curve: igual regla de fill
-            fig.add_trace(go.Scatter(
-                x=original_times_inst,
-                y=capacities_inst,
-                mode='lines',
-                line=dict(color=color, shape='hv', width=1.3),
-                fill='tozeroy' if i != 0 else 'tonexty',
-                fillcolor=rgba_color,
-                name=f"Instantaneous Rate ({rate.consumption_unit}/{rate.consumption_period})"
-            ))
-
-            n_acc = len(times_ms_acc)
-            n_inst = len(times_ms_inst)
-
-            accum_visible = [True] * n_acc + [False] * n_inst
-            inst_visible  = [False] * n_acc + [True] * n_inst
-
-            fig.update_layout(
-                title="Accumulated Capacity",
-                updatemenus=[
-                    dict(
-                        type="buttons",
-                        direction="left",
-                        x=0.30,
-                        xanchor="left",
-                        y=1.10,
-                        yanchor="top",
-                        buttons=[
-                            dict(
-                                label="Accumulated",
-                                method="update",
-                                args=[
-                                    {"visible": accum_visible},
-                                    {"title": "Accumulated Capacity"}
-                                ]
-                            ),
-                            dict(
-                                label="Instantaneous",
-                                method="update",
-                                args=[
-                                    {"visible": inst_visible},
-                                    {"title": "Instantaneous Capacity"}
-                                ]
-                            )
-                        ]
-                    )
-                ],
-                xaxis_title=f"Time ({time_interval.unit.value})",
-                yaxis_title="Capacity",
-                legend_title="Rates",
-                template="plotly_white",
-                width=1000,
-                height=600
-            )
-        else:
-            debug_values = rate.show_capacity(time_interval, debug=True)
-            times_ms, capacities = zip(*debug_values)
-            original_times = [t / time_interval.unit.to_milliseconds() for t in times_ms]
-
-            rgba_color = (
-                f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
-            )
-
-            fig.add_trace(go.Scatter(
-                x=original_times,
-                y=capacities,
-                mode='lines',
-                line=dict(color=color, shape='hv', width=1.3),
-                fill='tozeroy' if i != 0 else 'tonexty',
-                fillcolor=rgba_color,
-                name=f"Rate ({rate.consumption_unit}/{rate.consumption_period})"
-            ))
+    # Configuración del diseño
+    fig.update_layout(
+        title="Accumulated Capacity",
+        xaxis_title=f"Time ({time_interval.unit.value})",
+        yaxis_title="Capacity",
+        legend_title="Rates",  # Título de la leyenda
+        showlegend=True,       # Aseguramos que la leyenda esté visible
+        template="plotly_white",
+        width=1000,
+        height=600
+    )
 
     if return_fig:
         return fig
@@ -389,28 +316,8 @@ def update_title(fig: go.Figure, title: str) -> None:
     fig.update_layout(title=title)
     
 if __name__ == "__main__":
-    br1 = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
-    br2 = BoundedRate(
-        Rate(1, "2s"),
-        [
-            Quota(18,   "60s"),
-            Quota(48,  "300s"),
-            Quota(1800, "1h")
-        ]
-    )
+    r1 = Rate(1, "2s")
     
-    #print(br2.capacity_at("1h"))
-    
-    fig = compare_bounded_rates_capacity([br1, br2], "2h", return_fig=True)
-    
-    show_line(fig, x="1h", y=0.5, color="blue", dash="solid", width=2, opacity=0.5,
-                layer="above", annotation_text="1h", annotation_position="top left",
-                annotation_font={"size": 12, "color": "black"}, annotation_align="left")
-    
-    update_legend_names(fig, ["Nominal Capacity", "Regulated Capacity"])
-    update_legend(fig, "Bounded Rates")
-    update_yaxis(fig, "Requests")
-    update_title(fig, "Nominal and regulated capacity of DBLP")
-    fig.show()
-    
-    
+    compare_rates_capacity([r1], "2h")
+
+
