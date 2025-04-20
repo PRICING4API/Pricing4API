@@ -521,30 +521,39 @@ class BoundedRate:
         
     def __init__(self, rate: Rate, quota: Union[Quota, List[Quota], None] = None):
         self.rate = rate
-        self.quota = quota
-        
-        # Validate quota limits are achievable and greater than rate
+        self.quota = []
+        self.limits = [rate]
+
         if quota:
             quotas = [quota] if not isinstance(quota, list) else quota
+            valid_quotas = []
+
             for q in quotas:
-                # Calculate rate capacity over quota period
-                rate_capacity = rate.consumption_unit * (q.consumption_period.to_milliseconds() / rate.consumption_period.to_milliseconds())
-                
-                # Check quota value is greater than rate capacity over one rate period
+                # Validación rápida: que sea mayor que la rate y no supere el máximo posible
                 if q.consumption_unit <= rate.consumption_unit:
-                    raise ValueError(f"Quota limit ({q.consumption_unit}) must be greater than rate limit ({rate.consumption_unit})")
-                
-                # Check quota value is achievable given the rate limits
+                    continue
+                rate_capacity = rate.consumption_unit * (
+                    q.consumption_period.to_milliseconds() / rate.consumption_period.to_milliseconds()
+                )
                 if q.consumption_unit > rate_capacity:
-                    raise ValueError(f"Quota limit ({q.consumption_unit}) is not achievable with rate {rate.consumption_unit}/{rate.consumption_period}. Maximum achievable is {rate_capacity}")
-        
-        self.limits = [rate]
-        
-        if quota:
-            if isinstance(quota, list):
-                self.limits.extend(quota)
-            else:
-                self.limits.append(quota)
+                    continue
+
+                # Simular capacidad hasta el momento de esa cuota
+                temp_limits = [rate] + valid_quotas
+                temp_br = object.__new__(BoundedRate)
+                temp_br.rate = rate
+                temp_br.quota = valid_quotas.copy()
+                temp_br.limits = temp_limits
+                capacity = temp_br.capacity_at(q.consumption_period)
+
+                if capacity >= q.consumption_unit:
+                    valid_quotas.append(q)
+                    self.limits.append(q)
+                else:
+                    print(f"[WARNING] Quota omitted as unreachable: {q}")
+
+            self.quota = valid_quotas
+
                 
     def set_rate(self, new_rate: Rate):
         """

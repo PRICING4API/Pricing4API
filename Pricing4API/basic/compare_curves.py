@@ -316,8 +316,16 @@ def update_title(fig: go.Figure, title: str) -> None:
     fig.update_layout(title=title)
     
 if __name__ == "__main__":
-    r1 = Rate(1, "2s")
+    br1 = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
+    br2 = BoundedRate(
+        Rate(1, "2s"),
+        [
+            Quota(18,   "60s"),
+            Quota(48,  "300s"),
+            Quota(1800, "1h")
+        ]
+    )
     
-    compare_rates_capacity([r1], "2h")
+    compare_bounded_rates_capacity([br1, br2], "2h")
 
 

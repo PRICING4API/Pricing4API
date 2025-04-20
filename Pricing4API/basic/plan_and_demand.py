@@ -185,10 +185,10 @@ class Plan():
 
         
     def info_has_enough_capacity(
-    self,
-    demand: 'Demand',
-    output_time_unit: TimeUnit = TimeUnit.SECOND
-) -> None:
+        self,
+        demand: 'Demand',
+        output_time_unit: TimeUnit = TimeUnit.SECOND
+    ) -> None:
         """
         Prints a human-readable summary of has_enough_capacity(demand)
         using the analysis dictionary returned.
@@ -199,10 +199,9 @@ class Plan():
 
         plan_rate = self.bounded_rate.rate
         d_rate = demand.bounded_rate.rate
+
         v_plan = plan_rate.consumption_unit / plan_rate.consumption_period.to_milliseconds()
         v_dem = d_rate.consumption_unit / d_rate.consumption_period.to_milliseconds()
-
-
 
         if not analysis.get("can_cover"):
             print(f"✘ Demand cannot be served.\n→ Reason: {analysis.get('reason', 'unspecified')}")
@@ -211,20 +210,43 @@ class Plan():
             return
 
         print(f"✔ Demand CAN be served within the plan limits.\n")
-        print(f"→ Plan rate:   {analysis.get('plan_rate')}")
-        print(f"→ Demand rate: {analysis.get('demand_rate')}")
-        print(f"→ Max backlog: {analysis.get('max_backlog')} requests")
-        print(f"→ Time to drain backlog: {analysis.get('drain_time'):.2f} {output_time_unit.value}")
+        print(f"→ Plan rate:   {plan_rate.consumption_unit}/{plan_rate.consumption_period} → {v_plan:.6f} req/ms")
+        print(f"→ Demand rate: {d_rate.consumption_unit}/{d_rate.consumption_period} → {v_dem:.6f} req/ms")
         
-        print("\nRescheduled requests (ID → time):")
-        for r in analysis.get("scheduled_requests", []):
-            print(f"  · Request #{r['id']}: at {r['scheduled_at']:.2f} {output_time_unit.value}")
-        
-        if analysis.get("scheduled_requests"):
-            last_id = analysis['scheduled_requests'][-1]['id']
+        max_backlog = analysis.get("max_backlog")
+        drain_time = analysis.get("drain_time")
+        resume_in = analysis.get("resume_in")
+        resume_plan_rate = analysis.get("resume_plan_rate")
+
+        print(f"→ Max backlog: {max_backlog if max_backlog is not None else 'N/A'} requests")
+
+        if drain_time is not None:
+            print(f"→ Time to drain backlog: {drain_time:.2f} {output_time_unit.value}")
+        else:
+            print(f"→ Time to drain backlog: N/A")
+
+        scheduled = analysis.get("scheduled_requests", [])
+        if scheduled:
+            print("\nRescheduled requests (ID → time):")
+            for r in scheduled:
+                print(f"  · Request #{r['id']}: at {r['scheduled_at']:.2f} {output_time_unit.value}")
+            last_id = scheduled[-1]['id']
             print(f"\n✔ After request #{last_id}, backlog is cleared.")
-        print(f"→ Resume regular demand after {analysis.get('resume_in'):.2f} {output_time_unit.value}")
-        print(f"→ Resume at plan rate: {analysis.get('resume_plan_rate')}\n")
+        else:
+            print("\n✔ No rescheduling required.")
+
+        if resume_in is not None:
+            print(f"→ Resume regular demand after {resume_in:.2f} {output_time_unit.value}")
+        else:
+            print("→ Resume regular demand: N/A")
+
+        if resume_plan_rate is not None:
+            print(f"→ Resume at plan rate: {resume_plan_rate}")
+        else:
+            print("→ Resume at plan rate: N/A")
+
+        print()
+
 
         
     
@@ -359,7 +381,7 @@ if __name__ == "__main__":
 
     # Create a BoundedRate instance for testing
     plan_limits = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
-    demand_fits = Demand(rate=Rate(10, "1min"), quota=Quota(100, "1h"))
+    demand_fits = Demand(rate=Rate(1, "2s"), quota=[Quota(48, "300s"), Quota(1800, "1h")])
     # Create a Plan instance
     plan = Plan("Test Plan", plan_limits, cost=100, overage_cost=10, max_number_of_subscriptions=1, billing_period="1 month")
 
