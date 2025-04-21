@@ -1,8 +1,8 @@
-from typing import List, Union
+from typing import List, Optional, Union
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
 from Pricing4API.basic.bounded_rate import BoundedRate, Rate, Quota
 from Pricing4API.utils import parse_time_string_to_duration, select_best_time_unit
-from Pricing4API.basic.compare_curves import compare_bounded_rates_capacity
+from Pricing4API.basic.compare_curves import *
 import plotly.graph_objects as go
 
 class Plan():
@@ -32,11 +32,49 @@ class Plan():
             time_interval = parse_time_string_to_duration(time_interval)
 
         # Compare the bounded rates of the plan and the demand
-        compare_bounded_rates_capacity(
+        fig = compare_bounded_rates_capacity(
             bounded_rates=[self.bounded_rate, demand.bounded_rate],
             time_interval=time_interval,
             return_fig=return_fig
         )
+        
+        if return_fig:
+            return fig
+    
+    def compare_demands(self, demands: List['Demand'], time_interval: Optional[Union[str, TimeDuration]] = None, return_fig=False):
+        """
+        Compares multiple demands over a specified time interval.
+
+        Args:
+            demands (List[Demand]): The list of demands to compare.
+            time_interval (Optional[Union[str, TimeDuration]]): The time interval for comparison. Defaults to None.
+        """
+        if time_interval is None:
+            max_limit_plan = self.bounded_rate.limits[-1].consumption_period.to_milliseconds()
+            if self.bounded_rate.max_active_time:
+                max_limit_plan = max(max_limit_plan, self.bounded_rate.max_active_time.to_milliseconds())
+
+            for demand in demands:
+                max_limit_demand = demand.bounded_rate.limits[-1].consumption_period.to_milliseconds()
+                if demand.bounded_rate.max_active_time:
+                    max_limit_demand = max(max_limit_demand, demand.bounded_rate.max_active_time.to_milliseconds())
+
+                max_limit_plan = max(max_limit_plan, max_limit_demand)
+
+            time_interval = TimeDuration(max_limit_plan, TimeUnit.MILLISECOND)
+            time_interval = select_best_time_unit(time_interval.to_milliseconds())
+        elif isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+
+        # Compare the bounded rates of the plan and the demand
+        fig = compare_bounded_rates_capacity(
+            bounded_rates=[self.bounded_rate] + [demand.bounded_rate for demand in demands],
+            time_interval=time_interval,
+            return_fig=return_fig
+        )
+        
+        if return_fig:
+            return fig
     
     def has_enough_capacity(
         self,
@@ -339,27 +377,48 @@ class Plan():
 
 
 class Demand():
-    def __init__(self, rate: Rate, quota: Union[Quota, List[Quota], None] = None, N = None):
-        """
-        Initializes a Demand instance, acting as a constructor for BoundedRate.
+    def __init__(
+        self,
+        rate: Union[Rate, int],
+        consumption_period: Union[str, TimeDuration, None] = None,
+        duration: Union[str, TimeDuration, None] = None,
+        quota: Union[Quota, List[Quota], None] = None,
+        N: int = None,
+    ):
+        # nueva sobrecarga: si me pasan un int, lo convierto en Rate
+        if isinstance(rate, int):
+            if consumption_period is None:
+                raise ValueError("Cuando llamas Demand(1, ...), debes pasar también el periodo, p.ej. '3s'")
+            # parsear string a TimeDuration si hace falta
+            if isinstance(consumption_period, str):
+                consumption_period = parse_time_string_to_duration(consumption_period)
+            rate = Rate(rate, consumption_period)
 
-        Args:
-            rate (Rate): The rate object for the demand.
-            quota (Union[Quota, List[Quota], None], optional): The quota(s) for the demand. Defaults to None.
-        """
+        # parsear duration si vino como string
+        if isinstance(duration, str):
+            duration = parse_time_string_to_duration(duration)
+        self.duration = duration
+
+        # mantenemos la lógica antigua para quota y N
         if N is not None:
             self.rate = Rate(rate.consumption_unit * N, rate.consumption_period)
             self.quota = None if quota is None else (quota if isinstance(quota, list) else [quota])
-            # Multiply the quota or quotas by N, keeping the same time period
             if self.quota is not None:
                 self.quota = [
-                    Quota(q.consumption_unit * N, q.consumption_period) for q in self.quota
+                    Quota(q.consumption_unit * N, q.consumption_period)
+                    for q in self.quota
                 ]
         else:
             self.rate = rate
             self.quota = None if quota is None else (quota if isinstance(quota, list) else [quota])
-        
-        self.bounded_rate = BoundedRate(self.rate) if self.quota is None else BoundedRate(self.rate, self.quota)
+
+        # ahora creamos el bounded_rate pasando max_active_time=self.duration
+        self.bounded_rate = BoundedRate(
+            self.rate,
+            self.quota,
+            max_active_time=self.duration
+        )
+
             
     def __str__(self):
         return f"Demand(rate={self.rate}, quota={self.quota})"
@@ -396,12 +455,26 @@ class Demand():
 if __name__ == "__main__":
 
     # Create a BoundedRate instance for testing
-    plan_limits = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
-    demand = Demand(Rate(1, "3s"), Quota(100, "5min"))
+    plan_limits = BoundedRate(Rate(1, "2s"), Quota(1500, "1h"))
+    demand = Demand(1, "3s", "5min")
+    demand2 = Demand(10, "1min", "100min")
+    demand3 = Demand(100, "1min", "10min")
+    demand4 = Demand(1, "2s", "1h")
+
     # Create a Plan instance
     plan = Plan("Test Plan", plan_limits, cost=100, overage_cost=10, max_number_of_subscriptions=1, billing_period="1 month")
 
-    plan.consume(demand, "30min")
+ 
+    fig = plan.compare_demands([demand, demand2, demand3, demand4], return_fig=True)
+    
+    update_title(fig, "Plan vs Demands")
+    update_yaxis(fig, "Requests")
+    #update_legend_names(fig, ["Demand 3", "Plan", "Demand 4", "Demand 1", "Demand 2"])
+    update_legend(fig, "Bounded Rates")
+    fig.show()
+
+    
+    
     
 
 

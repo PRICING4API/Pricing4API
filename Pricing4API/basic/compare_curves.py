@@ -70,6 +70,8 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
 
 
 
+
+
 def compare_bounded_rates_capacity(
     bounded_rates: List[BoundedRate],
     time_interval: Union[str, TimeDuration],
@@ -77,27 +79,21 @@ def compare_bounded_rates_capacity(
 ):
     """
     Compara las curvas de capacidad (acumulada vs. instantánea) de una lista de BoundedRate,
-    empezando por la más lenta. Si el tiempo de simulación >= la cuota máxima, permite alternar
-    entre vista acumulada e instantánea.
-
-    Args:
-        bounded_rates (List[BoundedRate]): Lista de BoundedRate a comparar.
-        time_interval (Union[str, TimeDuration]): Intervalo de simulación ("1h", TimeDuration, etc.).
-        return_fig (bool): Si True devuelve la figura en lugar de mostrarla.
+    empezando por la más lenta. Si el tiempo de simulación >= la cuota máxima y existen cuotas,
+    permite alternar entre vista acumulada e instantánea.
     """
-    # 1) parsear string a TimeDuration si hace falta
     if isinstance(time_interval, str):
         time_interval = parse_time_string_to_duration(time_interval)
 
-    # 2) ordenar de más lento a más rápido
+    # ordenar de más lento a más rápido
     bounded_rates.sort(
         key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit
     )
 
-    # 3) colores predefinidos
+    # Colores predefinidos
     predefined_colors = [
-        "green", "purple", "brown", "pink", "gray", "olive",
-        "cyan", "magenta", "teal", "lime"
+        "green", "purple", "blue", "orange", "red",
+        "yellow", "cyan", "magenta", "black", "lime"
     ]
     if len(bounded_rates) > len(predefined_colors):
         raise ValueError("Not enough colors available for all bounded rates.")
@@ -105,16 +101,20 @@ def compare_bounded_rates_capacity(
     fig = go.Figure()
     unit_ms = time_interval.unit.to_milliseconds()
     sim_ms = int(time_interval.to_milliseconds())
-
-    # índice global de trazas para controlar fill
     trace_idx = 0
 
     for br, color in zip(bounded_rates, predefined_colors):
-        max_quota_ms = br.limits[-1].consumption_period.to_milliseconds()
-        rate_info = f"{br.rate.consumption_unit}/{br.rate.consumption_period}"
-        rgba = (
-            f"rgba({','.join(map(str, [int(c*255) for c in to_rgba(color)[:3]]))},0.2)"
-        )
+        # Construir la leyenda personalizada
+        rate_part = f"{br.rate.consumption_unit}/{br.rate.consumption_period}"
+        legend_label = rate_part
+        if len(br.limits) > 1:
+            q = br.limits[-1]
+            legend_label += f" ·{q.consumption_unit}/{q.consumption_period}"
+        if getattr(br, "max_active_time", None):
+            d = br.max_active_time
+            legend_label += f" during {d.value}{d.unit.value}"
+
+        rgba = f"rgba({','.join(map(str, [int(c*255) for c in to_rgba(color)[:3]]))},0.2)"
 
         # --- acumulada ---
         debug_acc = br.show_available_capacity_curve(time_interval, debug=True)
@@ -129,15 +129,16 @@ def compare_bounded_rates_capacity(
             line=dict(color=color, shape='hv', width=1.3),
             fill=fill_mode,
             fillcolor=rgba,
-            name=f"Accumulated {rate_info}",
-            legendgroup=rate_info,
+            name=legend_label,
+            legendgroup=legend_label,
             showlegend=True,
             visible=True
         ))
         trace_idx += 1
 
-        # --- instantánea (si sim_ms >= cuota) ---
-        if sim_ms >= max_quota_ms:
+        # --- instantánea (solo si hay cuota y el intervalo supera esa cuota) ---
+        max_quota_ms = br.limits[-1].consumption_period.to_milliseconds()
+        if len(br.limits) > 1 and sim_ms >= max_quota_ms:
             debug_inst = br.show_instantaneous_capacity_curve(time_interval, debug=True)
             times_inst, caps_inst = zip(*debug_inst)
             x_inst = [t / unit_ms for t in times_inst]
@@ -150,47 +151,40 @@ def compare_bounded_rates_capacity(
                 line=dict(color=color, shape='hv', width=1.3),
                 fill=fill_mode,
                 fillcolor=rgba,
-                name=f"Instantaneous {rate_info}",
-                legendgroup=rate_info,
-                showlegend=True,
+                name=legend_label,
+                legendgroup=legend_label,
+                showlegend=False,
                 visible=False
             ))
             trace_idx += 1
 
-    # preparamos visibilidad para botones
-    total_traces = trace_idx
-    n_acc = sum(1 for tr in fig.data if "Accumulated" in tr.name)
-    n_inst = total_traces - n_acc
+    # Botones solo si hay instantáneas
+    #n_acc = sum("Accumulated" or True for _ in range(trace_idx))  # no los usamos aquí
+    n_inst = sum(1 for tr in fig.data if tr.showlegend==False)
 
-    if n_inst:
-        vis_acc = [tr.name.startswith("Accumulated") for tr in fig.data]
-        vis_inst = [tr.name.startswith("Instantaneous") for tr in fig.data]
-        updatemenus = [dict(
-            type="buttons", direction="left",
-            x=0.30, y=1.10, xanchor="left", yanchor="top",
-            buttons=[
-                dict(
-                    label="Accumulated",
-                    method="update",
-                    args=[
-                        {"visible": vis_acc},
-                        {"title": "Accumulated Capacity"}
-                    ]
-                ),
-                dict(
-                    label="Instantaneous",
-                    method="update",
-                    args=[
-                        {"visible": vis_inst},
-                        {"title": "Instantaneous Capacity"}
-                    ]
-                )
-            ]
-        )]
-    else:
-        updatemenus = []
+    if n_inst > 0:
+        vis_acc = [tr.showlegend or tr.visible for tr in fig.data]
+        vis_inst = [not v for v in vis_acc]
+        fig.update_layout(
+            updatemenus=[dict(
+                type="buttons", direction="left",
+                x=0.30, y=1.10, xanchor="left", yanchor="top",
+                buttons=[
+                    dict(
+                        label="Accumulated",
+                        method="update",
+                        args=[{"visible": vis_acc}, {"title": "Accumulated Capacity"}]
+                    ),
+                    dict(
+                        label="Instantaneous",
+                        method="update",
+                        args=[{"visible": vis_inst}, {"title": "Instantaneous Capacity"}]
+                    )
+                ]
+            )]
+        )
 
-    # layout final
+    # Layout final
     fig.update_layout(
         title="Capacity Curves",
         xaxis_title=f"Time ({time_interval.unit.value})",
@@ -198,13 +192,15 @@ def compare_bounded_rates_capacity(
         legend_title="Bounded Rates",
         template="plotly_white",
         width=1000,
-        height=600,
-        updatemenus=updatemenus
+        height=600
     )
 
     if return_fig:
         return fig
     fig.show()
+
+
+
     
 
 def show_line(
@@ -258,18 +254,36 @@ def show_line(
 
 def update_legend_names(fig: go.Figure, legend_names: List[str]) -> None:
     """
-    Dynamically updates the legend names for the traces in the figure.
+    Actualiza dinámicamente los nombres de leyenda de un Figure de Plotly
+    agrupando trazas de 1 o 2 (acumulada + opcional instantánea) según el
+    número de bounded rates y asignando los nombres en el orden de legend_names.
 
     Args:
-        fig (go.Figure): The Plotly figure to update.
-        legend_names (List[str]): A list of legend names to apply to the traces.
+        fig (go.Figure): La figura con las trazas ya añadidas.
+        legend_names (List[str]): Lista de nombres de leyenda, uno por bounded rate.
     """
+    traces = fig.data
+    rate_idx = 0
+    i = 0
 
-    for i, trace in enumerate(fig.data):
-        if i < 2:  # First two traces (0 and 1)
-            trace.name = legend_names[0]
-        else:  # Next two traces (2 and 3)
-            trace.name = legend_names[1]
+    # Por cada bounded rate esperamos 1 ó 2 trazas: accumulated y opcional instantaneous
+    while i < len(traces) and rate_idx < len(legend_names):
+        name = legend_names[rate_idx]
+
+        # Si la siguiente traza es instantánea, renombramos el par
+        if i + 1 < len(traces) and traces[i+1].name.startswith("Instantaneous"):
+            traces[i].name = name
+            traces[i].legendgroup = name
+            traces[i+1].name = name
+            traces[i+1].legendgroup = name
+            i += 2
+        else:
+            # Solo acumulada
+            traces[i].name = name
+            traces[i].legendgroup = name
+            i += 1
+
+        rate_idx += 1
         
 def update_legend(fig: go.Figure, legend_title: str) -> None:
     """

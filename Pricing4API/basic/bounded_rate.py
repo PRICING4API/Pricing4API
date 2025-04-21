@@ -519,7 +519,7 @@ class Quota:
 
 class BoundedRate:
         
-    def __init__(self, rate: Rate, quota: Union[Quota, List[Quota], None] = None):
+    def __init__(self, rate: Rate, quota: Union[Quota, List[Quota], None] = None, max_active_time: Optional[TimeDuration] = None):
         self.rate = rate
         self.quota = []
         self.limits = [rate]
@@ -553,8 +553,21 @@ class BoundedRate:
                     print(f"[WARNING] Quota omitted as unreachable: {q}")
 
             self.quota = valid_quotas
+        self.max_active_time = max_active_time
+            
+    def _effective_time(self, time_interval: TimeDuration) -> TimeDuration:
+        """
+        Si tengo max_active_time, devuelvo el mínimo
+        entre time_interval y ese máximo; si no, time_interval.
+        """
+        if self.max_active_time is None:
+            return time_interval
 
-                
+        # comparamos en milisegundos
+        if time_interval.to_milliseconds() <= self.max_active_time.to_milliseconds():
+            return time_interval
+        return self.max_active_time
+
     def set_rate(self, new_rate: Rate):
         """
         Sets a new rate for the BoundedRate object.
@@ -675,35 +688,40 @@ class BoundedRate:
         return capacity_at_end - capacity_at_start
 
     def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
+    # 1) recortamos el intervalo según max_active_time
+        time_interval = self._effective_time(time_interval)
+
         t_milliseconds = int(time_interval.to_milliseconds())
         step = int(self.limits[0].consumption_period.to_milliseconds())
         defined_t_values_ms = list(range(0, t_milliseconds + 1, step))
 
-        # Ensure at least two points if only one exists and t > 0
         if len(defined_t_values_ms) == 1 and t_milliseconds > 0:
             defined_t_values_ms.append(t_milliseconds)
-
-        # Ensure the last point is included
         if defined_t_values_ms[-1] != t_milliseconds:
             defined_t_values_ms.append(t_milliseconds)
 
         with ThreadPoolExecutor() as executor:
-            defined_capacity_values = list(executor.map(lambda t: self.capacity_at(TimeDuration(t, TimeUnit.MILLISECOND)), defined_t_values_ms))
+            defined_capacity_values = list(
+                executor.map(
+                    lambda t: self.capacity_at(
+                        TimeDuration(t, TimeUnit.MILLISECOND)
+                    ),
+                    defined_t_values_ms
+                )
+            )
 
         if debug:
             return list(zip(defined_t_values_ms, defined_capacity_values))
 
-        original_times_in_specified_unit = [
+        original_times = [
             t / time_interval.unit.to_milliseconds() for t in defined_t_values_ms
         ]
-        x_label = f"Time ({time_interval.unit.value})"
 
         fig = go.Figure()
-
         rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'green')[:3]]))},0.3)"
 
         fig.add_trace(go.Scatter(
-            x=original_times_in_specified_unit,
+            x=original_times,
             y=defined_capacity_values,
             mode='lines',
             line=dict(color=color or 'green', shape='hv', width=1.3),
@@ -714,10 +732,9 @@ class BoundedRate:
 
         fig.update_layout(
             title=f'Capacity Curve - Effective Capacity - {time_interval.value} {time_interval.unit.value}',
-            xaxis_title=x_label,
+            xaxis_title=f"Time ({time_interval.unit.value})",
             yaxis_title='Capacity',
             legend_title='Curves',
-            showlegend=True,
             template='plotly_white',
             width=1000,
             height=600
@@ -725,23 +742,24 @@ class BoundedRate:
 
         if return_fig:
             return fig
-
         fig.show()
 
+
+
     def show_instantaneous_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
+    # 1) recortamos el intervalo
+        time_interval = self._effective_time(time_interval)
+
         t_milliseconds = int(time_interval.to_milliseconds())
         step = int(self.limits[0].consumption_period.to_milliseconds())
         quota_frequency_ms = self.limits[-1].consumption_period.to_milliseconds()
 
         defined_t_values_ms = list(range(0, t_milliseconds + 1, step))
-        defined_capacity_values = []
-
-        # Ensure the last point is included
         if defined_t_values_ms[-1] != t_milliseconds:
             defined_t_values_ms.append(t_milliseconds)
 
+        defined_capacity_values = []
         for t in defined_t_values_ms:
-            period_index = t // quota_frequency_ms
             period_time = t % quota_frequency_ms
             capacity = self.capacity_at(TimeDuration(period_time, TimeUnit.MILLISECOND))
             defined_capacity_values.append(capacity)
@@ -749,17 +767,15 @@ class BoundedRate:
         if debug:
             return list(zip(defined_t_values_ms, defined_capacity_values))
 
-        original_times_in_specified_unit = [
+        original_times = [
             t / time_interval.unit.to_milliseconds() for t in defined_t_values_ms
         ]
-        x_label = f"Time ({time_interval.unit.value})"
 
         fig = go.Figure()
-
         rgba_color = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color or 'blue')[:3]]))},0.3)"
 
         fig.add_trace(go.Scatter(
-            x=original_times_in_specified_unit,
+            x=original_times,
             y=defined_capacity_values,
             mode='lines',
             line=dict(color=color or 'blue', shape='hv', width=1.3),
@@ -770,10 +786,9 @@ class BoundedRate:
 
         fig.update_layout(
             title=f'Instantaneous Capacity Curve - Effective Capacity - {time_interval.value} {time_interval.unit.value}',
-            xaxis_title=x_label,
+            xaxis_title=f"Time ({time_interval.unit.value})",
             yaxis_title='Capacity',
             legend_title='Curves',
-            showlegend=True,
             template='plotly_white',
             width=1000,
             height=600
@@ -781,8 +796,8 @@ class BoundedRate:
 
         if return_fig:
             return fig
-
         fig.show()
+
 
     def show_capacity(self, time_interval: Union[str, TimeDuration], debug: bool = False, color=None, return_fig=False):
         if isinstance(time_interval, str):
@@ -798,7 +813,7 @@ class BoundedRate:
 
         max_quota_duration_ms = self.limits[-1].consumption_period.to_milliseconds()
 
-        if t_milliseconds > max_quota_duration_ms:
+        if t_milliseconds > max_quota_duration_ms and len(self.limits) > 1:
             print("Exceeded quota duration. Switching between accumulated and instantaneous curves is possible.")
 
             fig_accumulated = self.show_available_capacity_curve(time_interval, debug, color, return_fig=True)
@@ -808,7 +823,6 @@ class BoundedRate:
 
             for trace in fig_accumulated.data:
                 fig.add_trace(trace)
-
             for trace in fig_instantaneous.data:
                 fig.add_trace(trace)
 
@@ -825,34 +839,26 @@ class BoundedRate:
 
             fig.update_layout(
                 title="Accumulated Capacity",
-                updatemenus=[
-                    dict(
-                        type="buttons",
-                        direction="left",
-                        x=0.30,
-                        xanchor="left",
-                        y=1.10,
-                        yanchor="top",
-                        buttons=[
-                            dict(
-                                label="Accumulated",
-                                method="update",
-                                args=[
-                                    {"visible": accum_visible},
-                                    {"title": "Accumulated Capacity"}
-                                ]
-                            ),
-                            dict(
-                                label="Instantaneous",
-                                method="update",
-                                args=[
-                                    {"visible": inst_visible},
-                                    {"title": "Instantaneous Capacity"}
-                                ]
-                            )
-                        ]
-                    )
-                ],
+                updatemenus=[dict(
+                    type="buttons",
+                    direction="left",
+                    x=0.30,
+                    xanchor="left",
+                    y=1.10,
+                    yanchor="top",
+                    buttons=[
+                        dict(
+                            label="Accumulated",
+                            method="update",
+                            args=[{"visible": accum_visible}, {"title": "Accumulated Capacity"}]
+                        ),
+                        dict(
+                            label="Instantaneous",
+                            method="update",
+                            args=[{"visible": inst_visible}, {"title": "Instantaneous Capacity"}]
+                        )
+                    ]
+                )],
                 xaxis_title=f"Time ({time_interval.unit.value})",
                 yaxis_title="Capacity",
                 legend_title="Curves",
@@ -864,10 +870,21 @@ class BoundedRate:
 
             if return_fig:
                 return fig
-            else:
-                fig.show()
+            fig.show()
         else:
-            return self.show_available_capacity_curve(time_interval, debug, color, return_fig)
+            # Aquí reemplazamos el antiguo return de show_available_capacity_curve
+            fig = self.show_available_capacity_curve(
+                time_interval,
+                debug=debug,
+                color=color,
+                return_fig=True
+            )
+            # Nos aseguramos de que la leyenda aparezca
+            fig.update_layout(showlegend=True)
+            if return_fig:
+                return fig
+            fig.show()
+
 
     def min_time(self, capacity_goal: int, return_unit: Optional[TimeUnit] = None, display=True) -> Union[str, TimeDuration]:
         """
