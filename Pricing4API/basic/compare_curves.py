@@ -191,8 +191,15 @@ def compare_bounded_rates_capacity(
         yaxis_title="Capacity",
         legend_title="Bounded Rates",
         template="plotly_white",
-        width=1000,
-        height=600
+        width=1200,  # Aumentar el ancho
+        height=700,  # Aumentar la altura
+        margin=dict(l=60, r=60, t=80, b=60),  # Márgenes ajustados
+        legend=dict(
+            x=1.02,  # Mover la leyenda ligeramente fuera del gráfico
+            y=1,
+            xanchor="left",
+            yanchor="top"
+        )
     )
 
     if return_fig:

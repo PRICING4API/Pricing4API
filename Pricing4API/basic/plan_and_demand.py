@@ -13,6 +13,7 @@ class Plan():
         self.overage_cost = overage_cost
         self.max_number_of_subscriptions = max_number_of_subscriptions
         self.billing_period = billing_period
+        self.max_included_quota: Optional[int] = None
 
     def show_capacity(self, time_interval: Union[str, TimeDuration]):
         if isinstance(time_interval, str):
@@ -75,6 +76,45 @@ class Plan():
         
         if return_fig:
             return fig
+    
+    def has_enough_capacity_for_constant_rate(
+        self,
+        demand: 'Demand',
+        time_interval: Union[str, TimeDuration, None] = None
+    ) -> None:
+        """
+        Check if this plan can serve a constant‐rate demand over the demand's duration.
+        Prints Yes or No and the first point of failure (if any).
+        """
+        # 1) Si no viene intervalo, usamos la duración de la demanda
+        if time_interval is None:
+            time_interval = demand.bounded_rate.max_active_time
+            if time_interval is None:
+                raise ValueError("Demand has no max_active_time; please supply time_interval.")
+        elif isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+
+        # 2) Extraemos curvas debug [(t_ms, cap), ...]
+        plan_pts = self.bounded_rate.show_available_capacity_curve(time_interval, debug=True)
+        dem_pts  = demand.bounded_rate.show_available_capacity_curve(time_interval, debug=True)
+
+        unit_ms = time_interval.unit.to_milliseconds()
+
+        # 3) Recorremos punto a punto
+        for (t_ms, cap_plan), (_, cap_dem) in zip(plan_pts, dem_pts):
+            t_val = t_ms / unit_ms
+            if cap_dem > cap_plan:
+                print(
+                    f"No: at t={t_val:.2f}{time_interval.unit.value}, "
+                    f"plan={cap_plan}, demand={cap_dem}"
+                )
+                return
+
+        # 4) Si nunca falla
+        print(
+            f"Yes: plan covers demand up to "
+            f"{time_interval.value}{time_interval.unit.value}."
+        )
     
     def has_enough_capacity(
         self,
