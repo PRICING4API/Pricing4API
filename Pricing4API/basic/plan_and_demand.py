@@ -20,7 +20,7 @@ class Plan():
         
         return self.bounded_rate.show_capacity(time_interval)
 
-    def consume(self, demand: 'Demand', time_interval: Union[str, TimeDuration]):
+    def consume(self, demand: 'Demand', time_interval: Union[str, TimeDuration],return_fig=False):
         """
         Consumes demand over a specified time interval, comparing bounded rates.
 
@@ -34,7 +34,8 @@ class Plan():
         # Compare the bounded rates of the plan and the demand
         compare_bounded_rates_capacity(
             bounded_rates=[self.bounded_rate, demand.bounded_rate],
-            time_interval=time_interval
+            time_interval=time_interval,
+            return_fig=return_fig
         )
     
     def has_enough_capacity(
