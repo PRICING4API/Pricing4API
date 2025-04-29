@@ -1,5 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
-from typing import List, Union, Optional
+from typing import List, Union, Optional, Tuple
 
 import numpy as np
 import plotly.graph_objects as go
@@ -937,6 +937,133 @@ class BoundedRate:
 
 
 
+    def calcular_puntos_inflexion(self):
+        puntos = []
+        limits_no_rate = self.limits[1:]
+        if not isinstance(limits_no_rate, list):
+            limits_no_rate = [limits_no_rate]
+
+        exhaustion_thresholds = self.quota_exhaustion_threshold(display=False)
+        if not isinstance(exhaustion_thresholds, list):
+            exhaustion_thresholds = [exhaustion_thresholds]
+
+        for index, limit in enumerate(limits_no_rate):
+            if index == 0:
+                tiempo = TimeDuration(0, TimeUnit.SECOND)
+                puntos.append((0, self.capacity_at("0s")))
+                tiempo = exhaustion_thresholds[index]
+                while tiempo.to_seconds() <= exhaustion_thresholds[index+1].to_seconds():
+                    i=1
+                    puntos.append((tiempo.to_seconds(), self.capacity_at(tiempo)))
+                    tiempo = (limits_no_rate[index].consumption_period*i)+tiempo
+                    print(f'El tiempo calculad es: {tiempo.to_seconds()}')
+                    i+=1
+                puntos.append((exhaustion_thresholds[index+1].to_seconds(), self.capacity_at(exhaustion_thresholds[index+1])))
+
+            
+
+        return puntos
+
+    def calculate_inflection_points(self, time_interval: Union[str, TimeDuration]) -> List[Tuple[float, float]]:
+        """
+        Returns a list of (t_ms, capacity) inflection points for each quota window,
+        up to the given time_interval.
+        """
+        # 1) normalize input
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+        sim_ms = int(time_interval.to_milliseconds())
+
+        # 2) only quotas (skip the base Rate)
+        quotas = self.limits[1:]
+        if not quotas:
+            # no quotas → straight line from 0 to sim_ms
+            return [
+                (0.0, self.capacity_at("0s")),
+                (sim_ms, self.capacity_at(TimeDuration(sim_ms, TimeUnit.MILLISECOND)))
+            ]
+
+        # 3) exhaustion thresholds per quota
+        thresholds = self.quota_exhaustion_threshold(display=False)
+        if not isinstance(thresholds, list):
+            thresholds = [thresholds]
+
+        points: List[Tuple[float, float]] = []
+        # 4) for each quota generate start→exhaustion→plateau segments
+        for idx, quota in enumerate(quotas):
+            period_ms = int(quota.consumption_period.to_milliseconds())
+            t_ast = thresholds[idx]
+            if isinstance(t_ast, str):
+                t_ast = parse_time_string_to_duration(t_ast)
+            t_ast_ms = int(t_ast.to_milliseconds())
+
+            k = 0
+            while True:
+                start_ms = k * period_ms
+                if start_ms >= sim_ms:
+                    break
+
+                # if a higher quota already kicked in before this start, stop
+                if any(q.consumption_period.to_milliseconds() <= start_ms for q in quotas[idx+1:]):
+                    break
+
+                # 4a) start of window
+                points.append((start_ms, self.capacity_at(TimeDuration(start_ms, TimeUnit.MILLISECOND))))
+                # 4b) exhaustion point
+                agot_ms = min(start_ms + t_ast_ms, sim_ms)
+                points.append((agot_ms, self.capacity_at(TimeDuration(agot_ms, TimeUnit.MILLISECOND))))
+                # 4c) plateau until window end
+                fin_ms = min((k+1)*period_ms, sim_ms)
+                points.append((fin_ms, self.capacity_at(TimeDuration(agot_ms, TimeUnit.MILLISECOND))))
+
+                if fin_ms >= sim_ms:
+                    break
+                k += 1
+
+        # 5) ensure (0,0) if missing, sort & dedupe
+        if not any(t == 0 for t, _ in points):
+            points.append((0.0, self.capacity_at("0s")))
+        # remove duplicates and sort by time
+        unique = sorted({(t, c) for t, c in points}, key=lambda x: x[0])
+        return unique
+
+    def plot_piecewise_capacity(self, time_interval: Union[str, TimeDuration], return_fig=False):
+        """
+        Plots the piecewise 'hv' capacity curve up to time_interval,
+        using inflection points from calculate_inflection_points().
+        """
+        # 1) get raw points in milliseconds
+        raw = self.calculate_inflection_points(time_interval)
+
+        # 2) determine unit from the input interval
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+        unit_ms = time_interval.unit.to_milliseconds()
+
+        # 3) scale X axis to that unit
+        x = [t / unit_ms for t, _ in raw]
+        y = [c for _, c in raw]
+
+        # 4) plot
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            x=x, y=y,
+            mode="lines",
+            line=dict(shape="hv", width=2),
+            fill="tozeroy",
+            name="Piecewise Capacity"
+        ))
+        fig.update_layout(
+            title="Capacity Curve (Piecewise by Quotas)",
+            xaxis_title=f"Time ({time_interval.unit.value})",
+            yaxis_title="Capacity",
+            template="plotly_white"
+        )
+
+        if return_fig:
+            return fig
+        fig.show()
+
 
     def quota_exhaustion_threshold(self,display=True) -> List[Union[str, TimeDuration]]:
         """
@@ -954,13 +1081,30 @@ class BoundedRate:
             exhaustion_thresholds.append(self.min_time(object.consumption_unit, display=display))
  
         return exhaustion_thresholds[0] if len(exhaustion_thresholds) == 1 else exhaustion_thresholds
-
-
-
-
-if __name__ == "__main__":
-    pass
     
+if __name__ == "__main__":
+    br1 = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
+    br2 = BoundedRate(
+        Rate(1, "2s"),
+        [
+            Quota(18,   "60s"),
+            Quota(48,  "300s"),
+            Quota(1800, "1h")
+        ]
+    )
+
+    # exhaustion thresholds
+
+        # exhaustion thresholds
+    print(br2.quota_exhaustion_threshold())
+    exhaustion = br2.quota_exhaustion_threshold()
+    print(br2.capacity_at("92s"))
+    print(br2.calcular_puntos_inflexion())
+    print(br1.calculate_inflection_points("1h"))
+    br2.plot_piecewise_capacity("500s")
+
+
+ 
     
 
 

@@ -1,6 +1,6 @@
 from enum import Enum
 from math import floor
-
+from typing import Union
 class TimeUnit(Enum):
     MILLISECOND = "ms"
     SECOND = "s"
@@ -185,6 +185,24 @@ class TimeDuration:
         # Convertir el total a la unidad de la primera instancia
         total_in_self_unit = self.unit.seconds_to_time_unit(total_seconds)
         return TimeDuration(total_in_self_unit, self.unit)
+
+    def __mul__(self, other: Union["TimeDuration", int, float]) -> "TimeDuration":
+        """
+        Multiplies a TimeDuration by either another TimeDuration or a number.
+        If multiplied by another TimeDuration, converts both to seconds, multiplies values
+        and returns a new TimeDuration with the unit of the first instance.
+        If multiplied by a number, multiplies the value directly.
+        """
+        if isinstance(other, TimeDuration):
+            # Convertir ambas duraciones a segundos
+            total_seconds = self.to_seconds() * other.to_seconds()
+            # Convertir el total a la unidad de la primera instancia
+            total_in_self_unit = self.unit.seconds_to_time_unit(total_seconds)
+            return TimeDuration(total_in_self_unit, self.unit)
+        elif isinstance(other, (int, float)):
+            return TimeDuration(self.value * other, self.unit)
+        else:
+            raise TypeError("Can only multiply TimeDuration with another TimeDuration or a number")
     
 
     def __repr__(self):
