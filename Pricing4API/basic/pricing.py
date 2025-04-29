@@ -173,19 +173,12 @@ class Pricing:
         fig.show()
 
     def show_capacity_and_cost(
-        self,
-        time_interval: Union[str, TimeDuration, None] = None,
-        *,
-        desired_demand: Optional[int] = None,
-        return_fig: bool = False
+            self,
+            time_interval: Union[str, TimeDuration, None] = None,
+            *,
+            desired_demand: Optional[int] = None,
+            return_fig: bool = False
     ):
-        """
-        Igual que antes, pero si se pasa `desired_demand`:
-          - Izq: dibuja hline en y = desired_demand y calcula para cada plan
-            el tiempo mínimo (usando bounded_rate.min_time) para alcanzarlo.
-          - Drch: dibuja vline en x = desired_demand y calcula el coste
-            para cada plan en ese número de peticiones.
-        """
         if time_interval is None:
             time_interval = self._compute_default_interval()
         elif isinstance(time_interval, str):
@@ -200,24 +193,24 @@ class Pricing:
             column_widths=[0.6, 0.4]
         )
 
-        # — Capacity subplot —
+        # — Capacity subplot — 
         fig_cap = compare_bounded_rates_capacity_inflection_points(
             bounded_rates=[p.bounded_rate for p in self.plans],
             time_interval=time_interval,
             return_fig=True
         )
-        #update_legend_names(fig_cap, ["Plan Mega", "Plan Pro", "Plan Ultra"])
         update_legend_names(fig_cap, [p.name for p in self.plans])
 
-        acc_traces = [tr for tr in fig_cap.data if tr.showlegend]
-        for idx, tr in enumerate(acc_traces):
-            limit = next(p.max_included_quota for p in self.plans if p.name == tr.legendgroup)
-            if any(y > limit for y in tr.y):
-                tr.line.dash = "dash"
-            tr.line.color = colors[idx]  # Aseguramos que el color sea consistente
+        # Añadimos cada traza alineada y recoloreada
+        for idx, tr in enumerate(fig_cap.data):
+            # sólo los fill="tozeroy" nos interesan
+            if getattr(tr, "fill", None) == "tozeroy":
+                r, g, b, _ = to_rgba(colors[idx])
+                tr.fillcolor = f"rgba({int(r*255)},{int(g*255)},{int(b*255)},0.2)"
+            tr.line.color = colors[idx]
             fig.add_trace(tr, row=1, col=1)
 
-        # si se pide desired_demand, trazo horizontal y calculo tiempos
+        # — Imprimimos tiempos si hay desired_demand —
         if desired_demand is not None:
             fig.add_hline(
                 y=desired_demand,
@@ -225,8 +218,7 @@ class Pricing:
                 annotation_text=f"Demand={desired_demand}",
                 row=1, col=1
             )
-            # imprimir tiempos
-            for idx, plan in enumerate(self.plans):
+            for plan in self.plans:
                 try:
                     t_str = plan.bounded_rate.min_time(desired_demand)
                 except Exception:
@@ -236,14 +228,21 @@ class Pricing:
         fig.update_xaxes(title_text=fig_cap.layout.xaxis.title.text, row=1, col=1)
         fig.update_yaxes(title_text=fig_cap.layout.yaxis.title.text, row=1, col=1)
 
-        # — Cost subplot —
+        # — Cost subplot — 
         for idx, plan in enumerate(self.plans):
-            col = colors[idx]
-            max_req = int(plan.bounded_rate.capacity_at(time_interval))
-            xs = list(range(max_req + 1))
-            base = plan.cost
-            over = plan.overage_cost or 0
-            limit = plan.max_included_quota
+            col        = colors[idx]
+            base       = plan.cost
+            over       = plan.overage_cost or 0.0
+            limit      = plan.max_included_quota
+            sim_cap    = int(plan.bounded_rate.capacity_at(time_interval))
+
+            # Defino sólo los x de quiebre
+            xs = [0, limit, sim_cap]
+            if desired_demand is not None and 0 < desired_demand < sim_cap:
+                xs.append(desired_demand)
+
+            xs = sorted(set(xs))
+            # Calculo coste en cada quiebre
             ys = [base + max(0, x - limit) * over for x in xs]
 
             fig.add_trace(
@@ -256,7 +255,7 @@ class Pricing:
                 row=1, col=2
             )
 
-        # si se pide desired_demand, trazo vertical y calculo costes
+        # — Imprimimos costes si hay desired_demand —
         if desired_demand is not None:
             fig.add_vline(
                 x=desired_demand,

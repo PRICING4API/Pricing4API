@@ -968,6 +968,7 @@ class BoundedRate:
         """
         Returns a list of (t_ms, capacity) inflection points for each quota window,
         up to the given time_interval, pruning redundant plateau points.
+        Always guarantees at least [(0, cap0), (sim_ms, cap_sim)].
         """
         # 1) normalize input
         if isinstance(time_interval, str):
@@ -1020,24 +1021,25 @@ class BoundedRate:
                     break
                 k += 1
 
-        # 5) ensure (0,0) if missing
+        # 5) ensure (0, cap0) if missing
         if not any(t == 0 for t, _ in points):
             points.append((0.0, self.capacity_at("0s")))
 
-        # 6) dedupe and sort by time for pruning
+        # 6) ensure (sim_ms, cap_sim) if missing
+        final_cap = self.capacity_at(TimeDuration(sim_ms, TimeUnit.MILLISECOND))
+        if not any(t == sim_ms for t, _ in points):
+            points.append((sim_ms, final_cap))
+
+        # 7) dedupe and sort by time for pruning
         time_sorted = sorted({(t, c) for t, c in points}, key=lambda x: x[0])
 
-        # 7) prune plateau points: drop any point whose capacity equals
-        #    both the previous and next capacity
+        # 8) prune plateau points
         def _prune_plateaus(pts: List[Tuple[float,float]]) -> List[Tuple[float,float]]:
             if len(pts) <= 2:
                 return pts[:]
             pruned = [pts[0]]
             for prev, curr, nxt in zip(pts, pts[1:], pts[2:]):
-                _, c_prev = prev
-                t_curr, c_curr = curr
-                _, c_next = nxt
-                if c_curr == c_prev == c_next:
+                if prev[1] == curr[1] == nxt[1]:
                     continue
                 pruned.append(curr)
             pruned.append(pts[-1])
@@ -1045,9 +1047,10 @@ class BoundedRate:
 
         pruned = _prune_plateaus(time_sorted)
 
-        # 8) final sort by (capacity, time)
+        # 9) final sort by (capacity, time) if needed
         result = sorted(pruned, key=lambda x: (x[1], x[0]))
         return result
+
     
     def show_capacity_from_inflection_points(self,
                                     time_interval: Union[str, TimeDuration],
