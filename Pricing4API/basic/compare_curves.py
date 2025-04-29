@@ -116,7 +116,7 @@ def compare_bounded_rates_capacity_inflection_points(
             y=capacities,
             mode='lines',
             line=dict(color=color, shape='linear', width=2),
-            fill='tozeroy' if i == 0 else 'tonexty',
+            fill='tozeroy' if i != 0 else 'tonexty',
             fillcolor=rgba,
             name=legend_label
         ))
