@@ -1051,8 +1051,9 @@ class BoundedRate:
     
     def show_capacity_from_inflection_points(self,
                                     time_interval: Union[str, TimeDuration],
-                                    return_fig: bool = False
-                                    ) -> Optional[go.Figure]:
+                                    return_fig: bool = False,
+                                    debug: bool = False
+                                    ) -> Optional[Union[go.Figure, List[Tuple[float, float]]]]:
             """
             Dibuja **solo las pendientes** uniendo con líneas rectas los puntos de inflexión,
             rellena bajo la curva con verde translúcido.
@@ -1064,6 +1065,10 @@ class BoundedRate:
 
             # 2) obtengo y preparo los puntos
             raw_pts = self.calculate_inflection_points(time_interval)
+            
+            if debug:
+                return raw_pts
+                
             xs = [t / unit_ms for t,_ in raw_pts]
             ys = [c       for _,c in raw_pts]
 

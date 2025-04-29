@@ -10,7 +10,8 @@ from Pricing4API.basic.plan_and_demand import Plan
 from Pricing4API.basic.bounded_rate import BoundedRate, Quota, Rate
 from Pricing4API.basic.compare_curves import (
     compare_bounded_rates_capacity,
-    update_legend_names
+    update_legend_names,
+    compare_bounded_rates_capacity_inflection_points
 )
 
 
@@ -200,7 +201,7 @@ class Pricing:
         )
 
         # — Capacity subplot —
-        fig_cap = compare_bounded_rates_capacity(
+        fig_cap = compare_bounded_rates_capacity_inflection_points(
             bounded_rates=[p.bounded_rate for p in self.plans],
             time_interval=time_interval,
             return_fig=True

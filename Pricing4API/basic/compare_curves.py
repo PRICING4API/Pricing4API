@@ -69,6 +69,72 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
     fig.show()
 
 
+def compare_bounded_rates_capacity_inflection_points(
+    bounded_rates: List[BoundedRate],
+    time_interval: Union[str, TimeDuration],
+    return_fig: bool = False
+):
+    """
+    Compara las curvas de capacidad de una lista de BoundedRate,
+    mostrando solo los puntos de inflexión.
+
+    Args:
+        bounded_rates: Lista de BoundedRate.
+        time_interval: Tiempo total de simulación.
+        return_fig: Si se debe devolver la figura.
+    """
+    if isinstance(time_interval, str):
+        time_interval = parse_time_string_to_duration(time_interval)
+
+    # Ordenar las tasas acotadas por velocidad
+    bounded_rates.sort(
+        key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit
+    )
+
+    predefined_colors = [
+        "green", "purple", "blue", "orange", "red",
+        "yellow", "cyan", "magenta", "black", "lime"
+    ]
+    if len(bounded_rates) > len(predefined_colors):
+        raise ValueError("Not enough colors available.")
+
+    fig = go.Figure()
+    unit_ms = time_interval.unit.to_milliseconds()
+
+    for br, color in zip(bounded_rates, predefined_colors):
+        # Obtener los puntos de inflexión en modo debug
+        inflection_points = br.show_capacity_from_inflection_points(time_interval, debug=True)
+
+        x_vals = [t / unit_ms for t, _ in inflection_points]
+        capacities = [cap for _, cap in inflection_points]
+
+        rgba = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
+        legend_label = f"{br.rate.consumption_unit}/{br.rate.consumption_period}"
+
+        fig.add_trace(go.Scatter(
+            x=x_vals,
+            y=capacities,
+            mode='lines+markers',
+            line=dict(color=color, shape='hv', width=1.3),
+            marker=dict(size=8),
+            fill='tonexty',
+            fillcolor=rgba,
+            name=legend_label
+        ))
+
+    fig.update_layout(
+        title="Inflection Points of Capacity Curves",
+        xaxis_title=f"Time ({time_interval.unit.value})",
+        yaxis_title="Capacity",
+        legend_title="Bounded Rates",
+        template="plotly_white",
+        width=1000,
+        height=600
+    )
+
+    if return_fig:
+        return fig
+    fig.show()
 
 
 
