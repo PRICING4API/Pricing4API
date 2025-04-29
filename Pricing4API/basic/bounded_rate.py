@@ -1024,45 +1024,200 @@ class BoundedRate:
         if not any(t == 0 for t, _ in points):
             points.append((0.0, self.capacity_at("0s")))
         # remove duplicates and sort by time
-        unique = sorted({(t, c) for t, c in points}, key=lambda x: x[0])
+        unique = sorted({(t, c) for t, c in points}, key=lambda x: (x[1], x[0]))
         return unique
-
-    def plot_piecewise_capacity(self, time_interval: Union[str, TimeDuration], return_fig=False):
+    
+    def show_inflection_slopes(self,
+                        time_interval: Union[str, TimeDuration],
+                        return_fig: bool = False
+                        ) -> Optional[go.Figure]:
         """
-        Plots the piecewise 'hv' capacity curve up to time_interval,
-        using inflection points from calculate_inflection_points().
+        Dibuja únicamente los tramos inclinados (pendientes) de la curva de capacidad
+        uniendo cada par de puntos de inflexión donde cambia la capacidad, con línea
+        continua (shape='linear').
         """
-        # 1) get raw points in milliseconds
-        raw = self.calculate_inflection_points(time_interval)
-
-        # 2) determine unit from the input interval
+        # 1) Normalizar el intervalo
         if isinstance(time_interval, str):
             time_interval = parse_time_string_to_duration(time_interval)
         unit_ms = time_interval.unit.to_milliseconds()
 
-        # 3) scale X axis to that unit
-        x = [t / unit_ms for t, _ in raw]
-        y = [c for _, c in raw]
-
-        # 4) plot
+        # 2) Obtener puntos de inflexión
+        pts = self.calculate_inflection_points(time_interval)
+        # 3) Construir figura
         fig = go.Figure()
-        fig.add_trace(go.Scatter(
-            x=x, y=y,
-            mode="lines",
-            line=dict(shape="hv", width=2),
-            fill="tozeroy",
-            name="Piecewise Capacity"
-        ))
+        for i in range(len(pts)-1):
+            t1, c1 = pts[i]
+            t2, c2 = pts[i+1]
+            # sólo pendientes (donde c1 != c2)
+            if c1 != c2:
+                fig.add_trace(go.Scatter(
+                    x=[t1/unit_ms, t2/unit_ms],
+                    y=[c1, c2],
+                    mode="lines",
+                    line=dict(shape="linear", color="green", width=2),
+                    showlegend=False
+                ))
+
+        # 4) Ajuste de ejes y layout
         fig.update_layout(
-            title="Capacity Curve (Piecewise by Quotas)",
-            xaxis_title=f"Time ({time_interval.unit.value})",
-            yaxis_title="Capacity",
-            template="plotly_white"
+            title="Capacity Curve (Slopes Only)",
+            xaxis=dict(title=f"Time ({time_interval.unit.value})"),
+            yaxis=dict(title="Accumulated Capacity"),
+            template="plotly_white",
+            width=900,
+            height=500
         )
 
         if return_fig:
             return fig
         fig.show()
+
+    def show_inflection_capacity(self,
+                                 time_interval: Union[str, TimeDuration],
+                                 return_fig: bool = False) -> Optional[go.Figure]:
+        """
+        Draws the piecewise capacity curve:
+         - horizontal‐vertical fill for plateaus (shape="hv")
+         - dashed linear ramps between inflection points
+        """
+        # 1) Normalize input
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+        unit_ms = time_interval.unit.to_milliseconds()
+
+        # 2) Get sorted inflection points (t_ms, capacity)
+        pts = self.calculate_inflection_points(time_interval)
+        # Convert t_ms → axis units
+        xs = [t / unit_ms for t, _ in pts]
+        ys = [c for _, c in pts]
+
+        fig = go.Figure()
+
+        # 3) Main trace: hv fill
+        fig.add_trace(go.Scatter(
+            x=xs,
+            y=ys,
+            mode="lines",
+            line=dict(shape="hv", color="green", width=2),
+            fill="tozeroy",
+            fillcolor="rgba(0,128,0,0.2)",
+            name="Piecewise Capacity"
+        ))
+
+        # 4) Overlay ramps: dashed linear segments
+        for i in range(len(pts)-1):
+            t1, c1 = pts[i]
+            t2, c2 = pts[i+1]
+            # if both time and capacity change → ramp
+            if t1 != t2 and c1 != c2:
+                fig.add_trace(go.Scatter(
+                    x=[t1/unit_ms, t2/unit_ms],
+                    y=[c1, c2],
+                    mode="lines",
+                    line=dict(shape="linear", dash="dash", color="black", width=1.5),
+                    showlegend=False
+                ))
+
+        # 5) Layout
+        fig.update_layout(
+            title="Capacity Curve (Inflection Points)",
+            xaxis=dict(title=f"Time ({time_interval.unit.value})"),
+            yaxis=dict(title="Accumulated Capacity"),
+            template="plotly_white",
+            width=900,
+            height=500
+        )
+
+        if return_fig:
+            return fig
+        fig.show()
+
+    def show_capacity_inflection_only(self,
+                                      time_interval: Union[str, TimeDuration],
+                                      return_fig: bool = False
+                                     ) -> Optional[go.Figure]:
+        """
+        Dibuja solo la curva escalonada a partir de los puntos de inflexión,
+        con el mismo verde y relleno bajo la curva.
+        """
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+        unit_ms = time_interval.unit.to_milliseconds()
+
+        # obtengo puntos de inflexión
+        pts = self.calculate_inflection_points(time_interval)
+        xs = [t / unit_ms for t,_ in pts]
+        ys = [c       for _,c in pts]
+
+        # trazo escalonado + relleno
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            x=xs,
+            y=ys,
+            mode="lines",
+            line=dict(color="green", width=2),
+            fill="tozeroy",
+            fillcolor="rgba(0,128,0,0.2)",
+            name="Capacity"
+        ))
+
+        fig.update_layout(
+            title="Capacity Curve (Inflection Only)",
+            xaxis=dict(title=f"Time ({time_interval.unit.value})"),
+            yaxis=dict(title="Accumulated Capacity"),
+            template="plotly_white",
+            width=900,
+            height=500
+        )
+
+        if return_fig:
+            return fig
+        fig.show()
+
+    def show_capacity_slopes_only(self,
+                                    time_interval: Union[str, TimeDuration],
+                                    return_fig: bool = False
+                                    ) -> Optional[go.Figure]:
+            """
+            Dibuja **solo las pendientes** uniendo con líneas rectas los puntos de inflexión,
+            rellena bajo la curva con verde translúcido.
+            """
+            # 1) normalizar intervalo
+            if isinstance(time_interval, str):
+                time_interval = parse_time_string_to_duration(time_interval)
+            unit_ms = time_interval.unit.to_milliseconds()
+
+            # 2) obtengo y preparo los puntos
+            raw_pts = self.calculate_inflection_points(time_interval)
+            xs = [t / unit_ms for t,_ in raw_pts]
+            ys = [c       for _,c in raw_pts]
+
+            # 3) trazo lineal + relleno
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(
+                x=xs,
+                y=ys,
+                mode="lines",
+                line=dict(shape="linear", color="green", width=2),
+                fill="tozeroy",
+                fillcolor="rgba(0,128,0,0.2)",
+                name="Capacity"
+            ))
+
+            # 4) layout
+            fig.update_layout(
+                title="Capacity Curve (Slopes Only)",
+                xaxis=dict(title=f"Time ({time_interval.unit.value})"),
+                yaxis=dict(title="Accumulated Capacity"),
+                template="plotly_white",
+                width=900,
+                height=500
+            )
+
+            if return_fig:
+                return fig
+            fig.show()
+
 
 
     def quota_exhaustion_threshold(self,display=True) -> List[Union[str, TimeDuration]]:
@@ -1098,10 +1253,11 @@ if __name__ == "__main__":
         # exhaustion thresholds
     print(br2.quota_exhaustion_threshold())
     exhaustion = br2.quota_exhaustion_threshold()
-    print(br2.capacity_at("92s"))
+    print(br2.capacity_during("1h"))
     print(br2.calcular_puntos_inflexion())
-    print(br1.calculate_inflection_points("1h"))
-    br2.plot_piecewise_capacity("500s")
+    print(br2.calculate_inflection_points("500s"))
+    #br2.show_capacity_inflection_only("500s")
+    br2.show_capacity_slopes_only("500s")
 
 
  
