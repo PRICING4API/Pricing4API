@@ -101,7 +101,7 @@ def compare_bounded_rates_capacity_inflection_points(
     fig = go.Figure()
     unit_ms = time_interval.unit.to_milliseconds()
 
-    for br, color in zip(bounded_rates, predefined_colors):
+    for i, (br, color) in enumerate(zip(bounded_rates, predefined_colors)):
         # Obtener los puntos de inflexión en modo debug
         inflection_points = br.show_capacity_from_inflection_points(time_interval, debug=True)
 
@@ -114,22 +114,21 @@ def compare_bounded_rates_capacity_inflection_points(
         fig.add_trace(go.Scatter(
             x=x_vals,
             y=capacities,
-            mode='lines+markers',
-            line=dict(color=color, shape='hv', width=1.3),
-            marker=dict(size=8),
-            fill='tonexty',
+            mode='lines',
+            line=dict(color=color, shape='linear', width=2),
+            fill='tozeroy' if i == 0 else 'tonexty',
             fillcolor=rgba,
             name=legend_label
         ))
 
     fig.update_layout(
-        title="Inflection Points of Capacity Curves",
+        title="Capacity Curve (Slopes Only)",
         xaxis_title=f"Time ({time_interval.unit.value})",
-        yaxis_title="Capacity",
+        yaxis_title="Accumulated Capacity",
         legend_title="Bounded Rates",
         template="plotly_white",
-        width=1000,
-        height=600
+        width=900,
+        height=500
     )
 
     if return_fig:
