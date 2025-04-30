@@ -1080,7 +1080,7 @@ class BoundedRate:
                 
             xs = [t / unit_ms for t, _ in raw_pts]
             ys = [c for _, c in raw_pts]
-            tooltip_labels = [CapacityPlotHelper.format_time_tooltip((t*unit_ms)/1000) for t, _ in raw_pts]
+            tooltip_labels = [CapacityPlotHelper.format_time_tooltip(t/1000) for t, _ in raw_pts]
 
             fig = go.Figure()
             fig.add_trace(go.Scatter(
