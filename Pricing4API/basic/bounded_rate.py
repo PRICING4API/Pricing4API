@@ -1029,6 +1029,10 @@ class BoundedRate:
         final_cap = self.capacity_at(TimeDuration(sim_ms, TimeUnit.MILLISECOND))
         if not any(t == sim_ms for t, _ in points):
             points.append((sim_ms, final_cap))
+        
+        # 6) ¡SIEMPRE! forzamos el punto final con capacity_at(sim_ms)
+        final_cap = self.capacity_at(TimeDuration(sim_ms, TimeUnit.MILLISECOND))   
+        points.append((sim_ms, final_cap))
 
         # 7) dedupe and sort by time for pruning
         time_sorted = sorted({(t, c) for t, c in points}, key=lambda x: x[0])
@@ -1140,7 +1144,7 @@ if __name__ == "__main__":
     exhaustion = br2.quota_exhaustion_threshold()
     print(br2.capacity_during("1h"))
     print(br2.calcular_puntos_inflexion())
-    print(br2.calculate_inflection_points("1000s"))
+    print(br2.calculate_inflection_points("1500s"))
     br2.show_capacity_from_inflection_points("1000s")
 
 
