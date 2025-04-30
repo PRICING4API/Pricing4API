@@ -201,12 +201,17 @@ class Pricing:
         )
         update_legend_names(fig_cap, [p.name for p in self.plans])
 
+        # Store plan names and their corresponding colors
+        plan_colors = {}
+        
         # Añadimos cada traza alineada y recoloreada
         for idx, tr in enumerate(fig_cap.data):
             # sólo los fill="tozeroy" nos interesan
             if getattr(tr, "fill", None) == "tozeroy":
                 r, g, b, _ = to_rgba(colors[idx])
                 tr.fillcolor = f"rgba({int(r*255)},{int(g*255)},{int(b*255)},0.2)"
+                # Store the plan name and color mapping
+                plan_colors[tr.name] = colors[idx]
             tr.line.color = colors[idx]
             fig.add_trace(tr, row=1, col=1)
 
@@ -227,14 +232,16 @@ class Pricing:
 
         fig.update_xaxes(title_text=fig_cap.layout.xaxis.title.text, row=1, col=1)
         fig.update_yaxes(title_text=fig_cap.layout.yaxis.title.text, row=1, col=1)
-
+        print("Plan Colors Mapping:", plan_colors)
         # — Cost subplot — 
-        for idx, plan in enumerate(self.plans):
-            col        = colors[idx]
-            base       = plan.cost
-            over       = plan.overage_cost or 0.0
-            limit      = plan.max_included_quota
-            sim_cap    = int(plan.bounded_rate.capacity_at(time_interval))
+        for plan in self.plans:
+            base = plan.cost
+            over = plan.overage_cost or 0.0
+            limit = plan.max_included_quota
+            sim_cap = int(plan.bounded_rate.capacity_at(time_interval))
+
+            # Get the matching color for this plan
+            col = plan_colors.get(plan.name, "gray")  # Use a default color if not found
 
             # Defino sólo los x de quiebre
             xs = [0, limit, sim_cap]
