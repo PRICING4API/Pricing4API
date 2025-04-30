@@ -7,7 +7,7 @@ from matplotlib.colors import to_rgba
 
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
 from Pricing4API.utils import parse_time_string_to_duration, format_time_with_unit, select_best_time_unit
-
+from Pricing4API.ancillary.CapacityPlotHelper import CapacityPlotHelper
 
 class Rate:
     
@@ -1053,7 +1053,7 @@ class BoundedRate:
         pruned = _prune_plateaus(time_sorted)
 
         # 9) final sort by time (para que siempre vayan de izquierda a derecha)
-        result = sorted(pruned, key=lambda x: x[0])
+        result = sorted(pruned, key=lambda x: (x[1], x[0]))
         return result
 
 
@@ -1078,14 +1078,16 @@ class BoundedRate:
             if debug:
                 return raw_pts
                 
-            xs = [t / unit_ms for t,_ in raw_pts]
-            ys = [c       for _,c in raw_pts]
+            xs = [t / unit_ms for t, _ in raw_pts]
+            ys = [c for _, c in raw_pts]
+            tooltip_labels = [CapacityPlotHelper.format_time_tooltip((t*unit_ms)/1000) for t, _ in raw_pts]
 
-            # 3) trazo lineal + relleno
             fig = go.Figure()
             fig.add_trace(go.Scatter(
                 x=xs,
                 y=ys,
+                customdata=tooltip_labels,
+                hovertemplate="Time: %{customdata}<br>Capacity: %{y}<extra></extra>",
                 mode="lines",
                 line=dict(shape="linear", color="green", width=2),
                 fill="tozeroy",
@@ -1093,15 +1095,18 @@ class BoundedRate:
                 name="Capacity"
             ))
 
+
             # 4) layout
             fig.update_layout(
-                title="Capacity Curve (Slopes Only)",
+                title=f'Curve from Inflection Points',
                 xaxis=dict(title=f"Time ({time_interval.unit.value})"),
                 yaxis=dict(title="Accumulated Capacity"),
-                template="plotly_white",
-                width=900,
-                height=500
-            )
+                legend_title='Curves',
+                showlegend=True,
+                template='plotly_white',
+                width=1000,
+                height=600
+        )
 
             if return_fig:
                 return fig

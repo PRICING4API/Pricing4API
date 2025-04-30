@@ -3,6 +3,7 @@ from typing import List, Optional, Union
 import plotly.graph_objects as go
 from Pricing4API.basic.bounded_rate import Rate, Quota, BoundedRate
 from Pricing4API.ancillary.time_unit import TimeDuration, TimeUnit
+from Pricing4API.ancillary.CapacityPlotHelper import CapacityPlotHelper
 from matplotlib.colors import to_rgba
 from Pricing4API.utils import parse_time_string_to_duration
 
@@ -87,9 +88,9 @@ def compare_bounded_rates_capacity_inflection_points(
         time_interval = parse_time_string_to_duration(time_interval)
 
     # Ordenar las tasas acotadas por velocidad
-    bounded_rates.sort(
-        key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit
-    )
+    #bounded_rates.sort(
+    #    key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit
+    #)
 
     predefined_colors = [
         "green", "purple", "blue", "orange", "red",
@@ -111,12 +112,16 @@ def compare_bounded_rates_capacity_inflection_points(
         rgba = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
         legend_label = f"{br.rate.consumption_unit}/{br.rate.consumption_period}"
 
+        tooltip_labels = [CapacityPlotHelper.format_time_tooltip(t * unit_ms) for t in x_vals]
+
         fig.add_trace(go.Scatter(
             x=x_vals,
             y=capacities,
+            customdata=tooltip_labels,
+            hovertemplate="Time: %{customdata}<br>Capacity: %{y}<extra></extra>",
             mode='lines',
             line=dict(color=color, shape='linear', width=2),
-            fill='tozeroy' if i != 0 else 'tonexty',
+            fill='tozeroy',
             fillcolor=rgba,
             name=legend_label
         ))
@@ -151,9 +156,9 @@ def compare_bounded_rates_capacity(
         time_interval = parse_time_string_to_duration(time_interval)
 
     # ordenar de más lento a más rápido
-    bounded_rates.sort(
-        key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit
-    )
+    #bounded_rates.sort(
+    #    key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit
+    #)
 
     # Colores predefinidos
     predefined_colors = [

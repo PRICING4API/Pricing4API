@@ -207,11 +207,11 @@ class Pricing:
         # Añadimos cada traza alineada y recoloreada
         for idx, tr in enumerate(fig_cap.data):
             # sólo los fill="tozeroy" nos interesan
-            if getattr(tr, "fill", None) == "tozeroy":
-                r, g, b, _ = to_rgba(colors[idx])
-                tr.fillcolor = f"rgba({int(r*255)},{int(g*255)},{int(b*255)},0.2)"
-                # Store the plan name and color mapping
-                plan_colors[tr.name] = colors[idx]
+            
+            r, g, b, _ = to_rgba(colors[idx])
+            tr.fillcolor = f"rgba({int(r*255)},{int(g*255)},{int(b*255)},0.2)"
+            # Store the plan name and color mapping
+            plan_colors[tr.name] = colors[idx]
             tr.line.color = colors[idx]
             fig.add_trace(tr, row=1, col=1)
 
@@ -304,7 +304,7 @@ if __name__ == "__main__":
 
     pricing = Pricing([plan1, plan2, plan3])
     # genera figura y devuelve
-    fig = pricing.show_capacity_and_cost("1day", desired_demand=250000, return_fig=True)
+    fig = pricing.show_capacity_and_cost("1h", desired_demand=250000, return_fig=True)
     #update_legend_names(fig, ["Plan Mega", "Plan Ultra", "Plan Pro", "Plan Pro Cost", "Plan Ultra Cost", "Plan Mega Cost"])
     fig.show()
 
