@@ -990,6 +990,7 @@ class BoundedRate:
             thresholds = [thresholds]
 
         points: List[Tuple[float, float]] = []
+
         # 4) for each quota generate start→exhaustion→plateau segments
         for idx, quota in enumerate(quotas):
             period_ms = int(quota.consumption_period.to_milliseconds())
@@ -1004,18 +1005,17 @@ class BoundedRate:
                 if start_ms >= sim_ms:
                     break
 
-                # if a higher quota already kicked in before this start, stop
-                if any(q.consumption_period.to_milliseconds() <= start_ms for q in quotas[idx+1:]):
-                    break
-
                 # 4a) start of window
-                points.append((start_ms, self.capacity_at(TimeDuration(start_ms, TimeUnit.MILLISECOND))))
-                # 4b) exhaustion point
+                points.append((start_ms,
+                               self.capacity_at(TimeDuration(start_ms, TimeUnit.MILLISECOND))))
+                # 4b) exhaustion point (clamped to sim_ms)
                 agot_ms = min(start_ms + t_ast_ms, sim_ms)
-                points.append((agot_ms, self.capacity_at(TimeDuration(agot_ms, TimeUnit.MILLISECOND))))
+                points.append((agot_ms,
+                               self.capacity_at(TimeDuration(agot_ms, TimeUnit.MILLISECOND))))
                 # 4c) plateau until window end
-                fin_ms = min((k+1)*period_ms, sim_ms)
-                points.append((fin_ms, self.capacity_at(TimeDuration(agot_ms, TimeUnit.MILLISECOND))))
+                fin_ms = min((k + 1) * period_ms, sim_ms)
+                points.append((fin_ms,
+                               self.capacity_at(TimeDuration(agot_ms, TimeUnit.MILLISECOND))))
 
                 if fin_ms >= sim_ms:
                     break
@@ -1033,8 +1033,9 @@ class BoundedRate:
         # 7) dedupe and sort by time for pruning
         time_sorted = sorted({(t, c) for t, c in points}, key=lambda x: x[0])
 
-        # 8) prune plateau points
-        def _prune_plateaus(pts: List[Tuple[float,float]]) -> List[Tuple[float,float]]:
+        # 8) prune plateau points: drop any point whose capacity equals
+        #    both the previous and next capacity
+        def _prune_plateaus(pts: List[Tuple[float, float]]) -> List[Tuple[float, float]]:
             if len(pts) <= 2:
                 return pts[:]
             pruned = [pts[0]]
@@ -1047,9 +1048,10 @@ class BoundedRate:
 
         pruned = _prune_plateaus(time_sorted)
 
-        # 9) final sort by (capacity, time) if needed
-        result = sorted(pruned, key=lambda x: (x[1], x[0]))
+        # 9) final sort by time (para que siempre vayan de izquierda a derecha)
+        result = sorted(pruned, key=lambda x: x[0])
         return result
+
 
     
     def show_capacity_from_inflection_points(self,
@@ -1138,8 +1140,8 @@ if __name__ == "__main__":
     exhaustion = br2.quota_exhaustion_threshold()
     print(br2.capacity_during("1h"))
     print(br2.calcular_puntos_inflexion())
-    print(br2.calculate_inflection_points("500s"))
-    br2.show_capacity_from_inflection_points("500s")
+    print(br2.calculate_inflection_points("1000s"))
+    br2.show_capacity_from_inflection_points("1000s")
 
 
  
