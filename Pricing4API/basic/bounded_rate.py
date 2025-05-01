@@ -1144,13 +1144,11 @@ if __name__ == "__main__":
 
     # exhaustion thresholds
 
-        # exhaustion thresholds
     print(br2.quota_exhaustion_threshold())
     exhaustion = br2.quota_exhaustion_threshold()
-    print(br2.capacity_during("1h"))
-    print(br2.calcular_puntos_inflexion())
-    print(br2.calculate_inflection_points("1500s"))
-    br2.show_capacity_from_inflection_points("1000s")
+    print(br1.calculate_inflection_points("1h"))
+    br2.show_capacity_from_inflection_points("500s")
+    print(br2.capacity_at("500s"))
 
 
  

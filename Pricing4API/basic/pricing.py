@@ -304,7 +304,8 @@ if __name__ == "__main__":
 
     pricing = Pricing([plan1, plan2, plan3])
     # genera figura y devuelve
-    fig = pricing.show_capacity_and_cost("1h", desired_demand=250000, return_fig=True)
+    fig = pricing.show_capacity_and_cost("1month", desired_demand=250000, return_fig=True)
     #update_legend_names(fig, ["Plan Mega", "Plan Ultra", "Plan Pro", "Plan Pro Cost", "Plan Ultra Cost", "Plan Mega Cost"])
+
     fig.show()
 

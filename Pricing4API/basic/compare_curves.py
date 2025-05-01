@@ -107,12 +107,14 @@ def compare_bounded_rates_capacity_inflection_points(
         inflection_points = br.show_capacity_from_inflection_points(time_interval, debug=True)
 
         x_vals = [t / unit_ms for t, _ in inflection_points]
+        print(x_vals)
+        print(unit_ms)
         capacities = [cap for _, cap in inflection_points]
 
         rgba = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
         legend_label = f"{br.rate.consumption_unit}/{br.rate.consumption_period}"
 
-        tooltip_labels = [CapacityPlotHelper.format_time_tooltip(t * unit_ms)/1000 for t in x_vals]
+        tooltip_labels = [CapacityPlotHelper.format_time_tooltip((t * unit_ms)/1000) for t in x_vals]
 
         fig.add_trace(go.Scatter(
             x=x_vals,
