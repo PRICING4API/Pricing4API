@@ -689,6 +689,9 @@ class BoundedRate:
 
     def show_available_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
     # 1) recortamos el intervalo según max_active_time
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+
         time_interval = self._effective_time(time_interval)
 
         t_milliseconds = int(time_interval.to_milliseconds())
@@ -748,6 +751,9 @@ class BoundedRate:
 
     def show_instantaneous_capacity_curve(self, time_interval: TimeDuration, debug: bool = False, color=None, return_fig=False) -> None:
     # 1) recortamos el intervalo
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+            
         time_interval = self._effective_time(time_interval)
 
         t_milliseconds = int(time_interval.to_milliseconds())
