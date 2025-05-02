@@ -184,7 +184,7 @@ class Pricing:
         elif isinstance(time_interval, str):
             time_interval = parse_time_string_to_duration(time_interval)
 
-        palette = ["green", "purple", "blue", "orange", "red", "teal"]
+        palette = ["green", "blue", "orange",  "red", "purple", "brown", "pink", "gray", "olive", "cyan"]
         colors = palette[: len(self.plans)]
 
         fig = make_subplots(

@@ -22,9 +22,7 @@ def compare_rates_capacity(rates: List[Rate], time_interval: Union[str, TimeDura
     # Sort rates by speed (slowest first)
     rates.sort(key=lambda rate: rate.consumption_period.to_milliseconds() / rate.consumption_unit, reverse=False)
 
-    predefined_colors = [
-        "green", "purple", "brown", "pink", "gray", "olive", "cyan", "magenta", "teal", "lime"
-    ]
+    predefined_colors = ["green", "blue", "orange",  "red", "purple", "brown", "pink", "gray", "olive", "cyan"]
 
     if len(rates) > len(predefined_colors):
         raise ValueError("Not enough colors available for all rates.")
@@ -92,10 +90,8 @@ def compare_bounded_rates_capacity_inflection_points(
     #    key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit
     #)
 
-    predefined_colors = [
-        "green", "purple", "blue", "orange", "red",
-        "yellow", "cyan", "magenta", "black", "lime"
-    ]
+    predefined_colors = ["green", "blue", "orange",  "red", "purple", "brown", "pink", "gray", "olive", "cyan"]
+
     if len(bounded_rates) > len(predefined_colors):
         raise ValueError("Not enough colors available.")
 
@@ -163,10 +159,7 @@ def compare_bounded_rates_capacity(
     #)
 
     # Colores predefinidos
-    predefined_colors = [
-        "green", "purple", "blue", "orange", "red",
-        "yellow", "cyan", "magenta", "black", "lime"
-    ]
+    predefined_colors = ["green", "blue", "orange",  "red", "purple", "brown", "pink", "gray", "olive", "cyan"]
     if len(bounded_rates) > len(predefined_colors):
         raise ValueError("Not enough colors available for all bounded rates.")
 
@@ -278,93 +271,6 @@ def compare_bounded_rates_capacity(
         return fig
     fig.show()
 
-def compare_bounded_rates_capacity_flat(
-    bounded_rates: List[BoundedRate],
-    time_interval: Union[str, TimeDuration],
-    return_fig: bool = False,
-    step_ms: Optional[int] = None
-):
-    """
-    Dibuja curvas de capacidad usando puntos discretos basados en `br.capacity_at()`,
-    sin discretizar a lo bestia, pero manteniendo fidelidad.
-
-    Args:
-        bounded_rates: Lista de BoundedRate.
-        time_interval: Tiempo total de simulación.
-        return_fig: Si se debe devolver la figura.
-        step_ms: Paso en milisegundos. Si None, usa el periodo del rate.
-    """
-    if isinstance(time_interval, str):
-        time_interval = parse_time_string_to_duration(time_interval)
-
-    bounded_rates.sort(
-        key=lambda br: br.rate.consumption_period.to_milliseconds() / br.rate.consumption_unit
-    )
-
-    predefined_colors = [
-        "green", "purple", "blue", "orange", "red",
-        "yellow", "cyan", "magenta", "black", "lime"
-    ]
-    if len(bounded_rates) > len(predefined_colors):
-        raise ValueError("Not enough colors available.")
-
-    fig = go.Figure()
-    unit_ms = time_interval.unit.to_milliseconds()
-    sim_ms = int(time_interval.to_milliseconds())
-
-    trace_idx = 0
-
-    for br, color in zip(bounded_rates, predefined_colors):
-        period_ms = step_ms or int(br.rate.consumption_period.to_milliseconds())
-        times_ms = list(range(0, sim_ms + 1, period_ms))
-        if times_ms[-1] != sim_ms:
-            times_ms.append(sim_ms)
-
-        x_vals = [t / unit_ms for t in times_ms]
-        capacities = [
-            br.capacity_at(TimeDuration(t, TimeUnit.MILLISECOND)) for t in times_ms
-        ]
-
-        rgba = f"rgba({','.join(map(str, [int(c * 255) for c in to_rgba(color)[:3]]))},0.2)"
-        legend_label = f"{br.rate.consumption_unit}/{br.rate.consumption_period}"
-        if len(br.limits) > 1:
-            q = br.limits[-1]
-            legend_label += f" ·{q.consumption_unit}/{q.consumption_period}"
-
-        fill_mode = "tozeroy" if trace_idx == 0 else "tonexty"
-        fig.add_trace(go.Scatter(
-            x=x_vals,
-            y=capacities,
-            mode='lines',
-            line=dict(color=color, shape='hv', width=1.3),
-            fill=fill_mode,
-            fillcolor=rgba,
-            name=legend_label,
-            legendgroup=legend_label,
-            showlegend=True,
-            visible=True
-        ))
-        trace_idx += 1
-
-    fig.update_layout(
-        title="Flat Capacity Curves (Simplified Sampling)",
-        xaxis_title=f"Time ({time_interval.unit.value})",
-        yaxis_title="Capacity",
-        legend_title="Bounded Rates",
-        template="plotly_white",
-        width=1000,
-        height=600
-    )
-
-    if return_fig:
-        return fig
-    fig.show()
-
-
-
-
-
-    
 
 def show_line(
     fig: go.Figure,
