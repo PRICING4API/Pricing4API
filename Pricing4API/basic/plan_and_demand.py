@@ -15,6 +15,25 @@ class Plan():
         self.billing_period = billing_period
         self.max_included_quota: Optional[int] = None
 
+    
+    def show_capacity_inflection_points(self, time_interval: Union[str, TimeDuration]):
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+        return self.bounded_rate.show_capacity_from_inflection_points(time_interval)
+    
+    def capacity_at(self, time_interval: Union[str, TimeDuration]):
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+        return self.bounded_rate.capacity_at(time_interval)
+    
+    def capacity_during(self, time_interval: Union[str, TimeDuration]):
+        if isinstance(time_interval, str):
+            time_interval = parse_time_string_to_duration(time_interval)
+        return self.bounded_rate.capacity_during(time_interval)
+    
+    def min_time(self, capacity_goal):
+        return self.bounded_rate.min_time(capacity_goal)
+
     def show_capacity(self, time_interval: Union[str, TimeDuration]):
         if isinstance(time_interval, str):
             time_interval = parse_time_string_to_duration(time_interval)

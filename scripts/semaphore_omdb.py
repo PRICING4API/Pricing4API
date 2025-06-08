@@ -16,13 +16,8 @@ api_key = os.getenv('OMDB_API_KEY')
 async def llamada_api(n, client, url, params, start_time):
     """Realiza una llamada real a la API usando un cliente compartido."""
     global errores_429, errores_200
-
-    
-
-
     headers = {
         'Accept': '*/*',
-
     }
 
     try:

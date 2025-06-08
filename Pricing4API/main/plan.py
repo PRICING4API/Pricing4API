@@ -17,7 +17,6 @@ from Pricing4API.utils import rearrange_time_axis_function, select_best_time_uni
 
 class Plan:
     
-    
     def __init__(self, name, billing: Tuple[float, TimeDuration], overage_cost: float = None, 
                  unitary_rate: Limit = None, quotes = List[Limit], max_number_of_subscriptions: int = 1, **kwargs):
         

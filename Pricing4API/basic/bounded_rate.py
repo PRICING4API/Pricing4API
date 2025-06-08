@@ -1138,26 +1138,11 @@ class BoundedRate:
         return exhaustion_thresholds[0] if len(exhaustion_thresholds) == 1 else exhaustion_thresholds
     
 if __name__ == "__main__":
-    br1 = BoundedRate(Rate(1, "2s"), Quota(1800, "1h"))
-    br2 = BoundedRate(
-        Rate(1, "2s"),
-        [
-            Quota(18,   "60s"),
-            Quota(48,  "300s"),
-            Quota(1800, "1h")
-        ]
-    )
+    rate_1 = Rate(1, "2s")
+    rate_2 = Rate(10, "1s")
+    #rate_2.show_capacity("10min")
 
-    # exhaustion thresholds
-
-    print(br2.quota_exhaustion_threshold())
-    exhaustion = br2.quota_exhaustion_threshold()
-    print(br1.calculate_inflection_points("1h"))
-    br2.show_capacity_from_inflection_points("500s")
-    print(br2.capacity_at("500s"))
-
-
- 
+    print(rate_2.min_time)
     
 
 
