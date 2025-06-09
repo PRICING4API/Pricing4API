@@ -16,10 +16,13 @@ class Plan():
         self.max_included_quota: Optional[int] = None
 
     
-    def show_capacity_inflection_points(self, time_interval: Union[str, TimeDuration]):
+    def show_capacity_inflection_points(self, time_interval: Union[str, TimeDuration], return_fig=False):
         if isinstance(time_interval, str):
             time_interval = parse_time_string_to_duration(time_interval)
-        return self.bounded_rate.show_capacity_from_inflection_points(time_interval)
+        return self.bounded_rate.show_capacity_from_inflection_points(time_interval, return_fig=return_fig)
+    
+    def quota_exhaustion_thresholds(self):
+        return self.bounded_rate.quota_exhaustion_threshold()
     
     def capacity_at(self, time_interval: Union[str, TimeDuration]):
         if isinstance(time_interval, str):
