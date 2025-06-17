@@ -37,11 +37,11 @@ class Plan():
     def min_time(self, capacity_goal):
         return self.bounded_rate.min_time(capacity_goal)
 
-    def show_capacity(self, time_interval: Union[str, TimeDuration]):
+    def show_capacity(self, time_interval: Union[str, TimeDuration], return_fig=False):
         if isinstance(time_interval, str):
             time_interval = parse_time_string_to_duration(time_interval)
         
-        return self.bounded_rate.show_capacity(time_interval)
+        return self.bounded_rate.show_capacity(time_interval, return_fig=return_fig)
 
     def consume(self, demand: 'Demand', time_interval: Union[str, TimeDuration],return_fig=False):
         """
