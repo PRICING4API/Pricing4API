@@ -1,0 +1,21 @@
+# Imagen ligera basada en deepnote/python slim
+# Solo incluye: basic, ancillary y utils.py
+FROM deepnote/python:3.10
+
+# Crear y establecer el directorio de trabajo
+WORKDIR /app
+
+# Copiar solo los módulos necesarios
+COPY Pricing4API/basic /app/Pricing4API/basic
+COPY Pricing4API/ancillary /app/Pricing4API/ancillary
+COPY Pricing4API/utils.py /app/Pricing4API/utils.py
+COPY Pricing4API/__init__.py /app/Pricing4API/__init__.py
+
+# Copiar el setup.py modificado para lightweight
+COPY docker/setup_lightweight.py /app/setup.py
+
+# Copiar el archivo .env
+COPY .env /
+
+# Instalar la librería en modo editable
+RUN pip install --no-cache-dir -e /app
