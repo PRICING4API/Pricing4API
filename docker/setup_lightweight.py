@@ -18,5 +18,7 @@ setup(
         # Solo si los usas en basic/ancillary
         'requests>=2.32.0',
         'httpx>=0.28.0',
+        'plotly>=6.5.2',
+        'sympy>=1.14.0',
     ]
 )
