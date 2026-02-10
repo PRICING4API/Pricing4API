@@ -91,11 +91,12 @@ class Pricing:
         self,
         time_interval: Union[str, TimeDuration, None] = None,
         *,
+        desired_demand: Optional[int] = None,
         return_fig: bool = False
     ):
         """
         Pinta:
-          - Izq: curvas de capacidad SOLO de los planes base (sin overage), sólidas y con relleno.
+          - Izq: curvas de capacidad SOLO de los planes base (sin overage), usando inflection points.
           - Der: coste vs requests, líneas horizontales al coste base de cada plan.
         """
         if time_interval is None:
@@ -112,36 +113,45 @@ class Pricing:
             column_widths=[0.6, 0.4]
         )
 
-        # — Capacity (solo originales) con fill bajo la curva —
-        for idx, plan in enumerate(self.base_plans):
-            col = colors[idx]
-            orig_br = self._original_brs[plan]
-            pts = orig_br.show_available_capacity_curve(time_interval, debug=True)
-            times, caps = zip(*pts)
-            xs = [t / time_interval.unit.to_milliseconds() for t in times]
+        # — Capacity (solo originales) via inflection points —
+        original_brs = [self._original_brs[plan] for plan in self.base_plans]
+        fig_cap = compare_bounded_rates_capacity_inflection_points(
+            bounded_rates=original_brs,
+            time_interval=time_interval,
+            return_fig=True
+        )
+        update_legend_names(fig_cap, [p.name for p in self.base_plans])
 
-            rgba = to_rgba(col)
-            fillcolor = f"rgba({int(rgba[0]*255)},{int(rgba[1]*255)},{int(rgba[2]*255)},0.3)"
+        plan_colors = {}
+        for idx, tr in enumerate(fig_cap.data):
+            r, g, b, _ = to_rgba(colors[idx])
+            tr.fillcolor = f"rgba({int(r*255)},{int(g*255)},{int(b*255)},0.3)"
+            plan_colors[tr.name] = colors[idx]
+            tr.line.color = colors[idx]
+            fig.add_trace(tr, row=1, col=1)
 
-            fig.add_trace(
-                go.Scatter(
-                    x=xs, y=caps,
-                    mode="lines",
-                    line=dict(color=col, dash="solid", width=2),
-                    fill="tozeroy",
-                    fillcolor=fillcolor,
-                    name=plan.name,
-                    showlegend=True
-                ),
+        # — Desired demand en capacity —
+        if desired_demand is not None:
+            fig.add_hline(
+                y=desired_demand,
+                line=dict(color="black", dash="dot"),
+                annotation_text=f"Demand={desired_demand}",
                 row=1, col=1
             )
+            for plan in self.base_plans:
+                orig_br = self._original_brs[plan]
+                try:
+                    t_str = orig_br.min_time(desired_demand)
+                except Exception:
+                    t_str = "no alcanzable"
+                print(f"{plan.name}: time to reach {desired_demand} = {t_str}")
 
-        fig.update_xaxes(title_text=f"Time ({time_interval.unit.value})", row=1, col=1)
-        fig.update_yaxes(title_text="Capacity",                    row=1, col=1)
+        fig.update_xaxes(title_text=fig_cap.layout.xaxis.title.text, row=1, col=1)
+        fig.update_yaxes(title_text=fig_cap.layout.yaxis.title.text, row=1, col=1)
 
         # — Flat Cost — (horizontales al coste base)
         for idx, plan in enumerate(self.base_plans):
-            col = colors[idx]
+            col = plan_colors.get(plan.name, colors[idx])
             orig_br = self._original_brs[plan]
             cap_max = int(orig_br.capacity_at(time_interval))
             xs = [0, cap_max]
@@ -157,6 +167,17 @@ class Pricing:
                 ),
                 row=1, col=2
             )
+
+        # — Desired demand en cost —
+        if desired_demand is not None:
+            fig.add_vline(
+                x=desired_demand,
+                line=dict(color="black", dash="dot"),
+                annotation_text=f"Demand={desired_demand}",
+                row=1, col=2
+            )
+            for plan in self.base_plans:
+                print(f"{plan.name}: cost at {desired_demand} = {plan.cost:.2f}")
 
         fig.update_xaxes(title_text="Requests", row=1, col=2)
         fig.update_yaxes(title_text="Cost",     row=1, col=2)
